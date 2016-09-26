@@ -22,7 +22,7 @@ Advison Professor Friedrich Röpke}
 
 % Upper part of the page. The '~' is needed because \\
 % only works if a paragraph has started.
-
+% to set spelling in Vim type :setlocal spell spelllang=en_us
 
 \textsc{\LARGE Universität Heidelberg}\\[1.8cm]
 
@@ -56,11 +56,79 @@ Prof. Friedrich \textsc{Röpke}
 \end{center}
 \end{titlepage}
 
-
+\tableofcontents
 \maketitle
-\section{Sviluppo ad alte temperature}
-\subsection{Il reticolo e l'Hamiltoniana}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION INTRODUCTION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+\subsection{What is convection?}
+\subsubsection{Convection in Astrophysics}
+convection is very important in astrophysics
+\subsubsection{Convection in Geophysics}
+convection is very important in geophysics too!!! 
+\subsubsection{Convection Somewhere Else}
+And somewhere else for sure!!!
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION UNDERLYING PHYSICS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Underlying Physics}
+\subsection{Hydrodynamics}
+\subsubsection{Derivation of the Equations of Ideal Hydrodynamics}
+As all the most beautiful and successful laws of Physics, Hydrodynamics is derived from some conserved quantities, namely the \textbf{current density} $J^{\mu}$ and the \textbf{energy-momentum tensor} $T^{\mu \nu}$. These are nothing but the first and second momentum of the particle distribution function. Carrying out the calculation we would find: 
+
+
+\[
+  J= \frac{n(t,\vec{x})}{c}
+  \begin{pmatrix}
+    c \\
+    \left< \dot{x} \right> \\
+    \left< \dot{y} \right> \\
+    \left< \dot{z} \right> \\
+  \end{pmatrix}\quad
+  T= \rho(t,\vec{x})
+  \begin{pmatrix}
+    c^2 \left< \gamma \right> & c \left< \gamma \dot{x} \right> &  c \left< \gamma \dot{y} \right> & c \left< \gamma \dot{z} \right> \\
+     c \left< \gamma \dot{x} \right> & \left< \gamma \dot{x}^2 \right> &  \left< \gamma \dot{x}y \right> &  \left< \gamma \dot{x} \dot{z} \right>  \\
+     c \left< \gamma \dot{y} \right> &  \left< \gamma \dot{y} \dot{x} \right>&  \left< \gamma \dot{y}^2 \right> &  \left< \gamma \dot{y} \dot{z} \right>  \\
+     c \left< \gamma \dot{z} \right> &  \left< \gamma \dot{z}\dot{x} \right>& \left< \gamma \dot{z}\dot{y} \right> &  \left< \gamma \dot{z}^2 \right> 
+  \end{pmatrix}
+\]
+
+where $n(t, \vec{x})$ is the number density, $c$ the speed of light,  $\left< a(t,\vec{x}) \right>$ means the average of the quantity $a$ over time and space in a neiborhood of $(t, \vec{x})$, $\gamma$ is the well known general relativistic parameter. 
+\subsubsection{Viscous Hydrodynamics}
+\subsubsection{Hydrostatic Equilibrium in Stars}
+\subsection{Thermodynamics}
+\subsection{Fundamental Equations of Stellar Structure}
+\subsection{Bulk-Richardson Number}
+\subsection{Il r'Hamiltoniana}
 ciao
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION RECENT WORKS 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Recent Works}
+\subsection{Il r e l'Hamiltoniana}
+ciao
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION CODE DESCRIPTION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Code Description}
+\subsection{ciao}
+ciao
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION CODE DESCRIPTION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Results}
+\subsection{ciao}
+ciao
 \end{document}
