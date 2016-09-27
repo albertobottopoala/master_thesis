@@ -79,7 +79,13 @@ And somewhere else for sure!!!
 \section{Underlying Physics}
 \subsection{Hydrodynamics}
 \subsubsection{Derivation of the Equations of Ideal Hydrodynamics}
-As all the most beautiful and successful laws of Physics, Hydrodynamics is derived from some conserved quantities, namely the \textbf{current density} $J^{\mu}$ and the \textbf{energy-momentum tensor} $T^{\mu \nu}$. These are nothing but the first and second momentum of the particle distribution function. Carrying out the calculation we would find: 
+As all the most beautiful and successful laws of Physics, Hydrodynamics is derived from some conserved quantities. \\
+Let's consider for instance a monoatomic gas in a box. Particles might be equally distributed in it (like in a bottle) or might not (maybe because the box is so big that we get a stratification because of gravity like the one in the atmosphere). Same story holds for the velocity distribution, it might be Maxwellian or it might not be.
+In any case we can define a \textbf{distribution function in phase space} $f( \vec{x^{\mu}}, \vec{p^{\mu}})$ such that
+
+$$N=\int d^4x d^4p f( x^{\mu}, p^{\mu}) \delta_D[(p^0)^2-\vec{p}^2+m^2c^2] \Theta(p^0)$$ 
+ where $N$ is the total number of particle, $\delta_D$ is the Dirac $\delta$ function that selects in the integrations only the hypersurfaces physically allowed by the energy-momentum relation allowed by General Relativity, and finally $\Theta$ makes sure that we are taking into account only positive momenta. 
+ namely the \textbf{current density} $J$ and the \textbf{energy-momentum tensor} $T$. These are nothing but the first and second momentum of the particle distribution function in the phase space. Carrying out the calculation the components read 
 
 
 \[
@@ -99,7 +105,24 @@ As all the most beautiful and successful laws of Physics, Hydrodynamics is deriv
   \end{pmatrix}
 \]
 
-where $n(t, \vec{x})$ is the number density, $c$ the speed of light,  $\left< a(t,\vec{x}) \right>$ means the average of the quantity $a$ over time and space in a neiborhood of $(t, \vec{x})$, $\gamma$ is the well known general relativistic parameter. 
+where $n(t, \vec{x})$ is the number density, $c$ the speed of light,  $\left< a(t,\vec{x}) \right>$ means the average of the quantity $a$ over time and space in a neiborhood of $(t, \vec{x})$, $\gamma$ is the well known general relativistic parameter.\\
+By integrating the first and second momentum of Boltzmann Equation, one could show that $J$ and $T$ are divergenceless, meaning in the non-relativistic case
+\begin{align}
+\frac{\partial J^{\mu}}{\partial^{\mu}}=0 && \frac{\partial T^{\mu \nu}}{\partial^{\mu}}=0 \  \  \forall \nu =0,..,3 
+\end{align}
+This means that we have to strike $J$ and $T$ with the operator $(c^{-1}\partial_t,\partial_x,\partial_y,\partial_z)$ from upside down. Doing so with the density current we obtain the \textbf{continuity equation}
+$$\partial_t \rho + \vec\nabla \cdot (\rho \vec{v})=0$$
+We apply the same procedure to the energy-momentum tensor.\\
+We might choose to do it in the first column ($\nu=0$), and that would lead us to the \textbf{energy conservation equation}
+$$\partial_t \epsilon + \vec \nabla \cdot (\epsilon \vec{v}) + P\vec \nabla \cdot \vec{v}=0$$
+where $\epsilon$ is the internal energy and $P$ the pressure. These two variables, that were not esplicitally included in $T$, arise naturally by splitting up the microscopic velocity of the fluid $\left <  \dot{x} \right >$ into a mean macroscopic velocity $\vec{v}$ and a random velocity in the neiborhood of the mean one $\vec{u}$
+$$\left <  \dot{x} \right >= \vec{v}  +  \vec{u} $$
+and recalling that 
+$$\epsilon = \frac{\rho}{2} \left <  u^2 \right > = \frac{3}{2} n k_B T= \frac{P}{2}$$
+When we strike on the other three columns of $T$, we obtain the \textbf{momentum conservation equations} in the three spatial dimensions.
+$$\partial_t \vec{v} + (\vec{v} \cdot \vec \nabla) \vec{v} + \frac{\vec \nabla P}{\rho}=0$$
+These are ofthen called \textbf{Euler equations}.
+
 \subsubsection{Viscous Hydrodynamics}
 \subsubsection{Hydrostatic Equilibrium in Stars}
 \subsection{Thermodynamics}
