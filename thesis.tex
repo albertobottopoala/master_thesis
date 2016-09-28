@@ -117,22 +117,48 @@ By integrating the first and second momentum of Boltzmann Equation, one could sh
 \frac{\partial J^{\mu}}{\partial^{\mu}}=0 && \frac{\partial T^{\mu \nu}}{\partial^{\mu}}=0 \  \  \forall \nu =0,..,3 
 \end{align}
 This means that we have to strike $J$ and $T$ with the operator $(c^{-1}\partial_t,\partial_x,\partial_y,\partial_z)$ from upside down. Doing so with the density current we obtain the \textbf{continuity equation}
-$$\partial_t \rho + \vec\nabla \cdot (\rho \vec{v})=0$$
+\begin{equation}
+\partial_t \rho + \vec\nabla \cdot (\rho \vec{v})=0
+\end{equation}
 We apply the same procedure to the energy-momentum tensor.\\
 We might choose to do it in the first column ($\nu=0$), and that would lead us to the \textbf{energy conservation equation}
-$$\partial_t \epsilon + \vec \nabla \cdot (\epsilon \vec{v}) + P\vec \nabla \cdot \vec{v}=0$$
+\begin{equation}
+\partial_t \epsilon + \vec \nabla \cdot (\epsilon \vec{v}) + P\vec \nabla \cdot \vec{v}=0
+\end{equation}
 where $\epsilon$ is the internal energy and $P$ the pressure. These two variables, that were not esplecitally included in $T$, arise naturally by splitting up the microscopic velocity of the fluid $\left <  \dot{x} \right >$ into a mean macroscopic velocity $\vec{v}$ and a random velocity in the neighborhood of the mean one $\vec{u}$
 $$\left <  \dot{x} \right >= \vec{v}  +  \vec{u} $$
 and recalling that 
 $$\epsilon = \frac{\rho}{2} \left <  u^2 \right > = \frac{3}{2} n k_B T= \frac{P}{2}$$
 When we strike on the other three columns of $T$, we obtain the \textbf{momentum conservation equations} in the three spatial dimensions.
-$$\partial_t \vec{v} + (\vec{v} \cdot \vec \nabla) \vec{v} + \frac{\vec \nabla P}{\rho}=0$$
+\begin{equation}
+\partial_t \vec{v} + (\vec{v} \cdot \vec \nabla) \vec{v} + \frac{\vec \nabla P}{\rho}=0
+\end{equation}
 These are often called \textbf{Euler equations}. \\
 So far we have obtained 5 equations in 6 unknowns, namely the internal energy $\epsilon$, the momentum $\vec{p}$, the pressure $P$ and the density $\rho$. If we want to have at least a chance of integrating we're missing one equation, the \textbf{equation of state}, that relates the thermodinamical variables.
 
 \subsubsection{Viscous Hydrodynamics}
 
-As stated at the beginning of the previous subsection, one fundamental assumption of ideal Hydrodynamics is that particles have an infinitesimal mean free path. What actually happens in nature might be very different. Particle have a finite mean free path, and hence they can transport local property of the fluid by diffusion only: transport of energy generates heat conduction, transport of momentum friction. The consecuence is that we end up with two additional terms in the energy-momentum tensor, while the density current remains unchanged because mass is always conserved. As in the previous subsection, $T$ needs to be striked with $\nabla$ and set equal to zero in order to obtain our modified equations in the viscous case. We will not carry out all the calculations, rather simply quote the result of correcting QUOTE and QUOTE.
+As stated at the beginning of the previous subsection, one fundamental assumption of ideal Hydrodynamics is that particles have an infinitesimal mean free path. What actually happens in nature might be very different. Particle have a finite mean free path, and hence they can transport local property of the fluid by diffusion only: transport of energy generates heat conduction, transport of momentum friction. The consecuence is that we end up with one additional term in the energy-momentum tensor representing the diffusive processes
+$$
+T^{ij} \to T^{ij} + T^{ij}_d 
+$$
+
+while the density current remains unchanged because mass is always conserved. As in the previous subsection, the new $T$ needs to be striked with $\nabla$ and set equal to zero in order to obtain our modified equations in the viscous case. We will not carry out all the calculations, rather simply quote the result for the new QUOTE and QUOTE. \\
+The new energy cinservation equation reads
+$$
+\partial_t \epsilon + \vec \nabla \cdot (\epsilon \vec{v}) + P \vec \nabla \cdot \vec{v} = \vec \nabla \cdot (k \vec \nabla T) + v_{ij} T_d^{ij} 
+$$
+where $v_{ij}$ is the symmetrised velocity gradient tensor
+$$
+v_{ij} = \frac{1}{2}(\partial_i v_j + \partial_j v_i)
+$$
+This equation shows that the internal energy in a certain region of the fluid can change either if there is a temperature gradient or if the fluid is moving with a velovity field with a nonvanishing symmetrised gradient (non solid body rotation like) because of friction.
+The new momentum conservation equations read
+$$
+\rho \left( \partial_t + \vec{v} \cdot \vec \nabla \right) v^j+\partial^jP = \eta \vec \nabla^2v^j + \left( \xi + \frac{\eta}{3} \right) \partial^j \vec \nabla \cdot \vec{v}
+$$
+These are often called \textbf{Navier-Stokes Equations}, and fully show the nonlinearity of Hydrodinamic.
+
 \subsubsection{Hydrostatic Equilibrium in Stars}
 \subsection{Thermodynamics}
 \subsection{Fundamental Equations of Stellar Structure}
