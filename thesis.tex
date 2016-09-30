@@ -117,12 +117,12 @@ By integrating the first and second momentum of Boltzmann Equation, one could sh
 \frac{\partial J^{\mu}}{\partial^{\mu}}=0 && \frac{\partial T^{\mu \nu}}{\partial^{\mu}}=0 \  \  \forall \nu =0,..,3 
 \end{align}
 This means that we have to strike $J$ and $T$ with the operator $(c^{-1}\partial_t,\partial_x,\partial_y,\partial_z)$ from upside down. Doing so with the density current we obtain the \textbf{continuity equation}
-\begin{equation}
+\begin{equation} \label{cont}
 \partial_t \rho + \vec\nabla \cdot (\rho \vec{v})=0
 \end{equation}
 We apply the same procedure to the energy-momentum tensor.\\
 We might choose to do it in the first column ($\nu=0$), and that would lead us to the \textbf{energy conservation equation}
-\begin{equation}
+\begin{equation} \label{consen}
 \partial_t \epsilon + \vec \nabla \cdot (\epsilon \vec{v}) + P\vec \nabla \cdot \vec{v}=0
 \end{equation}
 where $\epsilon$ is the internal energy and $P$ the pressure. These two variables, that were not esplecitally included in $T$, arise naturally by splitting up the microscopic velocity of the fluid $\left <  \dot{x} \right >$ into a mean macroscopic velocity $\vec{v}$ and a random velocity in the neighborhood of the mean one $\vec{u}$
@@ -130,10 +130,19 @@ $$\left <  \dot{x} \right >= \vec{v}  +  \vec{u} $$
 and recalling that 
 $$\epsilon = \frac{\rho}{2} \left <  u^2 \right > = \frac{3}{2} n k_B T= \frac{P}{2}$$
 When we strike on the other three columns of $T$, we obtain the \textbf{momentum conservation equations} in the three spatial dimensions.
-\begin{equation}
+\begin{equation} \label{euler}
 \partial_t \vec{v} + (\vec{v} \cdot \vec \nabla) \vec{v} + \frac{\vec \nabla P}{\rho}=0
 \end{equation}
 These are often called \textbf{Euler equations}. \\
+Note that the operator on the left hand side is nothing but the total time derivative
+$$
+\partial_t + \vec{v} \cdot \vec \nabla = \frac{d}{dt}
+$$
+so what we are actually writing is Newton's equation per unit mass
+$$
+\rho \vec{a} = \vec \nabla P
+$$
+In case other macroscopical forces like gravity are present, we simply add them on the right hand side as we would do in classical mechanics. \\
 So far we have obtained 5 equations in 6 unknowns, namely the internal energy $\epsilon$, the momentum $\vec{p}$, the pressure $P$ and the density $\rho$. If we want to have at least a chance of integrating we're missing one equation, the \textbf{equation of state}, that relates the thermodinamical variables.
 
 \subsubsection{Viscous Hydrodynamics}
@@ -160,6 +169,22 @@ $$
 These are often called \textbf{Navier-Stokes Equations}, and fully show the nonlinearity of Hydrodinamic.
 
 \subsubsection{Hydrostatic Equilibrium in Stars}
+We shall now consider the static configuration of QUOTE with gravitational potential. This reads
+\begin{equation} \label{hystat}
+	\vec \nabla P = - \rho \vec \nabla \Phi
+\end{equation}
+This shows that the pressure stratification is adjusted only by the gravitational potential. We can say more by taking the curl of this equation and we get
+$$
+\vec \nabla \rho \times  \vec \nabla \Phi =0
+$$
+which shows that the gradient of the gravitational potetial and of the density are parallel. Surfaces of constant density are surfaces of constant gravitational potential.\\
+Taking the divergence of \ref{hystat} and substituting Poisson equation we can find the relation between pressure and density
+$$
+\vec \nabla \cdot \left ( \frac{\vec \nabla P}{\rho} \right ) = - 4 \pi G \rho 
+$$
+provided an equation of state.\\
+In a spherical symmetry configuration exploiting the $\vec \nabla$ we obtain the \textbf{Lane-Emden Equation}. If we choose a polytropic equation of state, which means that the pressure is a function of the density only and not of the temperature, we obtain stable solutions for adiabatic indices up to $4/3$ only. This model is used for instance for modeling of white dwarfs, where the pressure doesn't depend on the temperature. \\ 
+
 \subsection{Thermodynamics}
 \subsection{Fundamental Equations of Stellar Structure}
 \subsection{Bulk-Richardson Number}
