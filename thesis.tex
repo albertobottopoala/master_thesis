@@ -183,10 +183,34 @@ $$
 \vec \nabla \cdot \left ( \frac{\vec \nabla P}{\rho} \right ) = - 4 \pi G \rho 
 $$
 provided an equation of state.\\
-In a spherical symmetry configuration exploiting the $\vec \nabla$ we obtain the \textbf{Lane-Emden Equation}. If we choose a polytropic equation of state, which means that the pressure is a function of the density only and not of the temperature, we obtain stable solutions for adiabatic indices up to $4/3$ only. This model is used for instance for modeling of white dwarfs, where the pressure doesn't depend on the temperature. \\ 
+In a spherical symmetry configuration exploiting the $\vec \nabla$ we obtain the \textbf{Lane-Emden Equation}. If we choose a polytropic equation of state, which means that the pressure is a function of the density only and not of the temperature, we obtain stable solutions for adiabatic indices up to $4/3$ only. This EoS is used for instance for modeling white dwarfs, where the pressure doesn't depend on the temperature. \\ 
 
 \subsection{Thermodynamics}
 \subsection{Fundamental Equations of Stellar Structure}
+At this point we are able to write down a system of equation that we will call \textbf{fundamental equations of stellar structure}, which describe an oversimplified thus very useful model. This will hold in a static, stable and spherically symmetric case.\\
+
+\textbf{Mass continuity} \\
+Here $m(r)$ is the mass contained inside the sphere of radius $r$
+\begin{equation}\label{masscons}
+	\frac{dm}{dr}=4 \pi r^2 \rho
+\end{equation}
+
+\textbf{Hydrostatic equilibrium} \\
+We have already encountered the hydrostatic equilibrium equation
+\begin{equation}\label{hydroeq}
+	\frac{dP}{dr}= - \frac{G m(r)}{r^2} \rho
+\end{equation}
+\textbf{Energy conservation} \\
+In case we have an energy source (such as nuclear reactions), this needs to be conserved
+\begin{equation}\label{energycons}
+	\frac{dL}{dr} = 4 \pi r^2 \epsilon
+\end{equation}
+
+\textbf{Energy transfer by radiation} \\
+Energy can be radiated through a medium, depending on the opacity $k$.
+\begin{equation}\label{energytransfer}
+	L(r)=-\frac{(4 \pi r^2)^2c}{3k} \frac{d(aT^4)}{dr}
+\end{equation}
 \subsection{Bulk-Richardson Number}
 \subsection{Il r'Hamiltoniana}
 ciao
