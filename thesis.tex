@@ -200,6 +200,7 @@ We have already encountered the hydrostatic equilibrium equation
 \begin{equation}\label{hydroeq}
 	\frac{dP}{dr}= - \frac{G m(r)}{r^2} \rho
 \end{equation}
+
 \textbf{Energy conservation} \\
 In case we have an energy source (such as nuclear reactions), this needs to be conserved
 \begin{equation}\label{energycons}
@@ -209,9 +210,37 @@ In case we have an energy source (such as nuclear reactions), this needs to be c
 \textbf{Energy transfer by radiation} \\
 Energy can be radiated through a medium, depending on the opacity $k$.
 \begin{equation}\label{energytransfer}
-	L(r)=-\frac{(4 \pi r^2)^2c}{3k} \frac{d(aT^4)}{dr}
+	L(r)=-\frac{c(4 \pi r^2)^2}{3k} \frac{d(aT^4)}{dr}
 \end{equation}
-\subsection{Bulk-Richardson Number}
+
+
+\subsection{Convection}
+Until now we have assumed a perfect spherical symmetry, meaning that all dynamical and thermodynamical quantities were a function of the radius only. Obviously this is not a realistic case. For a number of reasons stars have small perturbations, that may eventually grow and give rise to macroscopic phenomena. A classic example is convection.\\
+We are relaxing the spherically symmetric case, but this doesn't mean that our fundamental equations of stellar structure are unuseful. As explained in the introdiction, if we could section stars we would see that convection appears in concentric regions, hence  we can still treat the problem as spherically symmetric defining dynamicam and thermodynamical quantities as averages on a proper region. \\
+We shall now understand when, given thermodinamical variables, we obtain a dynamically stable or unstable layer.
+
+
+\subsubsection{Dynamical instability}
+Let's consider a perfect density stratification like the one in a star or in the atmosphere and let's break the symmetry of the system by adding a little perturbation in the termodynamical variables. For any given quantity $A(r, \theta)$ (from now on $A_e$, because it's a function of the mass element we are considering), we compute $A_s$ (which is an average at given $r$ on the surrounding material). We shall furthermore assume that the fluid moves adiabatically, thus the timescale for heating transfer is much smaller than the timescale for convection turnover. \\
+We define a local property of the fluid 
+$$
+DA=A_e - A_s
+$$
+For instance we could imagine that a little region of a star is slighty hotter than the surroundings, hence we have in that region $DT > 0$. Note that because of the assumprion we have made $DP=0$ always, because when these is a pressure spike, the gas expands at the sound velocity $c_s$ which is way higher than the low hydro regime we observe in stellar interia.\\
+If we have a $DT>0$, since in a perfect gas the equation of state reads $\rho \sim P/T$, we obtain $D \rho < 0$. With a lower density, that mass element will be lifted by buoyancy force. In a non adiabatic workframe it might happen that heat is exchanged so quickly that temerature differences vanish immediately, but we assumed adiabatic processes. The question we are trying to answer is if the mass element, after a little upward movement, will still be buoyant and give rise to macroscopic convection, or if it will bounce back. The answer lyes obviously in the temperature gradient, i. e. if once lifted of a little bit the new $DT$ will still be in favor to buoy it to the next layer, and so on. \\
+Let's approache the problem from another point of view. Let's assume that we have a stable layer without perturbations, and we lift a mass element upward of $\Delta r$. The density difference now is
+\begin{equation}\label{displacment}
+D \rho = \left [  \left( \frac{d \rho}{d r} \right)_e - \left( \frac{d \rho}{d r} \right)_s   \right ] \Delta r
+\end{equation}
+where the first derivative tells us how much the density of the mass element changes when lifted, the second one tells us how the surrounding density changes along the radial direction. \\
+We call the buoyancy force per unit volume 
+$$
+f_b=- g \ D \rho
+$$
+which points upward if $D \rho < 0$, which is the unstable configuration.
+
+\subsubsection{Bulk Richardson}
+
 \subsection{Il r'Hamiltoniana}
 ciao
 
