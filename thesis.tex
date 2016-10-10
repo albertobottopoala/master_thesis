@@ -250,7 +250,17 @@ The problem with this criterion is that very often the density gradient is not k
 \begin{equation}\label{EoSdiff}
 	\frac{d \rho}{\rho} = \alpha \frac{d P}{P} - \delta \frac{d T}{T} + \phi \frac{d \mu}{\mu}
 \end{equation}
-
+where $d \mu$ represents the change in the chemical composition, including ionization processes. \\
+Substituting REF in REF we obtain
+\begin{equation}
+	\left (\frac{\alpha}{P} \frac{dp}{dr}\right )_e - \left ( \frac{\delta}{T}\frac{dT}{dr}\right )_e -  \left (\frac{\alpha}{P} \frac{dp}{dr}\right )_s +  \left ( \frac{\delta}{T}\frac{dT}{dr}\right )_s -  \left ( \frac{\phi}{\mu}\frac{d \mu}{\mu dr}\right )_s>0 
+\end{equation}
+The two terms containing the pressure gradient cancel each other out because as previously stated $DP=0$. Let's multiply the remaining terms by the so calles \textbf{pressure scale height} $H_P$
+\begin{equation}\label{scaleheight}
+	H_P=-\frac{dr}{d Ln P}= - P \frac{dr}{dP}
+\end{equation}
+$H_P$ has the dimension of a length, being the charateristic distance over which the pressure changes.
+The right hand side contains the radial derivative of the pressure, which appeared in the hydrostatic equilibrium REF and substituting we find $H_P=P/ \rho g>0$. 
 \subsubsection{Bulk Richardson}
 
 \subsection{Il r'Hamiltoniana}
