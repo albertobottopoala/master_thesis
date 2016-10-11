@@ -185,7 +185,21 @@ $$
 provided an equation of state.\\
 In a spherical symmetry configuration exploiting the $\vec \nabla$ we obtain the \textbf{Lane-Emden Equation}. If we choose a polytropic equation of state, which means that the pressure is a function of the density only and not of the temperature, we obtain stable solutions for adiabatic indices up to $4/3$ only. This EoS is used for instance for modeling white dwarfs, where the pressure doesn't depend on the temperature. \\ 
 
-\subsection{Thermodynamics}
+\subsection{Transport of Energy by Radiation}
+
+In deep interiors of stars energy in generated through nuclear reactions. In the sun for instance all the energy is provided by the so called p-p chain, where because of temperatures of the order of $10^9 K$, thermal motions allows protons to overcome the electrostatic potential barrier and interact through the nuclear force, giving rise to the reaction
+\begin{equation}\label{ppchain}
+	6 \mathrm{H}^1 \to \mathrm{He}^4_2 + 2 \mathrm{H}^1 + 2 \gamma + 2 \nu
+\end{equation}
+Where on the right hand side we have photons and neutrinos, that carries away energy. \\
+Neutrinos, interacting only via the weak force, have a very low cross section and hence leave the core of the sun without scattering, draining energy very efficiently. We need to look at very massive systems like Core Collapse Supernovae and neutron stars creation in order to see a tangible interaction between the neutrino flux and the envelope. In fact those astronomical objects are excellent neutrino laboratories gently provided by mother nature. \\
+Photons instead, interacting electromagnetically, scatter multiple times before reaching the \textit{photosphere}, the region where statistically speaking they scatter for the last time before ending up in our eyes or our telescopes.
+
+Whithout investigeting any thoroughly the nature of energy generation, we simply note
+\subsubsection{Radiative Transport}
+
+
+
 \subsection{Fundamental Equations of Stellar Structure}
 At this point we are able to write down a system of equation that we will call \textbf{fundamental equations of stellar structure}, which describe an oversimplified thus very useful model. This will hold in a static, stable and spherically symmetric case.\\
 
@@ -260,7 +274,21 @@ The two terms containing the pressure gradient cancel each other out because as 
 	H_P=-\frac{dr}{d Ln P}= - P \frac{dr}{dP}
 \end{equation}
 $H_P$ has the dimension of a length, being the charateristic distance over which the pressure changes.
-The right hand side contains the radial derivative of the pressure, which appeared in the hydrostatic equilibrium REF and substituting we find $H_P=P/ \rho g>0$. 
+We finally obtain our condition for stability
+\begin{equation}\label{criterionstab}
+	\left (   \frac{d ln T}{d ln P}    \right )_s <  \left (   \frac{d ln T}{d ln P}   \right )_e +  \frac{\phi}{\mu} \left (   \frac{d ln \mu}{d ln P}    \right )_s
+\end{equation}
+Let's define three new quantities
+\begin{equation}\label{nablas}
+	\nabla = \left (  \frac{d ln T}{d Ln P}   \right )_s \ \nabla_{e} = \left (  \frac{d ln T}{d Ln P}   \right )_e \  \nabla_{\mu} = \left (  \frac{d ln \mu}{d Ln P}   \right )_s
+\end{equation}
+Since pressure is always decreasing at increasing radius we can measure the temperaure as a function of the pressure, and so its gradient. \\
+With this new notation we can write our stability criterion in a more compact way as
+\begin{equation}\label{stabcritcomp}
+	\nabla < \nabla_e + \frac{\phi}{\delta} \nabla_{\mu}
+\end{equation}
+In our simulation we used a monoatocim ideal gas equation of state, hence $\nabla_{\mu}=0$. We shall now obtain an analytic expression for $\nabla$.
+
 \subsubsection{Bulk Richardson}
 
 \subsection{Il r'Hamiltoniana}
