@@ -7,10 +7,10 @@
 \usepackage{amsmath}
 \usepackage{frontespizio}
 
-\DeclareMathOperator{\Tr}{Tr}
-\DeclareMathOperator{\Exp}{exp}
+%\DeclareMathOperator{\Tr}{Tr}
+%\DeclareMathOperator{\Exp}{exp}
 \DeclareMathOperator{\Log}{log}
-\DeclareMathOperator{\Det}{det}
+%\DeclareMathOperator{\Det}{det}
 
 \title{TITLE TITLE TITLE}
 \author{Alberto Botto Poala\\
@@ -125,7 +125,7 @@ We might choose to do it in the first column ($\nu=0$), and that would lead us t
 \begin{equation} \label{consen}
 \partial_t \epsilon + \vec \nabla \cdot (\epsilon \vec{v}) + P\vec \nabla \cdot \vec{v}=0
 \end{equation}
-where $\epsilon$ is the internal energy and $P$ the pressure. These two variables, that were not esplecitally included in $T$, arise naturally by splitting up the microscopic velocity of the fluid $\left <  \dot{x} \right >$ into a mean macroscopic velocity $\vec{v}$ and a random velocity in the neighborhood of the mean one $\vec{u}$
+where $\epsilon$ is the internal energy and $P$ the pressure. These two variables, that were not esplecialy included in $T$, arise naturally by splitting up the microscopic velocity of the fluid $\left <  \dot{x} \right >$ into a mean macroscopic velocity $\vec{v}$ and a random velocity in the neighborhood of the mean one $\vec{u}$
 $$\left <  \dot{x} \right >= \vec{v}  +  \vec{u} $$
 and recalling that 
 $$\epsilon = \frac{\rho}{2} \left <  u^2 \right > = \frac{3}{2} n k_B T= \frac{P}{2}$$
@@ -142,18 +142,18 @@ so what we are actually writing is Newton's equation per unit mass
 $$
 \rho \vec{a} = \vec \nabla P
 $$
-In case other macroscopical forces like gravity are present, we simply add them on the right hand side as we would do in classical mechanics. \\
-So far we have obtained 5 equations in 6 unknowns, namely the internal energy $\epsilon$, the momentum $\vec{p}$, the pressure $P$ and the density $\rho$. If we want to have at least a chance of integrating we're missing one equation, the \textbf{equation of state}, that relates the thermodinamical variables.
+In case other macroscopic forces like gravity are present, we simply add them on the right hand side as we would do in classical mechanics. \\
+So far we have obtained 5 equations in 6 unknowns, namely the internal energy $\epsilon$, the momentum $\vec{p}$, the pressure $P$ and the density $\rho$. If we want to have at least a chance of integrating we're missing one equation, the \textbf{equation of state}, that relates the thermodynamic variables.
 
 \subsubsection{Viscous Hydrodynamics}
 
-As stated at the beginning of the previous subsection, one fundamental assumption of ideal Hydrodynamics is that particles have an infinitesimal mean free path. What actually happens in nature might be very different. Particle have a finite mean free path, and hence they can transport local property of the fluid by diffusion only: transport of energy generates heat conduction, transport of momentum friction. The consecuence is that we end up with one additional term in the energy-momentum tensor representing the diffusive processes
+As stated at the beginning of the previous subsection, one fundamental assumption of ideal Hydrodynamics is that particles have an infinitesimal mean free path. What actually happens in nature might be very different. Particle have a finite mean free path, and hence they can transport local property of the fluid by diffusion only: transport of energy generates heat conduction, transport of momentum friction. The consequence is that we end up with one additional term in the energy-momentum tensor representing the diffusive processes
 $$
 T^{ij} \to T^{ij} + T^{ij}_d 
 $$
 
-while the density current remains unchanged because mass is always conserved. As in the previous subsection, the new $T$ needs to be striked with $\nabla$ and set equal to zero in order to obtain our modified equations in the viscous case. We will not carry out all the calculations, rather simply quote the result for the new QUOTE and QUOTE. \\
-The new energy cinservation equation reads
+while the density current remains unchanged because mass is always conserved. As in the previous subsection, the new $T$ needs to be struck with $\nabla$ and set equal to zero in order to obtain our modified equations in the viscous case. We will not carry out all the calculations, rather simply quote the result for the new QUOTE and QUOTE. \\
+The new energy conservation equation reads
 $$
 \partial_t \epsilon + \vec \nabla \cdot (\epsilon \vec{v}) + P \vec \nabla \cdot \vec{v} = \vec \nabla \cdot (k \vec \nabla T) + v_{ij} T_d^{ij} 
 $$
@@ -161,12 +161,12 @@ where $v_{ij}$ is the symmetrised velocity gradient tensor
 $$
 v_{ij} = \frac{1}{2}(\partial_i v_j + \partial_j v_i)
 $$
-This equation shows that the internal energy in a certain region of the fluid can change either if there is a temperature gradient or if the fluid is moving with a velovity field with a nonvanishing symmetrised gradient (non solid body rotation like) because of friction.
+This equation shows that the internal energy in a certain region of the fluid can change either if there is a temperature gradient or if the fluid is moving with a velocity field with a non vanishing symmetrised gradient (non solid body rotation like) because of friction.
 The new momentum conservation equations read
 $$
 \rho \left( \partial_t + \vec{v} \cdot \vec \nabla \right) v^j+\partial^jP = \eta \vec \nabla^2v^j + \left( \xi + \frac{\eta}{3} \right) \partial^j \vec \nabla \cdot \vec{v}
 $$
-These are often called \textbf{Navier-Stokes Equations}, and fully show the nonlinearity of Hydrodinamic.
+These are often called \textbf{Navier-Stokes Equations}, and fully show the nonlinearity of Hydrodynamic.
 
 \subsubsection{Hydrostatic Equilibrium in Stars}
 We shall now consider the static configuration of QUOTE with gravitational potential. This reads
@@ -186,20 +186,48 @@ provided an equation of state.\\
 In a spherical symmetry configuration exploiting the $\vec \nabla$ we obtain the \textbf{Lane-Emden Equation}. If we choose a polytropic equation of state, which means that the pressure is a function of the density only and not of the temperature, we obtain stable solutions for adiabatic indices up to $4/3$ only. This EoS is used for instance for modeling white dwarfs, where the pressure doesn't depend on the temperature. \\ 
 
 \subsection{Transport of Energy by Radiation}
-
+:
 In deep interiors of stars energy in generated through nuclear reactions. In the sun for instance all the energy is provided by the so called p-p chain, where because of temperatures of the order of $10^9 K$, thermal motions allows protons to overcome the electrostatic potential barrier and interact through the nuclear force, giving rise to the reaction
 \begin{equation}\label{ppchain}
 	6 \mathrm{H}^1 \to \mathrm{He}^4_2 + 2 \mathrm{H}^1 + 2 \gamma + 2 \nu
 \end{equation}
 Where on the right hand side we have photons and neutrinos, that carries away energy. \\
 Neutrinos, interacting only via the weak force, have a very low cross section and hence leave the core of the sun without scattering, draining energy very efficiently. We need to look at very massive systems like Core Collapse Supernovae and neutron stars creation in order to see a tangible interaction between the neutrino flux and the envelope. In fact those astronomical objects are excellent neutrino laboratories gently provided by mother nature. \\
-Photons instead, interacting electromagnetically, scatter multiple times before reaching the \textit{photosphere}, the region where statistically speaking they scatter for the last time before ending up in our eyes or our telescopes.
-
-Whithout investigeting any thoroughly the nature of energy generation, we simply note
-\subsubsection{Radiative Transport}
-
-
-
+Photons instead, interacting electromagnetically, scatter multiple times before reaching the \textit{photosphere}, the region where statistically they scatter for the last time before ending up in our eyes or our telescopes. \\
+Let's now make a rough estimate of the mean free path of a photon in the sun. 
+\begin{equation}\label{mfp}
+	l_{p,p}=\frac{1}{k \rho}
+\end{equation}
+where $k$ is the mean cross section (averaged over all frequencies) per unit mass. For ionized hydrogen in stellar medium a rough average is $1 \ cm^2/g$. The average density of the sun is $\bar\rho_{\odot}=3M_{\odot}/4 \pi R_{\odot}^3= 1.4 g /cm^3$. \\
+Plugging in the numbers we get $\bar l_{ph, \odot}=2 \  cm$. \\
+At this point we need to answer a fundamental question: does two sequential scatterings happen at thermodinamic equilibrium? When one photon scatter, and then scatters again after a frew millimeters or centimeters, does it encounter the same thermodinamic conditions? In order to evaluate that, let's consider a mean temperature gradient between the center of the sun and the photosphere
+$$
+\frac{\Delta T}{\Delta r} = \frac{10^7 \ \mathrm{K}-10^4  \ \mathrm{K}}{R_{\odot}} \simeq 1.4 \times 10^{-4} \  \mathrm{K} \ \mathrm{cm} ^{-1}
+$$
+which means that after $2 \mathrm{cm}$ on the radial direction a photon sees a difference in temperature of $\Delta T = l_{p,p} \times 1.4 \times 10^{-4}  \  \mathrm{K} \ \mathrm{cm} ^{-1}= 3 \times 10^{-4} \  \mathrm{K}$. The relative difference of radiation energy density can be easly computed since $u \sim T^4$, hence in the center of the sun $\Delta u/u=4 \Delta T / T \sim 10^{-10}$. This little anisotropy that we neglect is the actual cause of the luminosity of the sun, because it generates a non-vanishing net flux.
+\subsubsection{Diffusion of radiative energy}
+We have seen that the mean free path $l_{p,p}$ of photons is much smaller that the charatteristic length of our physical system, hence we are allowed to treat the scattering processes statistically. This leads us to describe energy transfer as a diffusion process. \\
+The diffusive flux $j$ of a certain species of particles (number of particles migrating per unit area and unit time) is given by
+\begin{equation}\label{diffusion}
+	\vec  j=-D \nabla n
+\end{equation}
+where $n$ is the species density. $D$ is the diffusion coefficient
+\begin{equation}
+	D =\frac{1}{3} v l_{p}
+\end{equation}
+function of the mean free path and of the mean velocity. What we are actually intrested in is not the diffusive flux of the particles $j$, but rahter in the diffusive flux of their energy $\vec F$. The density needs to be substituted with the energy density $u=aT^4$, $\bar v$ with $c$ and$l_p$ with $l_p,p$. $a$ is the radiation density constant. If we assume spherical symmetry the gradient of $u$ is simply the radial component
+\begin{equation}
+	\frac{\partial u}{\partial r} = 4  a  T^3   \frac{\partial T}{\partial r}
+\end{equation}
+So recalling \ref{diffusion} we have immediately that
+\begin{equation}
+	F=-\frac{4ac}{3}\frac{T^3}{k \rho} \frac{\partial T}{\partial r}
+\end{equation}
+which can be written down in a more compact way as 
+\begin{equation}
+	\vec F = - k_{rad} \nabla T
+\end{equation}
+after having properly defined $k_{rad}$ that is the conduction coefficient.
 \subsection{Fundamental Equations of Stellar Structure}
 At this point we are able to write down a system of equation that we will call \textbf{fundamental equations of stellar structure}, which describe an oversimplified thus very useful model. This will hold in a static, stable and spherically symmetric case.\\
 
@@ -216,7 +244,7 @@ We have already encountered the hydrostatic equilibrium equation
 \end{equation}
 
 \textbf{Equation of State} \\
-So far we have written down two equations in three variables, namely $m$, $\rho$, and $P$. If we want to have at lest a chanche to solve them we need another equation, namely the equation of state. Possible choices are:
+So far we have written down two equations in three variables, namely $m$, $\rho$, and $P$. If we want to have at lest a chance to solve them we need another equation, namely the equation of state. Possible choices are:
 \begin{itemize}
 	\item $\rho=const$ this would be the case for liquids.
 	\item $P\propto \rho^\gamma$ i. e. the density and pressure are not a function of the temperature. This is the case, as already stated in the previous section for white dwarfs and leads to the Lane-Edmen equation and its solutions.
@@ -238,19 +266,19 @@ Energy can be radiated through a medium, depending on the opacity $k$.
 
 \subsection{Convection}
 Until now we have assumed a perfect spherical symmetry, meaning that all dynamical and thermodynamical quantities were a function of the radius only. Obviously this is not a realistic case. For a number of reasons stars have small perturbations, that may eventually grow and give rise to macroscopic phenomena. A classic example is convection.\\
-We are relaxing the spherically symmetric case, but this doesn't mean that our fundamental equations of stellar structure are unuseful. As explained in the introdiction, if we could section stars we would see that convection appears in concentric regions, hence  we can still treat the problem as spherically symmetric defining dynamicam and thermodynamical quantities as averages on a proper region. \\
-We shall now understand when, given thermodinamical variables, we obtain a dynamically stable or unstable layer.
+We are relaxing the spherically symmetric case, but this doesn't mean that our fundamental equations of stellar structure are useless. As explained in the introduction, if we could section stars we would see that convection appears in concentric regions, hence  we can still treat the problem as spherically symmetric defining dynamycam and thermodynamical quantities as averages on a proper region. \\
+We shall now understand when, given thermodynamic variables, we obtain a dynamically stable or unstable layer.
 
 
 \subsubsection{Dynamical instability}
-Let's consider a perfect density stratification like the one in a star or in the atmosphere and let's break the symmetry of the system by adding a little perturbation in the termodynamical variables. For any given quantity $A(r, \theta)$ (from now on $A_e$, because it's a function of the mass element we are considering), we compute $A_s$ (which is an average at given $r$ on the surrounding material). We shall furthermore assume that the fluid moves adiabatically, thus the timescale for heating transfer is much smaller than the timescale for convection turnover. \\
+Let's consider a perfect density stratification like the one in a star or in the atmosphere and let's break the symmetry of the system by adding a little perturbation in the termodynamic variables. For any given quantity $A(r, \theta)$ (from now on $A_e$, because it's a function of the mass element we are considering), we compute $A_s$ (which is an average at given $r$ on the surrounding material). We shall furthermore assume that the fluid moves adiabatically, thus the timescale for heating transfer is much smaller than the timescale for convection turnover. \\
 We define a local property of the fluid 
 $$
 DA=A_e - A_s
 $$
-For instance we could imagine that a little region of a star is slighty hotter than the surroundings, hence we have in that region $DT > 0$. Note that because of the assumprion we have made $DP=0$ always, because when these is a pressure spike, the gas expands at the sound velocity $c_s$ which is way higher than the low hydro regime we observe in stellar interia.\\
-If we have a $DT>0$, since in a perfect gas the equation of state reads $\rho \sim P/T$, we obtain $D \rho < 0$. With a lower density, that mass element will be lifted by buoyancy force. In a non adiabatic workframe it might happen that heat is exchanged so quickly that temerature differences vanish immediately, but we assumed adiabatic processes. The question we are trying to answer is if the mass element, after a little upward movement, will still be buoyant and give rise to macroscopic convection, or if it will bounce back. The answer lyes obviously in the temperature gradient, i. e. if once lifted of a little bit the new $DT$ will still be in favor to buoy it to the next layer, and so on. \\
-Let's approache the problem from another point of view. Let's assume that we have a stable layer without perturbations, and we lift a mass element upward of $\Delta r$. The density difference now is
+For instance we could imagine that a little region of a star is slightly hotter than the surroundings, hence we have in that region $DT > 0$. Note that because of the assumption we have made $DP=0$ always, because when these is a pressure spike, the gas expands at the sound velocity $c_s$ which is way higher than the low hydro regime we observe in stellar inertia.\\
+If we have a $DT>0$, since in a perfect gas the equation of state reads $\rho \sim P/T$, we obtain $D \rho < 0$. With a lower density, that mass element will be lifted by buoyancy force. In a non adiabatic workframe it might happen that heat is exchanged so quickly that temperature differences vanish immediately, but we assumed adiabatic processes. The question we are trying to answer is if the mass element, after a little upward movement, will still be buoyant and give rise to macroscopic convection, or if it will bounce back. The answer lyes obviously in the temperature gradient, i. e. if once lifted of a little bit the new $DT$ will still be in favor to buoy it to the next layer, and so on. \\
+Let's approach the problem from another point of view. Let's assume that we have a stable layer without perturbations, and we lift a mass element upward of $\Delta r$. The density difference now is
 \begin{equation}\label{displacment}
 D \rho = \left [  \left( \frac{d \rho}{d r} \right)_e - \left( \frac{d \rho}{d r} \right)_s   \right ] \Delta r
 \end{equation}
@@ -260,7 +288,7 @@ $$
 f_b=- g \ D \rho
 $$
 which points upward if $D \rho < 0$, which is the unstable configuration. If instead $D \rho > 0$ the mass element sinks back to its original position and no macroscopic motion appears. As a consequence $D \rho<0$ is our \textbf{condition for stability}.\\
-The problem with this criterion is that very often the density gradient is not known, since it does not appear in the fundamental equations for stellar structure. In order to proceed let's turn our gradient in spacial coordinate into a gradient in thermodynamic coordinates. As previously stated, our transformations are adiabatic, hence no exchange of energy occurs. This is very close to reality for stellar interia. To begin let's write down the equation of state $\rho = \rho (P, T, \mu)$ in a differential form
+The problem with this criterion is that very often the density gradient is not known, since it does not appear in the fundamental equations for stellar structure. In order to proceed let's turn our gradient in spacial coordinate into a gradient in thermodynamic coordinates. As previously stated, our transformations are adiabatic, hence no exchange of energy occurs. This is very close to reality for stellar intertia. To begin let's write down the equation of state $\rho = \rho (P, T, \mu)$ in a differential form
 \begin{equation}\label{EoSdiff}
 	\frac{d \rho}{\rho} = \alpha \frac{d P}{P} - \delta \frac{d T}{T} + \phi \frac{d \mu}{\mu}
 \end{equation}
@@ -273,21 +301,21 @@ The two terms containing the pressure gradient cancel each other out because as 
 \begin{equation}\label{scaleheight}
 	H_P=-\frac{dr}{d Ln P}= - P \frac{dr}{dP}
 \end{equation}
-$H_P$ has the dimension of a length, being the charateristic distance over which the pressure changes.
+$H_P$ has the dimension of a length, being the characteristic distance over which the pressure changes.
 We finally obtain our condition for stability
 \begin{equation}\label{criterionstab}
-	\left (   \frac{d ln T}{d ln P}    \right )_s <  \left (   \frac{d ln T}{d ln P}   \right )_e +  \frac{\phi}{\mu} \left (   \frac{d ln \mu}{d ln P}    \right )_s
+	\left (   \frac{d \ln T}{d \ln P}    \right )_s <  \left (   \frac{d \ln T}{d \ln P}   \right )_e +  \frac{\phi}{\mu} \left (   \frac{d \ln \mu}{d \ln P}    \right )_s
 \end{equation}
 Let's define three new quantities
 \begin{equation}\label{nablas}
-	\nabla = \left (  \frac{d ln T}{d Ln P}   \right )_s \ \nabla_{e} = \left (  \frac{d ln T}{d Ln P}   \right )_e \  \nabla_{\mu} = \left (  \frac{d ln \mu}{d Ln P}   \right )_s
+	\nabla = \left (  \frac{d \ln T}{d \ln P}   \right )_s \ \nabla_{e} = \left (  \frac{d \ln T}{d \ln P}   \right )_e \  \nabla_{\mu} = \left (  \frac{d \ln \mu}{d \ln P}   \right )_s
 \end{equation}
-Since pressure is always decreasing at increasing radius we can measure the temperaure as a function of the pressure, and so its gradient. \\
+Since pressure is always decreasing at increasing radius we can measure the temperature as a function of the pressure, and so its gradient. \\
 With this new notation we can write our stability criterion in a more compact way as
 \begin{equation}\label{stabcritcomp}
 	\nabla < \nabla_e + \frac{\phi}{\delta} \nabla_{\mu}
 \end{equation}
-In our simulation we used a monoatocim ideal gas equation of state, hence $\nabla_{\mu}=0$. We shall now obtain an analytic expression for $\nabla$.
+In our simulation we used a monoatomic ideal gas equation of state, hence $\nabla_{\mu}=0$. We shall now obtain an analytic expression for $\nabla$.
 
 \subsubsection{Bulk Richardson}
 
