@@ -198,8 +198,8 @@ Let's now make a rough estimate of the mean free path of a photon in the sun.
 \begin{equation}\label{mfp}
 	l_{p,p}=\frac{1}{k \rho}
 \end{equation}
-where $k$ is the mean cross section (averaged over all frequencies) per unit mass. For ionized hydrogen in stellar medium a rough average is $1 \ cm^2/g$. The average density of the sun is $\bar\rho_{\odot}=3M_{\odot}/4 \pi R_{\odot}^3= 1.4 g /cm^3$. \\
-Plugging in the numbers we get $\bar l_{ph, \odot}=2 \  cm$. \\
+where $k$ is the mean cross section (averaged over all frequencies) per unit mass. For ionized hydrogen in stellar medium a rough average is $1 \ cm^2/g$. The average density of the sun is $\bar\rho_{\odot}=3M_{\odot}/4 \pi R_{\odot}^3= 1.4 \mathrm{g /cm}^3$. \\
+Plugging in the numbers we get $\bar l_{p,p \odot}=2 \  \mathrm{cm}$. \\
 At this point we need to answer a fundamental question: does two sequential scatterings happen at thermodinamic equilibrium? When one photon scatter, and then scatters again after a frew millimeters or centimeters, does it encounter the same thermodinamic conditions? In order to evaluate that, let's consider a mean temperature gradient between the center of the sun and the photosphere
 $$
 \frac{\Delta T}{\Delta r} = \frac{10^7 \ \mathrm{K}-10^4  \ \mathrm{K}}{R_{\odot}} \simeq 1.4 \times 10^{-4} \  \mathrm{K} \ \mathrm{cm} ^{-1}
@@ -227,7 +227,26 @@ which can be written down in a more compact way as
 \begin{equation}
 	\vec F = - k_{rad} \nabla T
 \end{equation}
-after having properly defined $k_{rad}$ that is the conduction coefficient.
+after having properly defined $k_{rad}$ that is the conduction coefficient. Now we use the well known relation between luminosity and flux and solve it for the temperature gradient
+\begin{equation}
+	\frac{\partial T}{\partial r}= - \frac{3}{16 \pi a c}\frac{k \rho l}{r^2 T^3}
+\end{equation}
+which in lagrangian coordinate reads
+\begin{equation}\label{partialTpartialm}
+	\frac{\partial T}{\partial m}= - \frac{3}{64 \pi^2 a c}\frac{k l}{r^4 T^3}
+\end{equation}
+We shall never forget the assumptions we did when deriving this equation. When we approach the photosphere for instance this doesn't hold any longer, because scattering becomes less likely and hence diffusion is no longer the way heat is transfered. \\
+Another form of heat transfer is conduction, but in stellar physics it becomes relevant only in cores of red giants or white dwarfs and it is fully neglected in our simulations.
+\subsubsection{The astrophysical $\nabla$}
+Assuming hydrostatic equilibrium we can now divide REF by REF and obtain
+\begin{equation}
+	\frac{\partial T/\partial m}{\partial P / \partial m} = \frac{3}{16 \pi a c G} \frac{k l}{m T^3}
+\end{equation}
+This is nothing but the derivative of the temperature with respect to the pressure, that increasing monotonically inward is representative of the radious. We furthermore rewrite this quantity as
+\begin{equation}\label{nablarad}
+	\nabla_{rad} = \left( \frac{d \ln T}{d \ln P}  \right)_{rad}= \frac{3}{16 \pi a c G} \frac{k l P}{m T^4}
+\end{equation}
+This quantity will be of fundamental importance when we will discuss convective stability. Recall that we took into account only radiative transfer, but defining $k$ properly we could take into account also heat conduction.
 \subsection{Fundamental Equations of Stellar Structure}
 At this point we are able to write down a system of equation that we will call \textbf{fundamental equations of stellar structure}, which describe an oversimplified thus very useful model. This will hold in a static, stable and spherically symmetric case.\\
 
@@ -306,16 +325,17 @@ We finally obtain our condition for stability
 \begin{equation}\label{criterionstab}
 	\left (   \frac{d \ln T}{d \ln P}    \right )_s <  \left (   \frac{d \ln T}{d \ln P}   \right )_e +  \frac{\phi}{\mu} \left (   \frac{d \ln \mu}{d \ln P}    \right )_s
 \end{equation}
-Let's define three new quantities
+We have already encountered the first term which is $\nabla_{rad}$ of \ref{nablarad}.
+Let's define two new quantities
 \begin{equation}\label{nablas}
-	\nabla = \left (  \frac{d \ln T}{d \ln P}   \right )_s \ \nabla_{e} = \left (  \frac{d \ln T}{d \ln P}   \right )_e \  \nabla_{\mu} = \left (  \frac{d \ln \mu}{d \ln P}   \right )_s
+	\nabla_{e} = \left (  \frac{d \ln T}{d \ln P}   \right )_e \  \nabla_{\mu} = \left (  \frac{d \ln \mu}{d \ln P}   \right )_s
 \end{equation}
-Since pressure is always decreasing at increasing radius we can measure the temperature as a function of the pressure, and so its gradient. \\
-With this new notation we can write our stability criterion in a more compact way as
+Recall that since pressure is always decreasing at increasing radius we can measure the temperature as a function of the pressure, and hence its gradient. \\
+With this new notation we can write down our stability criterion in a more compact way as
 \begin{equation}\label{stabcritcomp}
-	\nabla < \nabla_e + \frac{\phi}{\delta} \nabla_{\mu}
+	\nabla_{rad} < \nabla_e + \frac{\phi}{\delta} \nabla_{\mu}
 \end{equation}
-In our simulation we used a monoatomic ideal gas equation of state, hence $\nabla_{\mu}=0$. We shall now obtain an analytic expression for $\nabla$.
+In our simulation we used a monoatomic ideal gas equation of state, hence $\nabla_{\mu}=0$.
 
 \subsubsection{Bulk Richardson}
 
