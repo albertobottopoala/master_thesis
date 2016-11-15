@@ -342,6 +342,19 @@ In our simulations we used a monoatomic ideal gas equation of state, hence $\nab
 \end{equation}
 If the left hand side is bigger than the right hand side, it means that our stratification is not able to transport all the energy generated only through radiation, and it is hence required to rely on convection.
 
+\subsubsection{Mixing length theory}
+A fundamental problem in Stellar Astrophysics is to understand how much energy is transported by convection. Before the era of Computational Physics, when only analytics solutions were available, the most common tool used to model convective energy trasnport was the so called \textbf{mixing length theory}. \\
+The total energy flux $l/4 \pi r^2$ at given radius is given by the radiative flux $F_{rad}$ (which may also include the conductive flux), and the convective flux $F_{con}$. Their summ is according to \label{nablarad} what defines the $\nabla_{ast}$ that would be necessary to transport away all the energy. But part of it is ultimately trasnported by convection, at the most $\nabla_{rad}$ can equal $\nabla$. In order to quantify then $F_{con}$, let's consider a blob with a $DT$ over its surroundings. Its motion will be mainly radial wich a velocity $v$ and with $DP=0$ for reasons already explained. We can write down the energy flux as
+\begin{equation}
+	F_{con}=\rho  v  c_P  DT
+\end{equation}
+Of course we should average $v$ and $DT$ over an imaginary sphere and hence obtain an equation that holds statistically over the solud angle at a given radius and not locally. One can tell since now the approximations and limits of this theory. \\
+Bulbs have an initial velocity that equals zero, and the same holds for $DT$. Over time it will migrate of a discance $l_m$, namely the \textit{mixing length} before dissolving via turbulent cascade. This means that on average a bulb will move of a distance $l_m/2$ where it accelerates, and of another $l_m/2$ where it decelerates of the same amount to stop at the end of the convective zone. Bulbs will definitelly also change shape during the migration, which makes it pretty difficult to strictly define temperature and velocity, but in a very rough approximation we claim that
+\begin{equation}
+	\frac{DT}{T}=\frac{1}{T}\frac{\partial (DT)}{\partial r} \frac{l_m}{2}
+\end{equation}
+which is simply a taylor espansion to determine $DT$.
+
 \subsubsection{Bulk Richardson}
 So far we got to the point where we have a convective layer and a stable layer above or beneath it. What happens over time is that the convective boundary accrets mass from the stable layer by ingestion, because turbulent eddies capture stable fluid that is consequentially dragged and entrained in the turbulent layer. A fundamental problem in stellar evolution is to understand the dynamics of this boundary: which is its velocity (if we are in an eulerian workframe), or how much mass from the stable layer is entrained in unit time (in a lagrangian workframe).\\
 One fo the methods used to model this migration is the \textbf{Bulk-Richardson number}
