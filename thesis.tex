@@ -114,7 +114,7 @@ namely the \textbf{current density} $J$ and the \textbf{energy-momentum tensor} 
 where $n(t, \vec{x})$ is the number density, $c$ the speed of light,  $\left< a(t,\vec{x}) \right>$ means the average of the quantity $a$ over time and space in a neighborhood of $(t, \vec{x})$, $\gamma$ is the well known general relativistic parameter.\\
 By integrating the first and second momentum of Boltzmann Equation, one could show that $J$ and $T$ are divergenceless, meaning in the non-relativistic case
 \begin{align}
-\frac{\partial J^{\mu}}{\partial^{\mu}}=0 && \frac{\partial T^{\mu \nu}}{\partial^{\mu}}=0 \  \  \forall \nu =0,..,3 
+\frac{\partial }{\partial^{\mu}}J^{\mu}=0 && \frac{\partial }{\partial^{\mu}}T^{\mu \nu}=0 \  \  \forall \nu =0,..,3 
 \end{align}
 This means that we have to strike $J$ and $T$ with the operator $(c^{-1}\partial_t,\partial_x,\partial_y,\partial_z)$ from upside down. Doing so with the density current we obtain the \textbf{continuity equation}
 \begin{equation} \label{cont}
@@ -244,7 +244,7 @@ Assuming hydrostatic equilibrium we can now divide REF by REF and obtain
 \end{equation}
 This is nothing but the derivative of the temperature with respect to the pressure, that increasing monotonically inward is representative of the radious. We furthermore rewrite this quantity as
 \begin{equation}\label{nablarad}
-	\nabla_{rad} = \left( \frac{d \ln T}{d \ln P}  \right)_{rad}= \frac{3}{16 \pi a c G} \frac{k l P}{m T^4}
+	\nabla_{\mathrm{rad}} = \left( \frac{d \ln T}{d \ln P}  \right)_{\mathrm{rad}}= \frac{3}{16 \pi a c G} \frac{k l P}{m T^4}
 \end{equation}
 This quantity will be of fundamental importance when we will discuss convective stability. Recall that we took into account only radiative transfer, but defining $k$ properly we could take into account also heat conduction.
 \subsection{Fundamental Equations of Stellar Structure}
@@ -276,10 +276,10 @@ In case we have an energy source (such as nuclear reactions), this needs to be c
 	\frac{dL}{dr} = 4 \pi r^2 \epsilon
 \end{equation}
 
-\textbf{Energy transfer by radiation} \\
-Energy can be radiated through a medium, depending on the opacity $k$.
+\textbf{Temperature gradient} \\
+Of crucial importance to understand convection will be the following equation for the astropysical nabla
 \begin{equation}\label{energytransfer}
-	L(r)=-\frac{c(4 \pi r^2)^2}{3k} \frac{d(aT^4)}{dr}
+\frac{d T}{d r} = - \frac{T }{P} G m \rho\nabla
 \end{equation}
 
 
@@ -421,8 +421,9 @@ ciao
 
 \section{Recent Works}
 The only way to study thoroughly the macroscopic effects of convection like the boundary mixing problem is through multidimensional simulations. Only in the last decade computational power allowed astrophysics groups to run 3D simulations with a satisfying resolution. \\
-The first extensive work was carried out by C. Meaking and D. Arnett (2007) who simulated the oxygen shell burning and the hydrogen core burning in a $23 M_{\odot}$ star both in 2D and in 3D. They used the 1D stellar evolution code TYCHO that was then mapped into PROPMI, a multidimensional parallelized hydro code that solves euler equations implementing PPM (piecewise parabolic method) with a nuclear reaction network. They reported $\log A=0.027 \pm 0.38$ and $n=1.05 \pm 0.21$ for the three dimensional case. \\
-Another recent study has been carried out by A. Cristini et al, 2016. They simulated a Carbon burning shell in a $15 M_{\odot}$ star in four runs with different resolutions (from $128^3$ to $1024^3$). They used the code PROMPI which solves euler equations (ideal Hydrodynamics) in an eulerian framework, using as well the PPM method, parallelization with MPI, a nuclear reaction network, heat transfer (not used in their case) and self gravity in the Crowling approximation necessary to describe deep interiors of stars. They reported parametric values of $A= 0.06 (+0.27 / -0.04)$ and $n= 0.81 (+0.38 / -0.28)$. Although the second one agrees pretty well with the previous study, the first one is not even in the same order of magnitude, hence the motivation for this work.
+The first extensive work was carried out by C. Meaking and D. Arnett (2007) who simulated the oxygen shell burning and the hydrogen core burning in a $23 M_{\odot}$ star both in 2D and in 3D, using the "box in a star" approach. In the core burning simulation they had only one boundary to analize, during the shell they had both the superior and inferior. This group used the 1D stellar evolution code TYCHO that was then mapped into PROPMI, a multidimensional parallelized hydro code that solves euler equations implementing PPM (piecewise parabolic method) with a nuclear reaction network. They reported $\log A=0.027 \pm 0.38$ and $n=1.05 \pm 0.21$ for the three dimensional case. \\
+As we have seen in the previous section, the definition of the bulk-Richardson number is model dependent. In this case in order to define the boundary and it's topology, they injected a passive scalar in the convective region. The biggest drop in its concentration defined the boundary topology. They subsequentially computed the mean value of the boundary coordinate and its standard deviation, which delimited the initial and final position of the convective boundary over which integrate the Brunt-Väisääla frequency in order to obtain the buoyancy jump. This is a simple but effective set of definitions and procedures that I used too in my data analysis. \\
+Another recent study has been carried out by A. Cristini et al, 2016. They simulated a Carbon burning shell in a $15 M_{\odot}$ star in four runs with different resolutions (from $128^3$ to $1024^3$). They used the same code PROMPI with self gravity in the Crowling approximation necessary to describe deep interiors of stars. They reported parametric values of $A= 0.06 (+0.27 / -0.04)$ and $n= 0.81 (+0.38 / -0.28)$. Although the second one agrees pretty well with the previous study, the first one is not even in the same order of magnitude, hence the motivation for this work.
 \subsection{Il r e l'Hamiltoniana}
 ciao
 
