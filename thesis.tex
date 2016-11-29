@@ -340,37 +340,8 @@ In our simulations we used a monoatomic ideal gas equation of state, hence $\nab
 \begin{equation}\label{schwarzschild}
 	\nabla_{\mathrm{rad}}<\nabla_{\mathrm{ad}}
 \end{equation}
-If the left hand side is bigger than the right hand side, it means that our stratification is not able to transport all the energy generated only through radiation, and it is hence required to rely on convection.
-
-
-\subsubsection{Bulk Richardson}
-So far we got to the point where we have a convective layer and a stable layer above or beneath it. What happens over time is that the convective boundary accrets mass from the stable layer by ingestion, because turbulent eddies capture stable fluid that is consequentially dragged and entrained in the turbulent layer. A fundamental problem in stellar evolution is to understand the dynamics of this boundary: which is its velocity (if we are in an eulerian workframe), or how much mass from the stable layer is entrained in unit time (in a lagrangian workframe).\\
-One fo the methods used to model this migration is the \textbf{Bulk-Richardson number}
-\begin{equation}\label{bulkrichardson}
-	\mathrm{Ri}_{B}=\frac{\Delta b L}{\sigma^2}
-\end{equation}
-which is a dimensionelss parameter that compares the strenth of the boundary to the one of the turbulence. $L$ is the length scale of the turbulence (which is of course model dependent), $\sigma$ is the rms of its velocity, $\Delta b$ is the buoyancy jump between unstable and stable layer. This is defined by considering the \textbf{Brunt-Väisääla frequency} 
-\begin{equation}
-	N^2(r)=-g \left (  \frac{\partial \ln \rho}{\partial r} -  \frac{\partial \ln \rho}{\partial r} \Big|_{s}  \right )
-\end{equation}
-and integrating it over the boundary
-\begin{equation}
-	\Delta b = \int_{r_i}^{r_f} N^2 dr
-\end{equation}
-Of course we need a proper definition of the boundary limits $r_i$ and $r_f$, hence also $\Delta b$ is model dependent. \\
-Let's furthermore define the \textbf{entrainment coefficient} $E$ as the boundary migration speed $u_b$ over the turbulence rms $\sigma$. Previous works have found that
-\begin{equation}
-	E=A \mathrm{Ri}_{B}^{-n}
-\end{equation}
-Where $A$ and $n$ are coefficients that need to be determined, and this will be the primary goal of our simulations. If this relation is proven to be true, it would be possible to know the boundary migration speed $u_b$ given only $L$, $\Delta b$ and $\sigma$, and consequentially map this phenomenon into 1D stellar models. In the hope that these two free parameters exist and are universal (i. e. not system- code- or resolution-dependent) the goal of this work is to determine them.
-\subsection{Il r'Hamiltoniana}
-ciao
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SECTION RECENT WORKS 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Previous works}
+If the left hand side is bigger than the right hand side, it means that our stratification is not able to transport all the energy generated only through radiation, and it is hence required to rely on convection. \\
+Note that since now we simply have found a stability criterion, but we don't know anything about the convection that will arise. In the next section we will try to quantify it, especially we need to know how much energy is transported through the \textbf{mixing length theory}, which is the most used tool in 1D simulations of stellar evolution.
 
 \subsection{Mixing length theory}
 A fundamental problem in Stellar Astrophysics is to understand how much energy is transported by convection. Before the era of Computational Physics, when only analytics solutions were available, the most common tool used to model convective energy trasnport was the so called \textbf{mixing length theory}. \\
@@ -419,16 +390,49 @@ Plugging in the expression that we derived for $(dE/dt)_{\mathrm{rad}}$ and taki
 \begin{equation}\label{7.11}
 \frac{\nabla_e - \nabla_{\mathrm{ad}}}{\nabla - \nabla_e} = \frac{6acT^3}{k \rho c_P l_m v}
 \end{equation}
-We finally obtained five equations(\ref(7.1), \ref(7.2), \ref(7.6), \ref(7.7), \ref(7.11)) in five variables ($F_{\mathrm{rad}}$, $F_{\mathrm{con}}$, $v$, $\nabla_e$, $\nabla$). Note that the mixing length $l_m$ is not one of those variables, and hence is a free parameter for which we have to assume a value.
+We finally obtained five equations(\ref(7.1), \ref(7.2), \ref(7.6), \ref(7.7), \ref(7.11)) in five variables ($F_{\mathrm{rad}}$, $F_{\mathrm{con}}$, $v$, $\nabla_e$, $\nabla$). Note that the mixing length $l_m$ is not one of those variables, and hence is a free parameter for which we have to assume a value. \\
+Although the mixing length theory has been used extensively in 1D stellar evolution, in many occasions it has been proven unsuccesfull, especially because of the uncertanties about the parameters. Thanks to the raise of computational resources over the last decade, atmospheric scientists and astrophysicists were able to run 2D and 3D Hydro simulations and approach the problem more heuristically. They concluded that the controlling parameter for the boundary migration could be the \textbf{bulk-Richardson number}, which is the topic of the next section.  
+
+
+\subsubsection{Bulk Richardson}
+
+So far we got to the point where we have a convective layer and a stable layer above or beneath it. What happens over time is that the convective boundary accrets mass from the stable layer by ingestion, because turbulent eddies capture stable fluid that is consequentially dragged and entrained in the turbulent layer. A fundamental problem in stellar evolution is to understand the dynamics of this boundary: which is its velocity (if we are in an eulerian workframe), or how much mass from the stable layer is entrained in unit time (in a lagrangian workframe).\\
+One fo the methods used to model this migration is the \textbf{Bulk-Richardson number}
+\begin{equation}\label{bulkrichardson}
+	\mathrm{Ri}_{B}=\frac{\Delta b L}{\sigma^2}
+\end{equation}
+which is a dimensionelss parameter that compares the strenth of the boundary to the one of the turbulence. $L$ is the length scale of the turbulence (which is of course model dependent), $\sigma$ is the rms of its velocity, $\Delta b$ is the buoyancy jump between unstable and stable layer. This is defined by considering the \textbf{Brunt-Väisääla frequency} 
+\begin{equation}
+	N^2(r)=-g \left (  \frac{\partial \ln \rho}{\partial r} -  \frac{\partial \ln \rho}{\partial r} \Big|_{s}  \right )
+\end{equation}
+and integrating it over the boundary
+\begin{equation}
+	\Delta b = \int_{r_i}^{r_f} N^2 dr
+\end{equation}
+Of course we need a proper definition of the boundary limits $r_i$ and $r_f$, hence also $\Delta b$ is model dependent. \\
+Let's furthermore define the \textbf{entrainment coefficient} $E$ as the boundary migration speed $u_b$ over the turbulence rms $\sigma$. Previous works have found that
+\begin{equation}
+	E=A \mathrm{Ri}_{B}^{-n}
+\end{equation}
+Where $A$ and $n$ are coefficients that need to be determined, and this will be the primary goal of our simulations. If this relation is proven to be true, it would be possible to know the boundary migration speed $u_b$ given only $L$, $\Delta b$ and $\sigma$, and consequentially map this phenomenon into 1D stellar models. In the hope that these two free parameters exist and are universal (i. e. not system- code- or resolution-dependent) the goal of this work is to determine them.
+\subsection{Il r'Hamiltoniana}
+ciao
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION RECENT WORKS 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Previous works}
 
 \subsection{Numerical simulations}
 
 The only way to study thoroughly the macroscopic effects of convection like the boundary mixing problem is through multidimensional simulations. Only in the last decade computational power allowed astrophysics groups to run 3D simulations with a satisfying resolution. We report here what we believe are the most significant works carried out in the past. 
 
-\paragraph{Turbulent Convection In Stellar Interiors I. Hydrodynamic Simulation. \textit{Meakin et al}, 2007} 
+\paragraph{Turbulent Convection in Stellar Interiors I. Hydrodynamic Simulation. \textit{Meakin et al}, 2007.} 
 The first extensive work was carried out by C. Meaking and D. Arnett (2007) who simulated the oxygen shell burning and the hydrogen core burning in a $23 M_{\odot}$ star both in 2D and in 3D, using the "box in a star" approach. In the core burning simulation they had only one boundary to analize, during the shell they had both the superior and inferior. This group used the 1D stellar evolution code TYCHO that was then mapped into PROPMI, a multidimensional parallelized hydro code that solves euler equations implementing PPM (piecewise parabolic method) with a nuclear reaction network. They reported $\log A=0.027 \pm 0.38$ and $n=1.05 \pm 0.21$ for the three dimensional case. \\
 As we have seen in the previous section, the definition of the bulk-Richardson number is model dependent. In this case in order to define the boundary and its topology, they injected a passive scalar in the convective region. The biggest drop in its concentration defined the boundary topology. They then computed the mean value of the boundary coordinate and its standard deviation, which delimited the initial and final position of the convective boundary over which integrate the Brunt-Väisääla frequency in order to obtain the buoyancy jump. They furthermore defined the length scale of the turbulence as the length where the autocorrelation of the mach number drops below $0.5$. This is a simple but effective set of definitions and procedures that I used in my data analysis too. \\
-Another recent study has been carried out by A. Cristini et al, 2016. They simulated a Carbon burning shell in a $15 M_{\odot}$ star in four runs with different resolutions (from $128^3$ to $1024^3$). They used the same code PROMPI with self gravity in the Crowling approximation necessary to describe deep interiors of stars. They reported parametric values of $A= 0.06 (+0.27 / -0.04)$ and $n= 0.81 (+0.38 / -0.28)$. Although the second one agrees pretty well with the previous study, the first one is not even in the same order of magnitude, hence the motivation for this work.
+\paragraph{3D Hydrodynamic Simulations of Carbon Burning in Massive Stars. \textit{Cristini et al}, 2016.} 
+Another recent study has been carried out by A. Cristini et al, 2016. They simulated a Carbon burning shell in a $15 M_{\odot}$ star (box in a star method) spanning around $3000$ s and $2 \times 10^9$ cm in four runs with different resolutions (from $128^3$ to $1024^3$). They used the same code PROMPI with self gravity in the Crowling approximation necessary to describe deep interiors of stars, and they used a very similar procedure to get the entrainment rate coefficient. After analyzing the convective structure with help of the Reynolds-averaged Navier-Stokes equations (RANS), they reported parametric values of $A= 0.06 (+0.27 / -0.04)$ and $n= 0.81 (+0.38 / -0.28)$. Although the second one agrees pretty well with the previous study, the first one is not even in the same order of magnitude and affected by huge uncertainty, hence the motivation for this work.
 \subsection{Il r e l'Hamiltoniana}
 ciao
 
