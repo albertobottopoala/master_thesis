@@ -11,6 +11,7 @@
 %\DeclareMathOperator{\Exp}{exp}
 \DeclareMathOperator{\Log}{log}
 %\DeclareMathOperator{\Det}{det}
+\numberwithin{equation}{section}
 
 \title{TITLE TITLE TITLE}
 \author{Alberto Botto Poala\\
@@ -358,9 +359,9 @@ Bulbs have an initial velocity that equals zero, and the same holds for $DT$. Ov
 	\frac{DT}{T}=\frac{1}{T}\frac{\partial (DT)}{\partial r} \frac{l_m}{2}=(\nabla-\nabla_e)\frac{l_m}{2}\frac{1}{H_P}
 \end{equation}
 which is simply a taylor espansion to determine $DT$ after $l_m/2$. Recall that the buoyancy force per unit mass is $f_b=-g \cdot D \rho / \rho$ and that $D \rho / \rho is - \delta D T / T$. Let's pretend on average that half of this force acted on the blob during its migration of $l_m$, hence the work done is
-\begin{equation}
+\begin{equation}\label{7.6}
 	\frac{1}{2} k_r \frac{l_m}{2}=g \delta (\nabla - \nabla_e)\frac{l_m^2}{8 H_P}
-\end{equation}/label{7.6}
+\end{equation}
 Let's furthermore suppose that only half of this work ends up in kinetc energy, because the other half has to go in the work necessary for moving the surroundings. Then the average velocity of an element half way is
 \begin{equation}
 	v^2=g \delta (\nabla - \nabla_e)\frac{l_m^2}{8 H_p}
@@ -375,7 +376,7 @@ Now let's consider a sphere of diameter $d$ slightly hotter than the surrounding
 \end{equation}
 hence the drop in temperautre per unit length travelled radially taking into account both processes is
 \begin{equation}\label{7.7}
-\left (  \frac{d T}{d r }   \right )_e = \left(  \frac{dT}{d r }   \right )_{\mathrm{rad}} - \frac{\left( d E / dt \right)_{rad} }{\rho V c_P v}
+	\left (  \frac{d T}{d r }   \right )_e = \left(  \frac{dT}{d r }   \right )_{\mathrm{rad}} - \frac{\left( d E / dt \right)_{\mathrm{rad}} }{\rho V c_P v}
 \end{equation}
 Which multuplied by $H_P/T$ gives
 \begin{equation}
@@ -385,14 +386,14 @@ Plugging in the expression that we derived for $(dE/dt)_{\mathrm{rad}}$ and taki
 \begin{equation}\label{7.11}
 \frac{\nabla_e - \nabla_{\mathrm{ad}}}{\nabla - \nabla_e} = \frac{6acT^3}{k \rho c_P l_m v}
 \end{equation}
-We finally obtained five equations(\ref(7.1), \ref(7.2), \ref(7.6), \ref(7.7), \ref(7.11)) in five variables ($F_{\mathrm{rad}}$, $F_{\mathrm{con}}$, $v$, $\nabla_e$, $\nabla$). Note that the mixing length $l_m$ is not one of those variables, and hence is a free parameter for which we have to assume a value. \\
+We finally obtained five equations(\ref{7.1}, \ref{7.2}, \ref{7.6}, \ref{7.7}, \ref{7.11}) in five variables ($F_{\mathrm{rad}}$, $F_{\mathrm{con}}$, $v$, $\nabla_e$, $\nabla$). Note that the mixing length $l_m$ is not one of those variables, and hence is a free parameter for which we have to assume a value. \\
 Although the mixing length theory has been used extensively in 1D stellar evolution, in many occasions it has been proven unsuccesfull, especially because of the uncertanties about the parameters. Thanks to the raise of computational resources over the last decade, atmospheric scientists and astrophysicists were able to run 2D and 3D Hydro simulations and approach the problem more heuristically. They concluded that the controlling parameter for the boundary migration could be the \textbf{bulk-Richardson number}, which is the topic of the next section.  
 
 
-\subsubsection{Bulk Richardson}
+\subsubsection{Bulk-Richardson Number}
 
 So far we got to the point where we have a convective layer and a stable layer above or beneath it. What happens over time is that the convective boundary accrets mass from the stable layer by ingestion, because turbulent eddies capture stable fluid that is consequentially dragged and entrained in the turbulent layer. A fundamental problem in stellar evolution is to understand the dynamics of this boundary: which is its velocity (if we are in an eulerian workframe), or how much mass from the stable layer is entrained in unit time (in a lagrangian workframe).\\
-One fo the methods used to model this migration is the \textbf{Bulk-Richardson number}
+One fo the methods used to model the migration is the \textbf{Bulk-Richardson number}
 \begin{equation}\label{bulkrichardson}
 	\mathrm{Ri}_{B}=\frac{\Delta b L}{\sigma^2}
 \end{equation}
