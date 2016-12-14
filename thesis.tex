@@ -15,7 +15,7 @@
 
 \title{TITLE TITLE TITLE}
 \author{Alberto Botto Poala\\
-Advison Professor Friedrich Röpke}
+Advisor Professor Friedrich Röpke}
 \date{07.03.17}
 \begin{document}
 \begin{titlepage}
@@ -149,7 +149,7 @@ $$
 T^{ij} \to T^{ij} + T^{ij}_d 
 $$
 
-while the density current remains unchanged because mass is always conserved. As in the previous subsection, the new $T$ needs to be struck with $\nabla$ and set equal to zero in order to obtain our modified equations in the viscous case. We will not carry out all the calculations, rather simply quote the result for the new QUOTE and QUOTE. \\
+while the density current remains unchanged because mass is always conserved. As in the previous subsection, the new $T$ needs to be struck with $\nabla$ and set equal to zero in order to obtain our modified equations in the viscous case. We will not carry out all the calculations, rather simply quote the result for the new \ref{consen} and \ref{euler}. \\
 The new energy conservation equation reads
 $$
 \partial_t \epsilon + \vec \nabla \cdot (\epsilon \vec{v}) + P \vec \nabla \cdot \vec{v} = \vec \nabla \cdot (k \vec \nabla T) + v_{ij} T_d^{ij} 
@@ -166,7 +166,7 @@ $$
 These are often called \textbf{Navier-Stokes Equations}, and fully show the nonlinearity of Hydrodynamic.
 
 \subsubsection{Hydrostatic Equilibrium in Stars}
-We shall now consider the static configuration of QUOTE with gravitational potential. This reads
+We shall now consider the static configuration of \ref{euler} with gravitational potential. This reads
 \begin{equation} \label{hystat}
 	\vec \nabla P = - \rho \vec \nabla \Phi
 \end{equation}
@@ -282,7 +282,7 @@ Of crucial importance to understand convection will be the following equation fo
 \subsection{Convection}
 Until now we have assumed a perfect spherical symmetry, meaning that all dynamical and thermodynamical quantities were a function of the radius only. Obviously this is not a realistic case. For a number of reasons stars have small perturbations, that may eventually grow and give rise to macroscopic phenomena. A classic example is convection.\\
 We are relaxing the spherically symmetric case, but this doesn't mean that our fundamental equations of stellar structure are useless. As explained in the introduction, if we could section stars we would see that convection appears in concentric regions, hence  we can still treat the problem as spherically symmetric defining dynamycam and thermodynamical quantities as averages on a proper region. \\
-We shall now understand when, given thermodynamic variables, we obtain a dynamically stable or unstable layer.
+We shall now understand when, given thermodynamic variables, we are dealing with a dynamically stable or unstable layer.
 
 
 \subsubsection{Dynamical instability}
@@ -331,13 +331,13 @@ With this new notation we can write down our stability criterion in a more compa
 \begin{equation}\label{stabcritcomp}
 	\nabla_{\mathrm{rad}} < \nabla_{\mathrm{ad}} + \frac{\phi}{\delta} \nabla_{\mu}
 \end{equation}
-And obtain the \textbf{Ledoux criterion}. \\
+and obtain the \textbf{Ledoux criterion}. \\
 In our simulations we used a monoatomic ideal gas equation of state, hence $\nabla_{\mu}=0$.  What we obtain is the \textbf{Schwarzschild criterion} for dynamic stability
 \begin{equation}\label{schwarzschild}
 	\nabla_{\mathrm{rad}}<\nabla_{\mathrm{ad}}
 \end{equation}
 If the left hand side is bigger than the right hand side, it means that our stratification is not able to transport all the energy generated only through radiation, and it is hence required to rely on convection. \\
-Note that since now we simply have found a stability criterion, but we don't know anything about the convection that will arise. In the next section we will try to quantify it, especially we need to know how much energy is transported through the \textbf{mixing length theory}, which is the most used tool in 1D simulations of stellar evolution.
+Note that since now we simply have found a stability criterion, but we don't know anything about the convection that will arise. In the next section we will try to quantify it, especially we need to know how much energy is transported from one layer to the other in order to map this result in 1D simulations of stellar evolution.
 
 \subsection{Mixing length theory}
 A fundamental problem in Stellar Astrophysics is to understand how much energy is transported by convection. Before the era of Computational Physics, when only analytics solutions were available, the most common tool used to model convective energy trasnport was the so called \textbf{mixing length theory}. \\
@@ -353,7 +353,7 @@ In order to quantify then $F_{\mathrm{con}}$, let's consider a blob with a $DT$ 
 \begin{equation}\label{fconv}
 	F_{\mathrm{con}}=\rho  v  c_P  DT
 \end{equation}
-Of course we should average $v$ and $DT$ over an imaginary sphere and hence obtain an equation that holds statistically over the solud angle at a given radius and not locally. One can tell since now the approximations and limits of this theory. \\
+Of course we should average $v$ and $DT$ over an imaginary sphere and hence obtain an equation that holds statistically over the solid angle at a given radius and not locally. One can tell since now the approximations and limits of this theory. \\
 Bulbs have an initial velocity that equals zero, and the same holds for $DT$. Over time it will migrate of a discance $l_m$, namely the \textit{mixing length} before dissolving via turbulent cascade. This means that on average a bulb will move of a distance $l_m/2$ where it accelerates, and of another $l_m/2$ where it decelerates of the same amount to stop at the end of the convective zone. Bulbs will definitelly also change shape during the migration, which makes it pretty difficult to strictly define temperature and velocity, but in a very rough approximation we claim that
 \begin{equation}
 	\frac{DT}{T}=\frac{1}{T}\frac{\partial (DT)}{\partial r} \frac{l_m}{2}=(\nabla-\nabla_e)\frac{l_m}{2}\frac{1}{H_P}
@@ -437,7 +437,7 @@ Another recent study has been carried out by A. Cristini et al, 2016. They simul
 \section{Hydrodynamic Simulations}
 \subsection{Code Description}
 
-The code we used is called SLH (Seven League Hydro). It was originally developed by Fabian Miczek (2013) during his PhD thesis. SLH is a finite-volume multidimentional code that solves Euler equations (Ideal Hydrodynamic) using explicit or implicit methods. The advantage of implicit methos lies in the fact that the time step is constantly redefined optimizing computational resources using the so called CFL criterion for numerical stability. In this case a non-linear system of equations is solved using the Newton-Ralphson method, in which at every time step a linear system is solved through the Krylov subspace methods. The efficiency of all these computational methods is strongly dependent on the type of linear system solved and the cluster architecture used. \\
+The code we used is called SLH (Seven League Hydro). It was originally developed by Dr. Fabian Miczek (2013) during his PhD thesis. SLH is a finite-volume multidimentional code that solves Euler equations (Ideal Hydrodynamic) using explicit or implicit methods. The advantage of implicit methos lies in the fact that the time step is constantly redefined optimizing computational resources using the so called CFL criterion for numerical stability. In this case a non-linear system of equations is solved using the Newton-Ralphson method, in which at every time step a linear system is solved through the Krylov subspace methods. The efficiency of all these computational methods is strongly dependent on the type of linear system solved and the cluster architecture used. \\
 From the point of view of simulation domain SLH allows to implement a general curvilinear grid instead of a simple cartesian one by defining a metric, the elements of which are needed to correctly compute the fluxes at the cells interfaces. The code decomposes automatically the domain to parallelize the computation on the desired number of processors, using MPI and openMP. A wide choiche of boundary conditions are offered. \\
 Furthermore SLH implements a general equation of state, a Nuclear Reaction Network, passive and active scalar which are fundamental for the study of the chemical composition of the fluid, radiation in the diffusion limit and thermal conduction. \\
 Over the years SHL has undergone several scaling tests, the most remarkalbe of them at the Julich Computing Center in 2016 where it scaled over all the $458752$ cores of \textit{JUQUEEN} (a Blue Gene machine, currently the last generation of IBM supercomputers).
