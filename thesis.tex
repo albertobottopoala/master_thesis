@@ -7,6 +7,10 @@
 \usepackage{amsmath}
 \usepackage{frontespizio}
 
+% this is to have a new page for each section
+\usepackage{titlesec}
+\newcommand{\sectionbreak}{\clearpage}
+
 %\DeclareMathOperator{\Tr}{Tr}
 %\DeclareMathOperator{\Exp}{exp}
 \DeclareMathOperator{\Log}{log}
@@ -416,6 +420,8 @@ Let's furthermore define the \textbf{entrainment coefficient} $E$ as the boundar
 	E=A \mathrm{Ri}_{B}^{-n}
 \end{equation}
 Where $A$ and $n$ are coefficients that need to be determined, and this will be the primary goal of our simulations. If this relation is proven to be true, it would be possible to know the boundary migration speed $u_b$ given only $L$, $\Delta b$ and $\sigma$, and consequentially map this phenomenon into 1D stellar models. In the hope that these two free parameters exist and are universal (i. e. not system- code- or resolution-dependent) the goal of this work is to determine them.
+\subsection{Il r'Hamiltoniana}
+ciao
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECTION RECENT WORKS 
@@ -428,10 +434,10 @@ Where $A$ and $n$ are coefficients that need to be determined, and this will be 
 The only way to study thoroughly the macroscopic effects of convection like the boundary mixing problem is through multidimensional simulations. Only in the last decade computational power allowed astrophysics groups to run 3D simulations with a satisfying resolution. We report here what we believe are the most significant works carried out in the past. 
 
 \paragraph{Turbulent Convection in Stellar Interiors I. Hydrodynamic Simulation. \textit{Meakin et al}, 2007.} 
-The first extensive work was carried out by C. Meaking and D. Arnett (2007) who simulated the oxygen shell burning and the hydrogen core burning in a $23 M_{\odot}$ star both in 2D and in 3D, using the "box in a star" approach. In the core burning simulation they stimulated convection at the bottom of the simulated region moving upward, and hence they only had one boundary to analyze for their studies. During the shell run instead, they could study both the upper and lower boundary. This group used the 1D stellar evolution code TYCHO that was then mapped into PROMPI, a multidimensional parallelized hydro code that solves euler equations implementing PPM (piecewise parabolic method) with a nuclear reaction network. They reported $\log A=0.027 \pm 0.38$ and $n=1.05 \pm 0.21$ for the three dimensional case. \\
-As we have seen in the previous section, the definition of the bulk-Richardson number is model dependent. In this case in order to define the boundary and its topology, they injected a passive scalar in the convective region, which was quickly advected everywhere in the convective zone, and hence well defining its topology. The biggest drop in its concentration defined the boundary shape. They then computed the mean value of the boundary coordinate and its standard deviation, which delimited the initial and final position of the convective boundary over which integrate the Brunt-Väisääla frequency in order to obtain the buoyancy jump. They furthermore defined the length scale of the turbulence as the length where the autocorrelation of the mach number drops below $0.5$. This is a simple but effective set of definitions and procedures that I used in my data analysis too. \\
+The first extensive work was carried out by C. Meaking and D. Arnett (2007) who simulated the oxygen shell burning and the hydrogen core burning in a $23 M_{\odot}$ star both in 2D and in 3D, using the "box in a star" approach. In the core burning simulation they had only one boundary to analize, during the shell they had both the superior and inferior. This group used the 1D stellar evolution code TYCHO that was then mapped into PROMPI, a multidimensional parallelized hydro code that solves euler equations implementing PPM (piecewise parabolic method) with a nuclear reaction network. They reported $\log A=0.027 \pm 0.38$ and $n=1.05 \pm 0.21$ for the three dimensional case. \\
+As we have seen in the previous section, the definition of the bulk-Richardson number is model dependent. In this case in order to define the boundary and its topology, they injected a passive scalar in the convective region. The biggest drop in its concentration defined the boundary topology. They then computed the mean value of the boundary coordinate and its standard deviation, which delimited the initial and final position of the convective boundary over which integrate the Brunt-Väisääla frequency in order to obtain the buoyancy jump. They furthermore defined the length scale of the turbulence as the length where the autocorrelation of the mach number drops below $0.5$. This is a simple but effective set of definitions and procedures that I used in my data analysis too. \\
 \paragraph{3D Hydrodynamic Simulations of Carbon Burning in Massive Stars. \textit{Cristini et al}, 2016.} 
-Another recent study has been carried out by A. Cristini et al, 2016. They simulated a Carbon burning shell in a $15 M_{\odot}$ star (box in a star method) spanning around $3000$ s and $2 \times 10^9$ cm in four runs with different resolutions (from $128^3$ to $1024^3$). Again a shell analysis instead of a core one provides two boundaries to study instead of one. They used the same code PROMPI with self gravity in the Crowling approximation necessary to describe deep interiors of stars, and they used a very similar procedure to get the entrainment rate coefficient. After analyzing the convective structure with help of the Reynolds-averaged Navier-Stokes equations (RANS), they reported parametric values of $A= 0.06 (+0.27 / -0.04)$ and $n= 0.81 (+0.38 / -0.28)$. Although the second one agrees pretty well with the previous study, the first one is not even in the same order of magnitude and affected by huge uncertainty, hence the motivation for this work.
+Another recent study has been carried out by A. Cristini et al, 2016. They simulated a Carbon burning shell in a $15 M_{\odot}$ star (box in a star method) spanning around $3000$ s and $2 \times 10^9$ cm in four runs with different resolutions (from $128^3$ to $1024^3$). They used the same code PROMPI with self gravity in the Crowling approximation necessary to describe deep interiors of stars, and they used a very similar procedure to get the entrainment rate coefficient. After analyzing the convective structure with help of the Reynolds-averaged Navier-Stokes equations (RANS), they reported parametric values of $A= 0.06 (+0.27 / -0.04)$ and $n= 0.81 (+0.38 / -0.28)$. Although the second one agrees pretty well with the previous study, the first one is not even in the same order of magnitude and affected by huge uncertainty, hence the motivation for this work.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECTION HYDRODYNAMIC SIMULATIONS 
@@ -443,9 +449,21 @@ Another recent study has been carried out by A. Cristini et al, 2016. They simul
 The code we used is called SLH (Seven League Hydro). It was originally developed by Dr. Fabian Miczek (2013) during his PhD thesis. SLH is a finite-volume multidimentional code that solves Euler equations (Ideal Hydrodynamic) using explicit or implicit methods. The advantage of implicit methos lies in the fact that the time step is constantly redefined optimizing computational resources using the so called CFL criterion for numerical stability. In this case a non-linear system of equations is solved using the Newton-Ralphson method, in which at every time step a linear system is solved through the Krylov subspace methods. The efficiency of all these computational methods is strongly dependent on the type of linear system solved and the cluster architecture used. \\
 From the point of view of simulation domain SLH allows to implement a general curvilinear grid instead of a simple cartesian one by defining a metric, the elements of which are needed to correctly compute the fluxes at the cells interfaces. The code decomposes automatically the domain to parallelize the computation on the desired number of processors, using MPI and openMP. A wide choiche of boundary conditions are offered. \\
 Furthermore SLH implements a general equation of state, a Nuclear Reaction Network, passive and active scalar which are fundamental for the study of the chemical composition of the fluid, radiation in the diffusion limit and thermal conduction. \\
-Over the years SHL has undergone several scaling tests, the most remarkalbe of them at the Julich Computing Center in 2016 where it scaled over all the $458752$ cores of \textit{JUQUEEN} (a Blue Gene machine, currently the last generation of IBM supercomputers).
-\subsection{Code Description}
-ciao
+Over the years SHL has undergone several scaling tests, the most remarkalbe of which at the Julich Computing Center in 2016 where it scaled over all the $458752$ cores of \textit{JUQUEEN} (a Blue Gene machine, currently the last generation of IBM supercomputers).
+\subsection{2D Simulations}
+\subsubsection{Simulation setup}
+The physical setup used for our simulations is the so called "box in a star" method, meaning that we simulate some very small internal region of a star. \\
+In our case for the 2D runs it will be a box of $2.4 \times 10^{9} cm$ on the $x$ axis and $1.2 \times 10^{9} cm$ on the $y$ axis. Gravity is constant pointing downward on the $y$ axis with a magnitude of $1000 cm/s^2$. This generates a pressure statification in the fluid that covers approximately three pressure scale heigh. \\
+The controlling parameter is the temperature gradient that can we initialized to any value. In out case we divided the simulated region in three parts as shown in \ref{fig:tempprofile}. We define a parameter $alpha$ which is nothing but the fraction of the $\nabla$ over the $\nabla_{\mathrm{ad}}$. As seen in previous sections $alpha<1$ implies stability, the layer is instable otherwise. \\
+We always initialized the lower and upper region to be stable and the central region to be unstable. Convection will arise hence in the center and over time expand upward and downward. The advantage of simulating a strip of convection between two stable layers (miming a shell convection) instead of a convective region at the bottom that grows upward (Core convection-like) is twofold: it gives us two convective boundaries to study, and we avoid high mach number at the boundary which can at times generate problems or unphysical situations. \\
+Furthermore the convection is stimulated by a heating function with a gaussian profile centered in the original convective region (see \label{fig:tempprofile}).
+\begin{figure}[t]
+\includegraphics[width=10cm]{tempprofile}
+\caption{Example of initial temperature profile along the $y$-axis}
+\label{fig:tempprofile}
+\centering
+\end{figure}
+A wide range of boundary condition has been tested for this problem. Periodic boundary conditions along the $y$-axis would have provided the most physical solution, unfortunately a shear flow used to appear at the onset of convection. We obtained the same shear flow using boundary with constant extrapolation for the velocity field.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECTION CODE DESCRIPTION %
