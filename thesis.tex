@@ -6,6 +6,8 @@
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{frontespizio}
+\usepackage{subfig}
+
 
 % this is to have a new page for each section
 \usepackage{titlesec}
@@ -467,18 +469,32 @@ The controlling parameter is the temperature gradient that can we initialized to
 \label{fig:tempprofile}
 \centering
 \end{figure}
-We always initialized the setup with $\alpha_{1} = \alpha_{3}<1$ and $\alpha_{2}>1$. Convection will arise hence in the central region and over time expand upward and downward. The values of $\alpha_{1}$ and $\alpha_{3}$ are a controlling parameter for the bulk-Richardson number, since they are proportional to $\Delta b$. The advantage of simulating a strip of convection between two stable layers (miming a Shell convection) instead of a convective region at the bottom that grows upward (Core convection-like) is twofold: it gives us two convective boundaries to study instead of one, and we avoid high mach number at the boundary which can at times generate problems or unphysical situations. \\
-Furthermore the convection is stimulated by an heuristic heating function with a gaussian profile centered in the original convective region (see \label{fig:tempprofile}). One of the hardest tasks has been to generate the correct amount of heating such that the turbulence route mean square was constant during the run (which is one one of the ingredients of the bulk-Richardson number, hence one of the parameters we want to control in order to perform a differential study). The heating function also checks at every time step if in any cell of the grid a given mach number limit is reached. In that case the total heating is reduced to $75 \%$ of the original amount. Notice that this is not the turbulence route mean square at the interface $\sigma_t$ that enters in the $Ri_{\mathrm{B}}$, but it's simly a heuristic way to prevent the mach number to grow too much over time. \\
-At the bottom of the simulated region small perturbations in temperature and mach number had been imprinted in order to break the symmetry of the system.\\
+We always initialized the setup with $\alpha_{1} = \alpha_{3}$ widely smaller than $1$; and $\alpha_{2}=0.99$, which means a very precarious situation in terms of stability in the second region. A heating function furthermore heats the second region with a gaussian profile (see \label{fig:tempprofile}) to generate convection that will expand downward and upward by accretion. The values of $\alpha_{1}$ and $\alpha_{3}$ are controlling parameters for the bulk-Richardson number, since they are proportional to $\Delta b$. The advantage of simulating a strip of convection between two stable layers (miming a Shell convection) instead of a convective region at the bottom that grows upward (Core convection-like) is twofold: it gives us two convective boundaries to study instead of one, and we avoid high mach number at the boundary which can at times generate problems or unphysical situations. \\
+One of the hardest tasks has been to generate the correct amount of heating such that the turbulence route mean square \textit{at the interface} was constant during the run (which is one one of the ingredients of the bulk-Richardson number, hence one of the parameters we want to control in order to perform a differential study). The heating function also checks at every time step if in any cell of the grid a given mach number limit is reached. In that case the total heating is reduced to $50 \%$ of the original amount.\\ 
+At the bottom of the simulated region small perturbations in temperature and mach number had been imprinted on the stratification in order to break the initial symmetry of the system.\\
 A wide range of boundary condition has been tested for this problem. Periodic boundaries along the $y$-axis would have provided the most physical solution, unfortunately an horizontal shear flow used to appear at the onset of convection. We observed the same shear flow using boundary with constant extrapolation for the velocity field. Eventually we decided to use wall boundary conditions everywhere. \\
 As briefly explained in the previous sections, in order to define the topology of the convective boundaries, we injected a passive scalar inside the central region. Recall that passive scalars are just like colors of the fluid and in no way they influence the dynamic of the system, neither they diffuse.\\
 As previously stated our goal is to perform a \textit{differential} study of the bulk-richardson number and the CBM problem. This implies running simulations with different values of $\Delta b$ and $\sigma_t$ at different resolutions. Being 2D simulations computationally speaking so cheap we managed to run a copious amount of them. As reported in ??? we run with $\alpha_1=\alpha_3=0.2, 0.7$, mach number limit of $0.5, 0.01$, and resolution spanning from $128 \times 64$ (low resolution, from now on LR), $256 \times 128$ (MR), $512 \times 256$ (HR), $1024 \times 512$ (VR), $2048 \times 1024$ (SR). With this notation with the code 2d0.7-0.01HR we refer to a 2 dimensional simulation, with $\alpha_1=\alpha_3=0.7$, a reduction of the heating at mach $0.01$ on a $512 \times 256$ grid. \\
 It is worth noticing that a higher resolution in CFD does not only mean resolving better the system, but also changing the numerical viscosity of the fluid. Hence we expect to have higher mach number on higher resolutions.
 Numerical viscosity is also the reason for which on the $x$-axis the number of cells is always the double to the $y$-axis: we want to keep cells squared and not rectangular in order to keep viscosity isotropic and prevent it from becoming a tensorial quantity. \\
 
-\subsubsection{Evolution and analysis of a single run}
-Let's consider the setup 2d0.7-0.01LR.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Evolution of a single run and resolution study}
+Let's consider the setup 2d0.7-0.01LR. \\
+Convection starts at around $t=7000 s$. Because of the already mentioned implicit time stepping, the lower the mach number, the bigger the time step, allowing us to save a huge amount of computational resources before the rise of convection. A remarkable difference is also observed in the convective regime, as long as the mach number is below $10 \%$, which will always be our case. \\
+In figure \ref{fig:2d0.7-0.01LR.passive} we plot the passive scalar (initialized inside the central region) which over time is advected by convection. We clearly see the accretion of the convective boundary that over the $200000 s$ of simulated time moves gradually upward and downward. Specifically in the upper case it starts at $\sim 6.2 \times 10^{6} cm $ and ends up at $\sim 8.0 \times 10^{6} cm$, for the lower case it starts at $\sim 3.7 \times 10^{6} cm$ and moves downwards to $\sim 3.1 \times 10^{6} cm$. \\
+In figure \ref{fig:2d0.7-0.01LR.mach} we plot profile of the mach number over the simulated time. It is what one would expect by looking at the passive scalar adcevtion, with two remarks that need to be done. \\
+First of all the mach number slightly grows over time but not dramaticaly, thanks to the heating function that we implemented, featuring a cutoff as previously explained. \\
+Second of all it is clear that some internal modes are excited by the convective blobs when they hit the stable layers and they propagate through it. They appear more significative in the upper region and to a certain extent it's true, but mainly this is due to the fact that the speed of sound there it's lower. Plotting the absolute velocity the difference is not so dramatic. An intresting question is obviously to which degree these internal modes influence the dynamic of the boundary.
+
+\begin{figure}[t]
+  \centering
+    \subfloat[Advection of passive scalar and convective boundary growth]{\includegraphics[width=0.4\textwidth]{tempprofile}\label{fig:2d0.7-0.01LR.passive}}
+      \hfill
+        \subfloat[Profile of the mach number over time]{\includegraphics[width=0.4\textwidth]{tempprofile}\label{fig:2d0.7-0.01LR.mach}}
+	  \label{2d0.7-0.01LR.passive}
+  \end{figure}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECTION CODE DESCRIPTION %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
