@@ -1,12 +1,10 @@
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECTION UNDERLYING PHYSICS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Underlying Physics}
-\subsection{Hydrodynamics}
-\subsubsection{Derivation of the Equations of Ideal Hydrodynamics}
+\chapter{Underlying Physics}
+\section{Hydrodynamics}
+\subsection{Derivation of the Equations of Ideal Hydrodynamics}
 As all the most beautiful and successful laws of Physics, Hydrodynamics is derived from some conserved quantities. \\
 Let's consider for instance a monoatomic gas in a box. A fundamental assumption in ideal hydrodynamics is that the mean free path of particles is infinitesimal. Particles might be spatially equally distributed (like in a bottle) or might not (maybe because the box is so big that we get a stratification like in the atmosphere). Same concempt holds for the velocity distribution, it might be Maxwellian or it might not be. 
 In any case we can define the \textbf{distribution function in phase space} $f( \vec{x^{\mu}}, \vec{p^{\mu}})$ such that
@@ -73,9 +71,9 @@ $$
 In case other macroscopic forces like gravity are present, we simply add them on the right hand side as we would do in Classical Mechanics. \\
 So far we have obtained 5 equations in 6 unknowns, namely the internal energy $\epsilon$, the momentum $\vec{p}$, the pressure $P$ and the density $\rho$. If we want to have at least a chance of integrating the system we're missing one equation, the \textbf{equation of state}, that relates the thermodynamic variables.
 
-\subsubsection{Viscous Hydrodynamics}
+\subsection{Viscous Hydrodynamics}
 
-As stated at the beginning of the previous subsection, one fundamental assumption of ideal Hydrodynamics is that particles have an infinitesimal mean free path. What actually happens in nature might be very different. Particle have a finite mean free path, and hence they can transport local property all through the fluid by diffusion: transport of energy generates heat conduction, transport of momentum friction. The consequence is that we end up with one additional term in the energy-momentum tensor representing the diffusive processes
+As stated at the beginning of the previous section, one fundamental assumption of ideal Hydrodynamics is that particles have an infinitesimal mean free path. What actually happens in nature might be very different. Particle have a finite mean free path, and hence they can transport local property all through the fluid by diffusion: transport of energy generates heat conduction, transport of momentum friction. The consequence is that we end up with one additional term in the energy-momentum tensor representing the diffusive processes
 $$
 T^{ij} \to T^{ij} + T^{ij}_d 
 $$
@@ -96,7 +94,7 @@ $$
 $$
 These are often called \textbf{Navier-Stokes Equations}, and thoroughly show the nonlinearity of Hydrodynamic.
 
-\subsubsection{Hydrostatic Equilibrium in Stars}
+\subsection{Hydrostatic Equilibrium in Stars}
 We shall now consider the static configuration of \ref{euler} with gravitational potential. This reads
 \begin{equation} \label{hystat}
 	\vec \nabla P = - \rho \vec \nabla \Phi
@@ -135,7 +133,7 @@ $$
 \frac{\Delta T}{\Delta r} = \frac{10^7 \ \mathrm{K}-10^4  \ \mathrm{K}}{R_{\odot}} \simeq 1.4 \times 10^{-4} \  \mathrm{K} \ \mathrm{cm} ^{-1}
 $$
 which means that after $2 \mathrm{cm}$ on the radial direction a photon sees a difference in temperature of $\Delta T = l_{p,p} \times 1.4 \times 10^{-4}  \  \mathrm{K} \ \mathrm{cm} ^{-1}= 3 \times 10^{-4} \  \mathrm{K}$. The relative difference of radiation energy density can be easly computed since $u \sim T^4$, hence in the center of the sun $\Delta u/u=4 \Delta T / T \sim 10^{-10}$: between two scatterings a photon is in \textbf{Local Thermodynamic Equilibrium} (LTE). This little anisotropy that we neglect is the actual cause of the luminosity of the sun, because it generates a non-vanishing net flux.
-\subsubsection{Diffusion of radiative energy}
+\subsection{Diffusion of radiative energy}
 We have seen that the mean free path $l_{p,p}$ of photons is much smaller that the characteristic length of our physical system, hence we are allowed to treat the scattering processes statistically. This leads us to describe energy transfer as a diffusion process. \\
 The diffusive flux $j$ of a certain species of particles (number of particles migrating per unit area and unit time) is given by
 \begin{equation}\label{diffusion}
@@ -167,7 +165,7 @@ which in lagrangian coordinate reads
 \end{equation}
 We shall never forget the assumptions we did when deriving this equation, namely the LTE. When we approach the photosphere for instance the density decreases, the mean free path increases, and two scattering events happen so far away that LTE doesn't hold any longer. In this case radiation transport is no more a diffusive process. \\ 
 Another form of heat transfer is conduction, but in stellar physics it becomes relevant only in cores of red giants or white dwarfs and it is fully neglected in our simulations.
-\subsubsection{The astrophysical $\nabla$}
+\subsection{The astrophysical $\nabla$}
 Assuming hydrostatic equilibrium we can now divide \ref{partialTpartialm} by REF and obtain
 \begin{equation}
 	\frac{\partial T/\partial m}{\partial P / \partial m} = \frac{3}{16 \pi a c G} \frac{k l}{m T^3}
@@ -177,7 +175,7 @@ This is nothing but the derivative of the temperature with respect to the pressu
 	\nabla_{\mathrm{rad}} = \left( \frac{d \ln T}{d \ln P}  \right)_{\mathrm{rad}}= \frac{3}{16 \pi a c G} \frac{k l P}{m T^4}
 \end{equation}
 This quantity will be of fundamental importance when we will discuss convective stability. Recall that we took into account only radiative transfer, but defining $k$ properly we could take into account also heat conduction.
-\subsection{Fundamental Equations of Stellar Structure}
+\section{Fundamental Equations of Stellar Structure}
 At this point we are able to write down a system of equation that we will call \textbf{fundamental equations of stellar structure}, which describe an oversimplified thus very useful model. This will hold in a static, stable and spherically symmetric case.\\
 
 \textbf{Mass continuity} \\
@@ -213,13 +211,13 @@ Of crucial importance to understand convection will be the following equation fo
 \end{equation}
 
 
-\subsection{Convection}
+\section{Convection}
 Until now we have assumed a perfect spherical symmetry, meaning that all dynamical and thermodynamical quantities were a function of the radius only. Obviously this is not a realistic case. For a number of reasons stars have small perturbations, that may eventually grow and give rise to macroscopic phenomena. A classic example is convection.\\
 We are relaxing the spherically symmetric case, but this doesn't mean that our fundamental equations of stellar structure are useless. As explained in the introduction, if we could section stars we would see that convection appears in concentric regions, hence  we can still treat the problem as spherically symmetric defining dynamycam and thermodynamical quantities as averages on a proper region. \\
 We shall now understand when, given thermodynamic variables, we are dealing with a dynamically stable or unstable layer.
 
 
-\subsubsection{Dynamical instability}
+\subsection{Dynamical instability}
 Let's consider a perfect density stratification like the one in a star or in the atmosphere and let's break the symmetry of the system by adding a little perturbation in the termodynamic variables. For any given quantity $A(r, \theta)$ (from now on $A_e$, because it's a function of the mass element we are considering), we compute $A_s$ (which is an average at given $r$ on the surrounding material). We shall furthermore assume that the fluid moves adiabatically, thus the timescale for heating transfer is much smaller than the timescale for convection turnover. \\
 We define a local property of the fluid 
 $$
@@ -273,7 +271,7 @@ In our simulations we used a monoatomic ideal gas equation of state, hence $\nab
 If the left hand side is bigger than the right hand side, it means that our stratification is not able to transport all the energy generated only through radiation, and it is hence required to rely on convection. \\
 Note that since now we simply have found a stability criterion, but we don't know anything about the convection that will arise. In the next section we will try to quantify it, especially we need to know how much energy is transported from one layer to the other in order to map this result in 1D simulations of stellar evolution.
 
-\subsection{Mixing length theory}
+\section{Mixing length theory}
 A fundamental problem in Stellar Astrophysics is to understand how much energy is transported by convection. Before the era of Computational Physics, when only analytics solutions were available, the most common tool used to model convective energy trasnport was the so called \textbf{mixing length theory}. \\
 The total energy flux $l/4 \pi r^2$ at given radius is given by the radiative flux $F_{\mathrm{rad}}$ (which may also include the conductive flux), and the convective flux $F_{\mathrm{con}}$. Their summ is according to \label{nablarad} what defines the $\nabla_{\mathrm{rad}}$ that would be necessary to transport away all the energy.
 \begin{equation}\label{7.1}
@@ -324,7 +322,7 @@ We finally obtained five equations(\ref{7.1}, \ref{7.2}, \ref{7.6}, \ref{7.7}, \
 Although the mixing length theory has been used extensively in 1D stellar evolution, in many occasions it has been proven unsuccesfull, especially because of the uncertanties about the parameters. Thanks to the raise of computational resources over the last decade, atmospheric scientists and astrophysicists were able to run 2D and 3D Hydro simulations and approach the problem more heuristically. They concluded that the controlling parameter for the boundary migration could be the \textbf{bulk-Richardson number}, which is the topic of the next section.  
 
 
-\subsubsection{Bulk-Richardson Number}
+\subsection{Bulk-Richardson Number}
 
 So far we got to the point where we have a convective layer and a stable layer above or beneath it. What happens over time is that the convective boundary accrets mass from the stable layer by ingestion, because turbulent eddies capture stable fluid that is consequentially dragged and entrained in the turbulent layer. A fundamental problem in stellar evolution is to understand the dynamics of this boundary: which is its velocity (if we are in an eulerian workframe), or how much mass from the stable layer is entrained in unit time (in a lagrangian workframe).\\
 One fo the methods used to model the migration is the \textbf{Bulk-Richardson number}
