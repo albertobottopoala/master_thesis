@@ -36,31 +36,33 @@ It is worth noticing that a higher resolution in CFD does not only mean resolvin
 Numerical viscosity is also the reason for which on the $x$-axis the number of cells is always the double to the $y$-axis: we want to keep cells squared and not rectangular, in order to keep viscosity isotropic and prevent it from becoming a tensorial quantity. \\
 
 \subsection{Evolution of a single run}
-Let's consider the setup 2d0.1-LR. \\
-Convection starts at around $t \sim 7000 s$. Because of the already mentioned implicit time stepping, the lower the mach number, the bigger the time step, allowing us to save a huge amount of computational resources before the rise of convection. A remarkable difference is also observed in the convective regime, as long as the mach number is below $10 \%$, which has always been our case. \\
-In figure \ref{fig:2d001-LRmach} we plot profile of the mach number over the simulated time. this is what one would expect by looking at the passive scalar adcevtion, with two remarks that need to be done. \\
-First of all the mach number slightly grows over time but not dramaticaly, thanks to the heating function that we implemented, featuring a decrease of heat generation as previously explained. \\
-Second of all it is clear that some internal modes are excited by the convective blobs when they hit the stable layers and they propagate through it. They appear more significative in the upper region and to a certain extent it's true, but mainly this is due to the fact that the speed of sound there it's lower. Plotting the absolute velocity the difference is not so dramatic. An intresting question we will try to answer to is obviously to which extent these internal modes influence the dynamic of the boundary. \\
-In figure \ref{fig:2d001-LRps2} we plot the passive scalar (initialized inside the central region) which over time is advected by convection. We clearly see the accretion of the convective boundary that over the $100000 s$ of simulated time moves gradually upward and downward. Specifically in the upper case it starts at $\sim 6.2 \times 10^{6} cm $ and ends up at $\sim 8.0 \times 10^{6} cm$, for the lower case it starts at $\sim 3.7 \times 10^{6} cm$ and moves downwards to $\sim 3.1 \times 10^{6} cm$. \\
 \begin{figure}[t]
   \centering
     \subfloat[Advection of passive scalar and convective boundary growth]{\includegraphics[width=0.5\textwidth]{./img/2d001-LRmach}\label{fig:2d001-LRmach}}
       \hfill
         \subfloat[Profile of the mach number over time]{\includegraphics[width=0.5\textwidth]{./img/2d001-LRps2}\label{fig:2d001-LRps2}}
 	  \label{2d001-LRps2}
+	\caption{prova caption}
   \end{figure}
-In figure \ref{fig:2d0.7-0.01LR.bp} we plot the parameters needed to compute the bulk-Richardson number for the upper boundary. \\
-We show first of all the boundary position over time with its rms. The migration is overall stable, but it's clear that after $t \sim 100000 s$ there is a slow down. We suspect that this is due to the interaction with the internal modes. \\
-Second of all we plot in figure \ref{fig:2d0.7-0.01LR.turbmach} the turbulence rms mach number at the interface. This is not constant over the run, instead it oscillates, but we are satisfied by the fact that it remains in the same order of magnitude. There is also a tiny trend to increase, but as previously stated, it is an extremely hard task to tune the heating in order to obtain a perfectly constant turbulent regime. \\
+Let's consider the setup 2d0.1-LR. \\
+Convection starts at around $t \sim 7000 s$. Because of the already mentioned implicit time stepping, the lower the mach number, the bigger the time step, allowing us to save a huge amount of computational resources before the rise of convection. A remarkable difference is also observed in the convective regime, as long as the mach number is below $10 \%$, which has always been our case. \\
+In figure \ref{fig:2d001-LRmach} we plot profile of the mach number over the simulated time. this is what one would expect by looking at the passive scalar adcevtion, with two remarks that need to be done. \\
+First of all the mach number slightly grows over time but not dramaticaly, thanks to the heating function that we implemented, featuring a decrease of heat generation as previously explained. \\
+Second of all it is clear that some internal modes are excited by the convective blobs when they hit the stable layers and they propagate through it. They appear more significative in the upper region and to a certain extent it's true, but mainly this is due to the fact that the speed of sound there it's lower. Plotting the absolute velocity the difference is not so dramatic. An intresting question we will try to answer to is obviously to which extent these internal modes influence the dynamic of the boundary. \\
+In figure \ref{fig:2d001-LRps2} we plot the passive scalar initialized inside the upper region, which over time is entrained by convection. We clearly see the movement of the boundaries that over the $100000 s$ of simulated time move gradually upward and downward. Specifically in the upper case it starts at $\sim 6.2 \times 10^{6} cm $ and ends up at $\sim 8.0 \times 10^{6} cm$, for the lower case it starts at $\sim 3.7 \times 10^{6} cm$ and moves downwards to $\sim 3.1 \times 10^{6} cm$. \\
+In figure \ref{fig:2d0.7-0.01LR.bp} we plot some parameters relevant to our analysis. \\
+We show first of all the boundary position over time with its rms. The migration starts quiclky, but as soon as the bounrady rms stabilizes at $t=30000 s$ after some convective turnovers, it becomes overall linear. \\
+Second of all we plot in figure \ref{fig:2d0.7-0.01LR.turbmach} the accreted mass over time. As already mentioned we will perform a lagrangian study of entrainment, because it is impracticable to quantify how much of the boundary movement is due to the entrained mass or to the adiabatic expansion of the fluid. \\ We notice that also the entrainment rate stabilizes after the initial transition.
 \begin{figure}[t]
   \centering
-    \subfloat[Advection of passive scalar and convective boundary growth]{\includegraphics[width=0.5\textwidth]{./img/tempprofile}\label{fig:2d0.7-0.01LR.bp}}
+    \subfloat[Boundary position over time with standard deviation]{\includegraphics[width=0.5\textwidth]{./img/tempprofile}\label{fig:2d0.7-0.01LR.bp}}
       \hfill
-        \subfloat[Profile of the mach number over time]{\includegraphics[width=0.5\textwidth]{./img/tempprofile}\label{fig:2d0.7-0.01LR.turbmach}}
+        \subfloat[Entrained mass over time]{\includegraphics[width=0.5\textwidth]{./img/tempprofile}\label{fig:2d0.7-0.01LR.turbmach}}
+	\hfill
+  \centering
+    \subfloat[Bulk-richardson number over time]{\includegraphics[width=0.5\textwidth]{./img/tempprofile}\label{fig:2d0.7-0.01LR.bp}}
       \hfill
-        \subfloat[Profile of the mach number over time]{\includegraphics[width=0.5\textwidth]{./img/tempprofile}\label{fig:2d0.7-0.01LR.delb}}
-      \hfill
-        \subfloat[Profile of the mach number over time]{\includegraphics[width=0.5\textwidth]{./img/tempprofile}\label{fig:2d0.7-0.01LR.l}}
+        \subfloat[Turbulence standard deviation at the interface]{\includegraphics[width=0.5\textwidth]{./img/tempprofile}\label{fig:2d0.7-0.01LR.turbmach}}
 	\caption{prova caption}
   \end{figure}
   In figure \ref{fig:2d0.7-0.01LR.delb} we plot the buoyancy jump acros the interface. By looking at this it is clear that the resolution used in this run is the least we can use to resolve the system. As previously explained the $\Delta b$ is obtained by integrating the Brunt-Väsälä frequency over the boundary width (its rms), and we have to make sure that this is bigger than half of a cell, otherwise when discretized it goes down to zero. \\
