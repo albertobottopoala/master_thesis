@@ -62,6 +62,7 @@ Second of all we plot in figure \ref{fig:2d0.7-0.01LR.turbmach} the entrained ma
     \subfloat[Bulk-richardson number over time]{\includegraphics[width=0.5\textwidth]{./img/tempprofile}\label{fig:2d0.7-0.01LR.bp}}
       \hfill
         \subfloat[Turbulence standard deviation at the interface]{\includegraphics[width=0.5\textwidth]{./img/tempprofile}\label{fig:2d0.7-0.01LR.turbmach}}
+	  \label{2d001-LRps2}
 	\caption{prova caption}
   \end{figure}
   In figure \ref{fig:2d0.7-0.01LR.delb} we plot the turbulence standard deviation. As previously stated it is overall constant, with a slight trend to increase. This result has been obtained after extensive tests to correctly tune the heating function. As well as the turbulence standard deviation, also $\Delta b$ and $L$ oscillate significantly, making impracticable a differential study of the bulk-Richardson number over time.\\
@@ -78,5 +79,19 @@ For every 2D or 3D run we will extrapolate the relevant parameters and present i
  \end{center}
 
 \subsection{Resolution study}
+\begin{figure}[b!]
+  \centering
+    \subfloat[Boundary position over time with standard deviation]{\includegraphics[width=0.5\textwidth]{./img/tempprofile}\label{fig:2d0.7-0.01LR.bp}}
+      \hfill
+        \subfloat[Entrained mass over time]{\includegraphics[width=0.5\textwidth]{./img/tempprofile}\label{fig:2d0.7-0.01LR.turbmach}}
+	\hfill
+  \centering
+    \subfloat[Bulk-richardson number over time]{\includegraphics[width=0.5\textwidth]{./img/tempprofile}\label{fig:2d0.7-0.01LR.bp}}
+      \hfill
+        \subfloat[Turbulence standard deviation at the interface]{\includegraphics[width=0.5\textwidth]{./img/tempprofile}\label{fig:2d0.7-0.01LR.turbmach}}
+	  \label{differenttialmach}
+	\caption{prova caption}
+  \end{figure}
 In the last section we analyzed the run 2d0.10-0.80. What we will do in this section is to compare the previous results, with the ones obtained by running the same setup on smaller resolutions, in order to understand if we are properly resolving the system. \\
+The same setup was run on a $1024 \times 512$, $512 \times 256$ and $256 \times 128$ grid. As espected, the highest resolution run shows smaller and more refined turbulent structures in the convective region, while in the smallest run we observe less eddies but bigger (see figure \ref{fig:differentialmach}).
 \section{Differential study}
