@@ -6,7 +6,8 @@
 \section{Hydrodynamics}
 \subsection{Derivation of the Equations of Ideal Hydrodynamics}
 As all the most beautiful and successful laws of Physics, Hydrodynamics is derived from some conserved quantities. \\
-Let's consider for instance a monoatomic gas in a box. A fundamental assumption in ideal hydrodynamics is that the mean free path of particles is infinitesimal. Particles might be spatially equally distributed (like in a bottle) or might not (maybe because the box is so big that we get a stratification like in the atmosphere). Same concept holds for the velocity distribution, it might be Maxwellian or it might not be. 
+The following derivation of the equations of hydrodynamics, which are the foundation for our simulations, is inspired to the one presented by M. Bartelmann \cite{theoastro}. \\
+Let's consider for instance a monoatomic gas in a box. A fundamental assumption in ideal hydrodynamics is that the mean free path of particles is infinitesimal. Particles might be spatially equally distributed (like in a bottle) or might not (maybe because the box is so big that we get a density stratification like in the atmosphere). Same concept holds for the velocity distribution, it might be Maxwellian or it might not be. 
 In any case we can define the \textbf{distribution function in phase space} $f( \vec{x^{\mu}}, \vec{p^{\mu}})$ such that
 
 $$N=\int \ d^4x \ d^4p \ f( x^{\mu}, p^{\mu}) \  \delta_D[(p^0)^2-\vec{p}^2+m^2c^2] \  \Theta(p^0)$$ 
@@ -226,7 +227,7 @@ $$
 For instance we could imagine that a little region of a star is slightly hotter than the surroundings, hence we have in that region $DT > 0$. Note that because of the assumption we have made $DP=0$ always, because when these is a pressure spike, the gas expands at the sound velocity $c_s$ which is way higher than the low hydro regime we observe in stellar inertia.\\
 If we have a $DT>0$, since in a perfect gas the equation of state reads $\rho \sim P/T$, we obtain $D \rho < 0$. With a lower density, that mass element will be lifted by buoyancy force. In a non adiabatic workframe it might happen that heat is exchanged so quickly that temperature differences vanish immediately, but we assumed adiabatic processes. The question we are trying to answer is if the mass element, after a little upward movement, will still be buoyant and give rise to macroscopic convection, or if it will bounce back. The answer lyes obviously in the temperature gradient, i. e. if once lifted of a little bit the new $DT$ will still be in favor to buoy it to the next layer, and so on. \\
 Let's approach the problem from another point of view. Let's assume that we have a stable layer without perturbations, and we lift a mass element upward of $\Delta r$. The density difference now is
-\begin{equation}\label{displacement}
+\begin{equation}\label{eq:displacement}
 D \rho = \left [  \left( \frac{d \rho}{d r} \right)_e - \left( \frac{d \rho}{d r} \right)_s   \right ] \Delta r
 \end{equation}
 where the first derivative tells us how much the density of the mass element changes when lifted, the second one tells us how the surrounding density changes along the radial direction. \\
@@ -236,7 +237,7 @@ f_b=- g \ D \rho
 $$
 which points upward if $D \rho < 0$, which is the unstable configuration. If instead $D \rho > 0$ the mass element sinks back to its original position and no macroscopic motion appears. As a consequence $D \rho<0$ is our \textbf{condition for stability}.\\
 The problem with this criterion is that very often the density gradient is not known, since it does not appear in the fundamental equations for stellar structure. In order to proceed let's turn our gradient in spacial coordinate into a gradient in thermodynamic coordinates. As previously stated, our transformations are adiabatic, hence no exchange of energy occurs. This is very close to reality for stellar inertia. To begin let's write down the equation of state $\rho = \rho (P, T, \mu)$ in a differential form
-\begin{equation}\label{EoSdiff}
+\begin{equation}\label{eq:EoSdiff}
 	\frac{d \rho}{\rho} = \alpha \frac{d P}{P} - \delta \frac{d T}{T} + \phi \frac{d \mu}{\mu}
 \end{equation}
 where $d \mu$ represents the change in the chemical composition, including ionization processes. \\
@@ -345,7 +346,7 @@ Let's furthermore define the \textbf{entrainment coefficient} $E$ as the boundar
 Where $A$ and $n$ are coefficients that need to be determined, and this will be the primary goal of our simulations.\\
 In a Lagrangian workframe this transforms to
 \begin{equation}
-	\dot{M}_E=\frac{\partial M}{\partial r} u_E
+	\dot{M}_\mathrm{E}=\frac{\partial M}{\partial r} u_E
 \end{equation}
-If this relation is proven to be true, it would be possible to know the boundary migration speed $u_b$ given only $L$, $\Delta b$ and $\sigma$, and consequentially map this phenomenon into 1D stellar models. In the hope that these two free parameters exist and are universal (i. e. not system-, code- or resolution-dependent), the goal of this work is to determine them.
+If this relation is proven to be true, it would be possible to know the boundary migration speed $u_b$ or the mass entrainment rate $\dot{M}_\mathrm{E}$ given only $L$, $\Delta b$ and $\sigma$, and consequentially map this phenomenon into 1D stellar models. In the hope that these two free parameters exist and are universal (i. e. not system-, code- or resolution-dependent), the goal of this work is to determine them.
 
