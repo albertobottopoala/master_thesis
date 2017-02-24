@@ -43,36 +43,38 @@ We run in 2D on a $2048 \times 1024$ uniform Cartesian grid. It is worth remarki
  %%%%%%%
  % divisione figure %
  %%%%%%%
-\begin{figure}[t]
+
+Let's consider the setup 2d0.1-0.80. \\
+Convection starts at around $t \sim 7000 s$. Because of the already mentioned implicit time stepping, the lower the mach number, the bigger the time step, allowing us to save a huge amount of computational resources before the rise of convection. A remarkable difference is also observed in the convective regime, as long as the mach number is below $10 \%$, which has always been our case.\\
+\begin{figure}[t!]
   \centering
     \subfloat[Bulk-Richardson number over time.]{\includegraphics[width=0.5\textwidth]{./img/bulk.pdf}\label{fig:bulk}}
       \hfill
-        \subfloat[Entrained mass over time.]{\includegraphics[width=0.5\textwidth]{./img/ent.pdf}\label{fig:2d0.7-0.01LR.ent}}
+        \subfloat[Entrained mass over time.]{\includegraphics[width=0.5\textwidth]{./img/ent.pdf}\label{fig:ent}}
 	\hfill
   \centering
     \subfloat[Turbulence standard deviation over time.]{\includegraphics[width=0.5\textwidth]{./img/sigt.pdf}\label{fig:sigt}}
       \hfill
-        \subfloat[Turbulence length scale over time.]{\includegraphics[width=0.5\textwidth]{./img/len.pdf}\label{fig:2d0.7-0.01LR.turbmach}}
+        \subfloat[Turbulence length scale over time.]{\includegraphics[width=0.5\textwidth]{./img/len.pdf}\label{fig:len}}
 	\hfill
   \centering
-    \subfloat[Buoyancy jump over time.]{\includegraphics[width=0.5\textwidth]{./img/delb.pdf}\label{fig:2d0.7-0.01LR.bp}}
+    \subfloat[Buoyancy jump over time.]{\includegraphics[width=0.5\textwidth]{./img/delb.pdf}\label{fig:delb}}
       \hfill
-        \subfloat[Bounday position and width over time.]{\includegraphics[width=0.5\textwidth]{./img/boundpos.pdf}\label{fig:2d0.7-0.01LR.turbmach}}
-	\caption{Plots of the relevant parameters for our analysis over time.}
+        \subfloat[Bounday position and width over time. Shaded regions represent the boundary thickness.]{\includegraphics[width=0.5\textwidth]{./img/boundpos.pdf}\label{fig:boundpos}}
+	\caption{Plots of the relevant parameters for our analysis over time. Blue lines represent the upper boundary, green lines the lower boundary.}
 	  \label{fig:2dsingle}
   \end{figure}
-
-Let's consider the setup 2d0.1-0.80. \\
-Convection starts at around $t \sim 7000 s$. Because of the already mentioned implicit time stepping, the lower the mach number, the bigger the time step, allowing us to save a huge amount of computational resources before the rise of convection. A remarkable difference is also observed in the convective regime, as long as the mach number is below $10 \%$, which has always been our case.\\
-In figure \ref{fig:2d001-LRmach} we plot the profile of the mach number over the simulated time. this is what one would expect, with two remarks that need to be done. \\
+In figure \ref{fig:2d001-LRmach} we plot the profile of the mach number over the simulated time. This is what one would expect, with two remarks that need to be done. \\
 First of all the mach number is stable over time, thanks to the heating function that we implemented, featuring a decrease of heat generation as previously explained. \\
-Second of all it is clear that some internal modes are excited by the convective blobs when they hit the stable layers and they propagate through it. They appear more significative in the upper region and to a certain extent it's true, but mainly this is due to the fact that the speed of sound there it's lower. Plotting the absolute velocity the difference is not so dramatic. Two intresting questions that remain without answer. First of all it is impossible to tell to which extent the dynamic of the boundary is influenced by these modes. Second of all it is possible that the chemical mixing due to these modes in the stable stratification might have a significant impact on the evolution of a star, which is obviously not considered in 1-D simulations.\\
-In figure \ref{fig:2dsingle} we plot the passive scalar initialized inside the upper region, which over time is entrained by convection. We clearly see the movement of the boundaries that over the $60000 s$ of simulated time move gradually upward and downward. Specifically in the upper case it starts in the middle of the simulated region and ends up at $\sim 8.0 \times 10^{6} cm$, for the lower case it starts at $\sim 3.7 \times 10^{6} cm$ and moves downwards toin the middle of the simulated region \\
+Second of all it is clear that some internal modes are excited by the convective blobs when they hit the stable layers and they propagate through it. They appear more significant in the upper region and to a certain extent it's true, but mainly this is due to the fact that the speed of sound there it's lower. Plotting the absolute velocity the difference is not so dramatic. Two interesting questions remain without answer. First of all it is impossible to tell to which extent the dynamic of the boundary is influenced by these modes. Second of all it is possible that the chemical mixing due to these modes in the stable stratification might have a significant impact on the evolution of a star, which is obviously not considered in 1-D simulations.\\
+In figure \ref{fig:2dsingle} we plot the passive scalar initialized inside the upper region, which over time is entrained by convection. We clearly see the movement of the boundaries that over the $60000 s$ of simulated time move gradually upward and downward. Specifically in the upper case it starts in the middle of the simulated region and ends up at $\sim 7.0 \times 10^{6} cm$, for the lower case it starts at $\sim 3.7 \times 10^{6} cm$ and moves downwards to the middle of the simulated region \\
 In figure \ref{fig:2dsingle} we plot some parameters relevant to our analysis. \\
-We show first of all the bulk-Richardson number over time. At around $t=\mathrm{300 \ min}$, when the entrainment becomes linear, the bulk-Richardson number still oscillates over half an order of magnitude. This obviously deeply affects our data analysis, making necessary a large amount of runs to collect as more data as possible. This also makes impracticable a differential study of the entrainment over time. \\
+We show first of all the bulk-Richardson number over time. Blue lines represent the upper boundary, green lines lower boundary. At around $t=\mathrm{300 \ min}$, when the entrainment becomes linear, the bulk-Richardson number still oscillates over half an order of magnitude. This obviously deeply affects our data analysis, making necessary a large amount of runs to collect as more data as possible. This also makes impracticable a differential study of the entrainment over time. \\
 Second of all we plot in figure \ref{fig:ent} the entrained mass over time. As already mentioned we will perform a lagrangian study of entrainment, because it is impracticable to quantify how much of the boundary movement is due to the entrained mass or to the adiabatic expansion of the fluid. We notice that also the entrainment rate stabilizes after the initial transition. \\
   In figure \ref{fig:sigt} we plot the turbulence standard deviation over time. It is overall constant, with a slight trend to increase. This result has been obtained after extensive tests to correctly tune the heating function.\\
-At last we plot in figure \ref{fig:2d0.7-0.01LR.l} the bulk-Richardson number over time.\\
+  In figure \ref{fig:len} we plot the turbulent length scale $L$ over time. In this case we only calculated $L$ at the center of the convective layer, so this value will be used both for the upper and lower boundary analysis. The length scale at the interfaces has a value which is overall comparable, but it is affected by some spikes, reason for which we decided to calculate it in a fully convective region.\\ 
+  The last ingredient of the bulk-Richardson number is the buoyancy jump $\Delta b$, that we plot in figure \ref{fig:delb}. In both cases there is an increasing trend, more significant in the lower boundary. This plot shows one of the biggest challenges of running simulation to study differentially the bulk-Richardson number: it is extremely hard to obtain a run where all the parameters ($\Delta b$, $L$, $\sigma_t$ and $M_{\mathrm{E}}$) are constant over time. One finds hence itself in the inconvenient situation of having to average over values that span a full order of magnitude with a strong increasing or decreasing trend, and the quality of the analysis is consequentially affected by this uncertainty.\\
+For completeness we plot in \ref{fig:boundpos} the boundary position over time. As previously mentioned an Eulerian study is impracticable, because it is hard to quantify how much of the boundary migration in an Eulerian frame is due to the entrainment and how much due to the adiabatic expansion of the fluid. Nevertheless we would like to point out that, once the entrainment rate stabilizes at $t=300 \ \mathrm{min}$, the boundary thickness is also overall stable in both the upper and lower case. \\
 For every 2D or 3D run we will extrapolate the relevant parameters and present them in the following layout
 \begin{center}
  \begin{tabular}{l|c|c|c|c|c}
@@ -87,14 +89,14 @@ For every 2D or 3D run we will extrapolate the relevant parameters and present t
 \subsection{Resolution study}
 \begin{figure}[b!]
   \centering
-    \subfloat[Mach number profile for the $2048 \times 1024$ run.]{\includegraphics[width=0.5\textwidth]{./img/tempprofile}}
-      \hfill
+  \subfloat[Mach number profile for the $2048 \times 1024$ run.]{\includegraphics[width=1.0\textwidth]{./img/machhighres.pdf}}
   \centering
-    \subfloat[Mach number profile for the $512 \times 256$ run.]{\includegraphics[width=0.5\textwidth]{./img/tempprofile}}
       \hfill
+    \subfloat[Mach number profile for the $512 \times 256$ run.]{\includegraphics[width=1.0\textwidth]{./img/machlowres.pdf}}
 	\caption{Turbulent structures at different resolutions}
     \label{fig:differentialmach}
-  \end{figure}
+ \end{figure}
+
 In the last section we analyzed the run 2d0.10-0.80. What we will do in this section is to compare the previous results with the ones obtained by running the same setup on smaller resolutions, in order to understand if we are properly resolving the system. \\
 The same setup was run on a $1024 \times 512$ and $512 \times 256$. As espected, the highest resolution run shows smaller and more refined turbulent structures in the convective region, while in the smallest run we observe less eddies but of bigger size (see figure \ref{fig:differentialmach}).\\
 As previously found by Woodward \textit{et al.} 2016 \cite{woodward} the enhanced the resolution, the lower the entrainment rate, with 
