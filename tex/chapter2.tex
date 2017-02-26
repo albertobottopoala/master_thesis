@@ -328,9 +328,15 @@ Although the mixing length theory has been used extensively in 1D stellar evolut
 So far we got to the point where we have a convective layer and a stable layer above or beneath it. What happens over time is that the convective boundary entrains mass from the stable layer by ingestion, because turbulent eddies capture stable fluid that is consequentially dragged and entrained in the turbulent layer. A fundamental problem in stellar evolution is to understand the dynamics of this boundary: which is its velocity (if we are in an eulerian workframe), or how much mass from the stable layer is entrained in unit time (in a lagrangian workframe).\\
 One of the methods used to model the migration is the \textbf{bulk-Richardson number}
 \begin{equation}\label{bulkrichardson}
-	\mathrm{Ri}_{B}=\frac{\Delta b L}{\sigma^2}
+	\mathrm{Ri}_{B}=\frac{\Delta b L}{\sigma_t^2}
 \end{equation}
-which is a dimensionelss parameter that compares the strenth of the boundary to the one of the turbulence. $L$ is the length scale of the turbulence (which is of course model dependent), $\sigma$ is the standard deviation of its velocity, $\Delta b$ is the buoyancy jump between unstable and stable layer. This is defined by considering the \textbf{Brunt-Väisääla frequency} 
+which is a dimensionless parameter that compares the strength of the boundary to the one of the turbulence. $L$ is the length scale of the turbulence (which is definition dependent), $\sigma_t$ is the standard deviation of its velocity, $\Delta b$ is the so called buoyancy jump between unstable and stable layer.\\
+In our case we define the length scale of the turbulence $L$ as follows. Let's consider the autocorrelation function 
+\begin{equation}\label{correlation}
+	a(\Delta r)= \langle f(r) f(r + \Delta r) \rangle
+\end{equation}
+where the brackets mean average over all possible $r$, but at fixed correlation length $\Delta r$. Recall that such a function always has a maximum for $\Delta r=0$, (because every function $f$ is perfectly equal to itself), then $a(\Delta r)$ decreases with increasing $\Delta r$ (because $f(r+\Delta r)$ resembles less and less $f(r)$ as $\Delta r$ increases). If $f$ is periodic with period $T$, then the autocorrelation function $a$ has maximum with periodicity $T$. In order to define $L$ we autocorrelate the mach number in the horizontal direction of the convective region and take the length at which $a$ drops to a half of its maximum, i.e. $a(L)/a(0)=0.5$.\\
+The buoyancy jump is defined by considering the \textbf{Brunt-Väisääla frequency} 
 \begin{equation}
 	N^2(r)=-g \left (  \frac{\partial \ln \rho}{\partial r} -  \frac{\partial \ln \rho}{\partial r} \Big|_{s}  \right )
 \end{equation}
@@ -338,7 +344,7 @@ and integrating it over the boundary
 \begin{equation}
 	\Delta b = \int_{r_i}^{r_f} N^2 dr
 \end{equation}
-Of course we need a proper definition of the boundary limits $r_i$ and $r_f$, hence also $\Delta b$ is model dependent. \\
+Of course we need a proper definition of the boundary limits $r_i$ and $r_f$. In our case we defined them by initializing a passive scalar in the convective region, which is over time advected in the unstable layer. By looking at gradient of the concentration of the passive scalar in the vertical direction, one notices two spikes, which represent the boundary positions at given $\mathrm{x}$. By averaging over $\mathrm{x}$ and by computing the standard deviation, we are able to define the boundary positions and their width.\\
 Let's furthermore define the \textbf{entrainment coefficient} $E$ as the boundary migration speed $u_b$ over the turbulence standard deviation $\sigma$. Previous works have found that
 \begin{equation}
 	E=A \mathrm{Ri}_{B}^{-n}
@@ -348,5 +354,5 @@ In a Lagrangian workframe this transforms to
 \begin{equation}
 	\dot{M}_\mathrm{E}=\frac{\partial M}{\partial r} u_E
 \end{equation}
-If this relation is proven to be true, it would be possible to know the boundary migration speed $u_b$ or the mass entrainment rate $\dot{M}_\mathrm{E}$ given only $L$, $\Delta b$ and $\sigma$, and consequentially map this phenomenon into 1D stellar models. In the hope that these two free parameters exist and are universal (i. e. not system-, code- or resolution-dependent), the goal of this work is to determine them.
+If this relation is proven to be true, it would be possible to know the boundary migration speed $u_b$ or the mass entrainment rate $\dot{M}_\mathrm{E}$ given only $L$, $\Delta b$ and $\sigma_t$, and consequentially map this phenomenon into 1D stellar models. In the hope that these two free parameters exist and are universal (i. e. not system-, code- or resolution-dependent), the goal of this work is to determine them and to test their universality.
 
