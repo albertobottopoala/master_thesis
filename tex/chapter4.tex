@@ -105,16 +105,32 @@ For every 2D or 3D run we will extrapolate the relevant parameters and present t
 \subsection{Resolution study}
 \begin{figure}[b!]
   \centering
-  \subfloat[Mach number profile for the $2048 \times 1024$ run.]{\includegraphics[width=1.0\textwidth]{./img/machhighres.pdf}}
+  \subfloat[Mach number profile for the $2048 \times 1024$ run.]{\includegraphics[width=10cm]{./img/machhighres.pdf}}
   \centering
       \hfill
-    \subfloat[Mach number profile for the $512 \times 256$ run.]{\includegraphics[width=1.0\textwidth]{./img/machlowres.pdf}}
+    \subfloat[Mach number profile for the $512 \times 256$ run.]{\includegraphics[width=10cm]{./img/machlowres.pdf}}
 	\caption{Turbulent structures at different resolutions}
     \label{fig:differentialmach}
  \end{figure}
 
 In the last section we analyzed the run 2d0.10-0.80. What we will do in this section is to compare the previous results with the ones obtained by running the same setup on smaller resolutions, in order to understand if we are properly resolving the system. \\
 The same setup was run on a $1024 \times 512$ and $512 \times 256$. As espected, the highest resolution run shows smaller and more refined turbulent structures in the convective region, while in the smallest run we observe less eddies but of bigger size (see figure \ref{fig:differentialmach}).\\
+We hereby report the parameters
+\begin{center}
+ \begin{tabular}{l|c|c}
+	 Run &2d0.7-0.01U&2d0.7-0.01L\\
+	  	\hline
+	   $\Delta b$ $(\mathrm{cm/s^{2}})$&$ 9.88 \pm 2.16 $&$18.62 \pm 6.33$\\
+		\hline
+	   $\sigma_t$ $(\mathrm{cm/s})$ &$ 1127 \pm 169 $&$1185 \pm 231$\\
+		\hline
+	   $L$ $(\mathrm{cm})$&$(5.47 \pm 1.32) \times 10^5$&$(5.47 \pm 1.32) \times 10^5$\\
+		\hline
+	   $Ri_{\mathrm{B}}$& $4.487 \pm 1.946 $&$7.268 \pm 2.537$\\
+		\hline
+	   $\dot{M}_{\mathrm{exp}}$ $(\mathrm{g/s})$ &$(1.338 \pm 0.012) \times 10^9$&$(9.182 \pm 0.024) \times 10^8$\\
+      \end{tabular}
+ \end{center}
 As previously found by Woodward \textit{et al.} 2016 \cite{woodward} the enhanced the resolution, the lower the entrainment rate, with 
 
 \section{Differential study}
