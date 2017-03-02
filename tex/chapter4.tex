@@ -83,6 +83,13 @@ Second of all we plot in figure \ref{fig:ent} the entrained mass over time. As a
   In figure \ref{fig:sigt} we plot the turbulence standard deviation over time. It is overall constant, with a slight trend to increase. This result has been obtained after extensive tests to correctly tune the heating function.\\
   In figure \ref{fig:len} we plot the turbulent length scale $L$ over time. In this case we only calculated $L$ at the center of the convective layer, so this value will be used both for the upper and lower boundary analysis. The length scale at the interfaces has a value which is overall comparable, but it is affected by some spikes, reason for which we decided to calculate it in a fully convective region.\\ 
   The last ingredient of the bulk-Richardson number is the buoyancy jump $\Delta b$, that we plot in figure \ref{fig:delb}. In both cases there is an increasing trend, more significant in the lower boundary. This plot shows one of the biggest challenges of running simulation to study differentially the bulk-Richardson number: it is extremely hard to obtain a run where all the parameters ($\Delta b$, $L$, $\sigma_t$ and $M_{\mathrm{E}}$) are constant over time. One finds hence itself in the inconvenient situation of having to average over values that span a full order of magnitude with a strong increasing or decreasing trend, and the quality of the analysis is consequentially affected by this uncertainty.\\
+ \begin{figure}[t!]
+\centering
+\includegraphics[width=0.5\textwidth]{./img/brunt}
+\caption{Horizontal average of the Brunt-Väisälä frequency at about $t=500 \ \mathrm{min}$.}
+\label{fig:brunt}
+\centering
+\end{figure}
 For completeness we plot in \ref{fig:boundpos} the boundary position over time. As previously mentioned an Eulerian study is impracticable for this phenomenon, because it is hard to quantify how much of the boundary migration in an Eulerian frame is due to the entrainment and how much due to the adiabatic expansion of the fluid. Nevertheless we would like to point out that, once the entrainment rate stabilizes at $t=300 \ \mathrm{min}$, the boundary thickness is also overall stable in both the upper and lower case. \\
 For every 2D or 3D run we will extrapolate the relevant parameters and present them in the following layout
 \begin{center}
@@ -97,10 +104,12 @@ For every 2D or 3D run we will extrapolate the relevant parameters and present t
 		\hline
 	   $Ri_{\mathrm{B}}$& $4.487 \pm 1.946 $&$7.268 \pm 2.537$\\
 		\hline
-	   $\dot{M}_{\mathrm{exp}}$ $(\mathrm{g/s})$ &$(1.338 \pm 0.012) \times 10^9$&$(9.182 \pm 0.024) \times 10^8$\\
+	   $\dot{M}_{\mathrm{ent}}$ $(\mathrm{g/s})$ &$(1.338 \pm 0.012) \times 10^9$&$(9.182 \pm 0.024) \times 10^8$\\
       \end{tabular}
  \end{center}
- Where the U at the end of the run name stands for upper boundary, and the L for lower boundary.
+ Where the U at the end of the run name stands for upper boundary, and the L for lower boundary. \\
+ Notice that the lower boundary is stiffer than the upper one (the buoyancy jump is higher) even if in the initial setup the Brunt-Väisälä frequency is the same for the two stable regions. Looking at figure \ref{fig:brunt} it is cleas that at the convective boundaries a spike arises during the simulation in the Brunt-Väisälä frequency, and in the lower case it is more pronounced. Obviously when integrated over the interface, this gives rise to a bigger buoyancy jump.
+
 
 \subsection{Resolution study}
 \begin{figure}[b!]
@@ -109,28 +118,46 @@ For every 2D or 3D run we will extrapolate the relevant parameters and present t
   \centering
       \hfill
     \subfloat[Mach number profile for the $512 \times 256$ run.]{\includegraphics[width=10cm]{./img/machlowres.pdf}}
-	\caption{Turbulent structures at different resolutions}
+    \caption{Turbulent structures at different resolutions at about $t=500 \ \mathrm{min}$.}
     \label{fig:differentialmach}
  \end{figure}
 
-In the last section we analyzed the run 2d0.10-0.80. What we will do in this section is to compare the previous results with the ones obtained by running the same setup on smaller resolutions, in order to understand if we are properly resolving the system. \\
-The same setup was run on a $1024 \times 512$ and $512 \times 256$. As espected, the highest resolution run shows smaller and more refined turbulent structures in the convective region, while in the smallest run we observe less eddies but of bigger size (see figure \ref{fig:differentialmach}).\\
-We hereby report the parameters
+In the last section we analysed the run 2d0.10-0.80. What we will do in this section is to compare the previous results with the ones obtained by running the same setup on smaller resolutions, in order to understand if we are properly resolving the system. \\
+The same setup was run on a $1024 \times 512$ and $512 \times 256$. As expected, the highest resolution run shows smaller and more refined turbulent structures in the convective region, while in the smallest run we observe less eddies but of bigger size (see figure \ref{fig:differentialmach}).\\
+We report in the following table the relevant parameters of the upper boundary for the different resolution runs. We observe that all the parameters are overall constant, within a $10 \%$ oscillation range. Woodward \textit{et al.} \cite{woodward} found that the entrainment rate decreases exponentially with the enhancement of the resolution, before converging to the physical value. In our case we observe a constant entrainment (with a slight increasing trend, we presume due to second order phenomena), and hence we can safely assume that even in the lowest resolution case we are properly resolving the system. One could still point out that the convergence reached in a 2D setup does not imply a convergence in 3D, but being 3D simulations computationally so expensive, it is impracticable for us to test this hypothesis.
 \begin{center}
- \begin{tabular}{l|c|c}
-	 Run &2d0.7-0.01U&2d0.7-0.01L\\
+ \begin{tabular}{l|c|c|c}
+	 Run &$2048 \times 1024$ U& $1024  \times 512$ U& $512 \times 256$ U\\
 	  	\hline
-	   $\Delta b$ $(\mathrm{cm/s^{2}})$&$ 9.88 \pm 2.16 $&$18.62 \pm 6.33$\\
+		$\Delta b$ $(\mathrm{cm/s^{2}})$ & $ 8.07 \pm 3.54 $ & $8.18 \pm 1.16$ & $8.28 \pm 0.53$\\
 		\hline
-	   $\sigma_t$ $(\mathrm{cm/s})$ &$ 1127 \pm 169 $&$1185 \pm 231$\\
+		$\sigma_t$ $(\mathrm{cm/s})$ & $ 1118 \pm 202 $ & $1082 \pm 227$ & $1277 \pm 81$\\
 		\hline
-	   $L$ $(\mathrm{cm})$&$(5.47 \pm 1.32) \times 10^5$&$(5.47 \pm 1.32) \times 10^5$\\
+		$L$ $(\mathrm{cm})$&$(10.88 \pm 2.56) \times 10^5$ & $(11.23 \pm 2.52) \times 10^5$ & $(13.10 \pm 1.07) \times 10^5$\\
 		\hline
-	   $Ri_{\mathrm{B}}$& $4.487 \pm 1.946 $&$7.268 \pm 2.537$\\
+		$Ri_{\mathrm{B}}$& $8.074 \pm 3.543 $ & $8.495 \pm 3.324 $ & $6.773 \pm 1.277$\\
 		\hline
-	   $\dot{M}_{\mathrm{exp}}$ $(\mathrm{g/s})$ &$(1.338 \pm 0.012) \times 10^9$&$(9.182 \pm 0.024) \times 10^8$\\
+		$\dot{M}_{\mathrm{ent}}$ $(\mathrm{g/s})$ &$(1.287 \pm 0.006) \times 10^9$&$(1.192 \pm 0.013) \times 10^9$ & $(1.132 \pm 0.011) \times 10^9$\\
       \end{tabular}
  \end{center}
-As previously found by Woodward \textit{et al.} 2016 \cite{woodward} the enhanced the resolution, the lower the entrainment rate, with 
+Even in the lower boundary all the parameters oscillate within a $10 \%$ range.
+\begin{center}
+ \begin{tabular}{l|c|c|c}
+	 Run &$2048 \times 1024$ L& $1024  \times 512$ L& $512 \times 256$ L\\
+	  	\hline
+		$\Delta b$ $(\mathrm{cm/s^{2}})$ & $ 8.07 \pm 3.54 $ & $8.18 \pm 1.16$ & $8.28 \pm 0.53$\\
+		\hline
+		$\sigma_t$ $(\mathrm{cm/s})$ & $ 1118 \pm 202 $ & $1082 \pm 227$ & $1277 \pm 81$\\
+		\hline
+		$L$ $(\mathrm{cm})$&$(10.88 \pm 2.56) \times 10^5$ & $(11.23 \pm 2.52) \times 10^5$ & $(13.10 \pm 1.07) \times 10^5$\\
+		\hline
+		$Ri_{\mathrm{B}}$& $8.074 \pm 3.543 $ & $8.495 \pm 3.324 $ & $6.773 \pm 1.277$\\
+		\hline
+		$\dot{M}_{\mathrm{ent}}$ $(\mathrm{g/s})$ &$(1.287 \pm 0.006) \times 10^9$&$(1.192 \pm 0.013) \times 10^9$ & $(1.132 \pm 0.011) \times 10^9$\\
+      \end{tabular}
+ \end{center}
+
+
+
 
 \section{Differential study}
