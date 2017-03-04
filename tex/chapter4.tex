@@ -7,7 +7,7 @@ Furthermore SLH implements a general equation of state, a nuclear reaction netwo
 Over the years SHL has undergone several scaling tests, the most remarkable of which at the Jülich Supercomputing Center (JSC) in 2016 where it scaled over all the $458752$ cores of \textit{JUQUEEN} (a Blue Gene machine, currently the last generation of IBM supercomputers).
 
 \section{Finite Volume Discretization}
-In order to discretize the physical domain we employ a set of curvilinear coordinates $\xi, \eta, \zeta$. This set is partitioned by a regular, equidistant grid wich $N_{\xi} \times N_{\eta} \times N_{\zeta}$ cells. Without loss of generality, we define the domani extent such that
+In order to discretize the physical domain we employ a set of curvilinear coordinates $\xi, \eta, \zeta$. This set is partitioned by a regular, equidistant grid which $N_{\xi} \times N_{\eta} \times N_{\zeta}$ cells. Without loss of generality, we define the domain extent such that
 \begin{equation}
 \begin{split}
 \xi \in [1/2, N_{\xi} + 1/2] \\
@@ -17,19 +17,50 @@ In order to discretize the physical domain we employ a set of curvilinear coordi
 \end{equation}
 We are hence here imposing that the cells volume is constant, i.e. $\Delta \xi = \Delta \eta = \Delta \zeta = 1$ in order to simplify some calculations. This might in general not be the case, since SLH allows the user to call a general curvilinear grid. In this particular case integer values of coordinates refer to cell centers, half integer to cell faces, e.g. by $(\xi, \eta, \zeta) = (i, j + 1/2, k)$ we refer to the interface at the right-hand side of cell $(i, j, k)$.
 
-Both for analytic and numerical study of Euler equations, it is useful to wirk in a dimensionless workframe. This is achieved by decomposing state variables into two parts, namely a reference value (denoted with an r) and a dimensionless number (denoted with a hat), e.g. $\rho = \rho_r \cdot \hat{\rho}$. This leads to a state vector 
+Both for analytic and numerical study of Euler equations, it is useful to switch to a dimensionless workframe. This is achieved by decomposing state variables into two parts, namely a reference value (denoted with an $r$) and a dimensionless number (denoted with a hat), e.g. $\rho = \rho_r \cdot \hat{\rho}$. This leads to a state vector 
 \begin{equation}
 \frac{\partial \mathbf{\hat{U}}}{\partial \hat{t}} + \frac{\partial \mathbf{\hat{F}}_x}{\partial \hat{x}} + \frac{\partial \mathbf{\hat{F}}_y}{\partial \hat{y}} + \frac{\partial \mathbf{\hat{F}}_z}{\partial \hat{z}} = \mathbf{\hat{S}}
 \end{equation}
 where the quantities $\mathbf{\hat{U}}$, $\mathbf{\hat{F}}_x$, $\mathbf{\hat{F}}_y$ and $\mathbf{\hat{F}}_z$ are defined by the stress-energy tensor as discussed in the previous chapter. From now on for simplicity we will drop the hat notation. We discretize \textit{in space} Euler equation as 
 \begin{equation}
-J^{-1}\frac{\partial \mathbf{U}}{\partial t} + \nabla_{\xi, \eta, \zeta} \cdot \mathbf{F} = j^{-1} \mathbf{S}
+J^{-1}\frac{\partial \mathbf{U}}{\partial t} + \nabla_{\xi, \eta, \zeta} \cdot \mathbf{F} = J^{-1} \mathbf{S}
 \end{equation}
-where $J$ is the determinant of the jacobian of the transformation from the physical domain to the computational grid.
+where $J$ is the determinant of the Jacobian of the transformation from the physical domain to the computational grid.
 
-Theese equations are integrated over the volume $\Omega_{i, j, k} = \Delta \xi \times \Delta \eta \times \Delta \zeta $ of the cell $(i, j, k)$, which in our assumptions is constant for every cell (differentially $d \Omega = d \xi \times d \eta \times d \zeta$) of the cell $(i, j, k)$.
-\section{Esplicit vs. Implicit Time Stepping}
+These equations are integrated over the volume $\Omega_{i, j, k} = \Delta \xi \times \Delta \eta \times \Delta \zeta $ of the cell $(i, j, k)$, which in our assumptions is constant for every cell (differentially $d \Omega = d \xi \times d \eta \times d \zeta$) of the cell $(i, j, k)$.
+\begin{equation}
+	\int_{\Omega_{i, j, k}} J^{-1} \frac{\partial \mathbf{U}}{\partial t} d \Omega + \int_{\Omega_{i, j, k}} \nabla_{\xi \eta \zeta} \cdot \mathbf{F} d\Omega = \int_{\Omega_{i, j, k}} J^{-1} \mathbf{S} d \Omega
+\end{equation}
 
+By exchanging the derivatives with the integrals, it is clear that these are nothing but the average of the conserved quantities in the cell times the volume of it. We may therefore introduce some new cell-averaged quantities such as 
+\begin{equation}
+\mathbf{U}_{i, j, k} = \int_{\Omega_{i, j, k}} J^{-1} \mathbf{U} d \Omega \qquad \mathbf{S}_{i, j, k} = \int_{\Omega_{i, j, k}} J^{-1} \mathbf{S} d \Omega
+\end{equation}
+In addition to this, we can apply Gauss theorem on the second term on the self-hand side and obtain the following expression
+\begin{equation}
+	\frac{\partial \mathbf{U}_{i, j, k}}{\partial t} + \frac{1}{V_{i, j, k}} \oint_{\partial \Omega} \mathbf{F} \cdot d \mathbf{s} = \mathbf{S}_{i, j, k}
+\end{equation}
+If we suppose to know the integral fluxes through the six interfaces, we can further decompose the second term into six numerical fluxes as follows
+\begin{equation}
+\begin{split}
+	\mathbf{F}_{i+ 1/2, j, k} = \oint_{\partial \Omega_{(i + 1/2, j, k)}} \mathbf{F}_{\xi} d \xi \\
+	\mathbf{F}_{i, j + 1/2, k} = \oint_{\partial \Omega_{(i , j + 1/2, k)}} \mathbf{F}_{\eta} d \eta \\
+	\mathbf{F}_{i, j, k + 1/2} = \oint_{\partial \Omega_{(i , j, k + 1/2)}} \mathbf{F}_{\zeta} d \zeta \\
+\end{split}
+\end{equation}
+This allows us to write down the discretized Euler equations as 
 
+\begin{equation}
+\begin{split}
+	\frac{\partial \mathbf{U}_{i, j, k}}{\partial t} + \frac{1}{V_{i, j, k}} ( & \mathbf{F}_{i + 1/2, j, k} + \mathbf{F}_{i - 1/2, j, k} +\mathbf{F}_{i , j + 1/2, k} + \\
+	& \mathbf{F}_{i , j - 1/2, k} +  \mathbf{F}_{i , j, k + 1/2} + \mathbf{F}_{i , j, k - 1/2}) = \mathbf{S}_{i, j, k}
+\end{split}
+\end{equation}
+What is stored in the memory are the cell-averaged quantities. Their value changes only by numerical fluxes from the neighbor cells or by source terms. This implies that, if there are no source terms, the sum of cell-averaged variables cannot change. In this way, the finite volume discretization perfectly reflects the conservative nature of Hydrodynamic. We would like to underline that the numerical fluxes still remain unknown, and should be reconstructed for the cell $(i, j, k)$ from the surrounding cells. In addition to that, what we performed was a \textit{partial discretization}, since in time we still have a continuous time derivative and no finite difference. This method, through which we discretize first the spatial dimension and then separately the temporal one, is known as \textbf{method of lines}. It is a very effective method to reduce partial differential equations to a set of coupled ordinary differential equations such as
+\begin{equation}
+	\frac{\partial \mathbf{U}_{i, j, k}}{\partial t} + \mathbf{R}_{i, j, k}=0
+\end{equation}
+where the vector $\mathbf{R}_{i, j, k}$ is known as \textit{spatial residual} of the cell $(i, j, k)$. As previously mentioned, this is a function with the numerical fluxes of the surrounding cells, and suitable numerical methods are needed in order to correctly compute them. 
+\section{Explicit vs. Implicit Time Stepping}
 \section{Newton-Raphson Method}
 
