@@ -29,10 +29,12 @@ We run in 2D on a $2048 \times 1024$ uniform Cartesian grid. It is worth remarki
 
 \begin{figure}[t]
       \centering
-        \subfloat[Mach number profile over time.]{\includegraphics[width=10cm]{./img/mach.pdf}\label{fig:2d0.7-0.01LR.turbmach}}
+        \subfloat[Mach number profile over time.]{\includegraphics[width=9.9cm]{./img/mach.pdf}\label{fig:2d0.7-0.01LR.turbmach}}
      \centering
 	\hfill
-        \subfloat[Entrainment of passive scalar from the upper stable region in the convective region.]{\includegraphics[width=10cm]{./img/ps2.pdf}\label{fig:2d0.7-0.01LR.bp}}
+        \subfloat[Entrainment of passive scalar from the upper stable region in the convective region.]{\includegraphics[width=9.9cm]{./img/ps2.pdf}\label{fig:2d0.7-0.01LR.bp}}
+	\caption{Time evolution of a 2D run.}
+	\label{2dsingle}
 \end{figure}
  %%%%%%%
  % divisione figure %
@@ -40,9 +42,7 @@ We run in 2D on a $2048 \times 1024$ uniform Cartesian grid. It is worth remarki
 
 Let's consider the setup 2d0.10-0.80. \\
 Convection starts at around $t \sim 7000 s$. Because of the already mentioned implicit time stepping, the lower the mach number, the bigger the time step, allowing us to save a huge amount of computational resources before the rise of convection. A remarkable difference is also observed in the convective regime, as long as the mach number is below $10 \%$, which has always been our case.\\
-
-
-In figure \ref{fig:2d001-LRmach} we plot the profile of the mach number over the simulated time. This is what one would expect, with two remarks that need to be done. \\
+In figure \ref{fig:2dsingle} we plot the profile of the mach number over the simulated time. This is what one would expect, with two remarks that need to be done. \\
 First of all the mach number is stable over time, thanks to the heating function that we implemented, featuring a decrease of heat generation as previously explained. \\
 Second of all it is clear that some internal modes are excited by the convective blobs when they hit the stable layers and they propagate through it. They appear more significant in the upper region and to a certain extent it's true, but mainly this is due to the fact that the speed of sound there is lower. The difference is not so dramatic when plotting the absolute velocity. Two interesting questions remain without answer. First of all it is impossible to tell to which extent the dynamic of the boundary is influenced by these modes. Second of all it is possible that the chemical mixing due to these modes in the stable stratification might have a significant impact on the evolution of a star, which is obviously not considered in 1-D simulations.\\
 \begin{figure}[t!]

@@ -1,6 +1,5 @@
 \chapter{Code Description}
 \section{Code Overview}
-
 The code we used is called SLH (Seven League Hydro). It was originally developed by Dr. Fabian Miczek during his PhD thesis (2013). SLH is a finite-volume multidimensional code that solves Euler equations (ideal hydrodynamic) using explicit or implicit methods. The advantage of implicit methods lies in the fact that the time step is constantly redefined optimizing computational resources using the so called cfl criterion for numerical stability. In this case a non-linear system of equations is solved using the Newton-Ralphson method, in which at every time step a linear system is solved through the Krylov subspace methods. The efficiency of all these computational methods is strongly dependent on the type of linear system solved and the cluster architecture used. \\
 From the point of view of simulation domain SLH allows us to implement a general curvilinear grid instead of a simple Cartesian one by defining a metric, the elements of which are needed to correctly compute the fluxes at the cells interfaces. The code decomposes automatically the domain to parallelize the computation on the desired number of processors, using MPI and openMP. A wide choice of boundary conditions are implemented. \\
 Furthermore SLH implements a general equation of state, a nuclear reaction network, passive and active scalars which are fundamental for the study of the chemical composition of the fluid, radiation in the diffusion limit and thermal conduction. \\
@@ -57,10 +56,25 @@ This allows us to write down the discretized Euler equations as
 \end{split}
 \end{equation}
 What is stored in the memory are the cell-averaged quantities. Their value changes only by numerical fluxes from the neighbor cells or by source terms. This implies that, if there are no source terms, the sum of cell-averaged variables cannot change. In this way, the finite volume discretization perfectly reflects the conservative nature of Hydrodynamic. We would like to underline that the numerical fluxes still remain unknown, and should be reconstructed for the cell $(i, j, k)$ from the surrounding cells. In addition to that, what we performed was a \textit{partial discretization}, since in time we still have a continuous time derivative and no finite difference. This method, through which we discretize first the spatial dimension and then separately the temporal one, is known as \textbf{method of lines}. It is a very effective method to reduce partial differential equations to a set of coupled ordinary differential equations such as
-\begin{equation}
+\begin{equation}\label{eq:methodoflines}
 	\frac{\partial \mathbf{U}_{i, j, k}}{\partial t} + \mathbf{R}_{i, j, k}=0
 \end{equation}
-where the vector $\mathbf{R}_{i, j, k}$ is known as \textit{spatial residual} of the cell $(i, j, k)$. As previously mentioned, this is a function with the numerical fluxes of the surrounding cells, and suitable numerical methods are needed in order to correctly compute them. 
+where the vector $\mathbf{R}_{i, j, k}$ is known as \textit{spatial residual} of the cell $(i, j, k)$. As previously mentioned, this is a function with the numerical fluxes of the surrounding cells, and suitable numerical methods are needed in order to correctly compute them.
 \section{Explicit vs. Implicit Time Stepping}
+The simplest and most naive way to discretize in time equation \ref{eq:methodoflines} is the so called \textbf{forward Euler method} \footnote{The forward Euler method can be applied to resolve general PDEs, not only Euler equations. It is a coincidence that both the fluid dynamics equations and the numerical scheme that we use to solve them were discovered by swiss mathematician Leonhard Euler.}:
+\begin{equation}\label{eq:forwardeuler}
+	\frac{\mathbf{U}^{n+1}_{i, j, k} - \mathbf{U}^{n}_{i, j, k}}{\Delta t} + \mathbf{R}_{i, j, k}(\mathbf{U}^n)=0
+\end{equation}
+This method simply approximates the time derivative with a finite difference at each grid point, and the spacial residual is evaluated at the old time step. Notice that equation \ref{eq:forwardeuler} can be solved analyticaly for the conserved quantity $\mathbf{U}^{n+1}_{i, j, k}$. This means that we are dealing with an \textit{explicit time stepping}. Although equation \label{eq:forwardeuler} has a very direct and simple implementation, this method is first-order accurate i.e. it has an approximation error that scales with $\Delta t$.
+
+A considerable amount of higher-order explicit time stepping schemes are available. In SLH the so-called third-order Runge-Kutta scheme (RK3) developed by Shu and Osher (1988). 
+
+The advantages of an explicit time stepping method are essentially two: they are easy to implement and they require little resources memory wise on the hardware. The biggest disadvantage is that one always has to choose the time step lower than a maximum value $\delta t$. In case this condition is not fulfilled, numerical errors start to grow over time and dominate over the physical solution. In the case of Euler equation, in order to determine $\delta t$, the CFL criterion is generally used
+\begin{equation}\label{eq:cfl}
+	\Delta t = \frac{\mathrm{CFL}}{N_{\mathrm{dim}}}\mathrm{min} \left(  \frac{\Delta x}{|q_n| + c/M}   \right)
+\end{equation}
+where $N_{\mathrm{dim}}$ is the number of dimensions, $\Delta x$ is the cell width, the quantity at denominator is the wave velocity and the minimum has to be intended over all the computational grid. At last CFL is a dimensionless coefficient that determines how many cells a wave can travel for time step. For all the explicit time steppers implemented in SLH, CFL is always smaller than unity. Roughly one can see that $\Delta t \propto M$, hence the lower the mach number, the lower the maximum allowed time step. This criterion shows why the use of explicit time steppers for low mach flow is computationally impracticable.
+
+
 \section{Newton-Raphson Method}
 
