@@ -61,20 +61,55 @@ What is stored in the memory are the cell-averaged quantities. Their value chang
 \end{equation}
 where the vector $\mathbf{R}_{i, j, k}$ is known as \textit{spatial residual} of the cell $(i, j, k)$. As previously mentioned, this is a function with the numerical fluxes of the surrounding cells, and suitable numerical methods are needed in order to correctly compute them.
 \section{Explicit vs. Implicit Time Stepping}
-The simplest and most naive way to discretize in time equation \ref{eq:methodoflines} is the so called \textbf{forward Euler method} \footnote{The forward Euler method can be applied to resolve general PDEs, not only Euler equations. It is a coincidence that both the fluid dynamics equations and the numerical scheme that we use to solve them were discovered by swiss mathematician Leonhard Euler.}:
+The simplest way to discretize in time equation \ref{eq:methodoflines} is the so called \textbf{forward Euler method} \footnote{The forward Euler method can be applied to resolve general PDEs, not only Euler equations. It is a coincidence that both the fluid dynamics equations and the numerical scheme that we use to solve them were discovered by swiss mathematician Leonhard Euler.}:
 \begin{equation}\label{eq:forwardeuler}
 	\frac{\mathbf{U}^{n+1}_{i, j, k} - \mathbf{U}^{n}_{i, j, k}}{\Delta t} + \mathbf{R}_{i, j, k}(\mathbf{U}^n)=0
 \end{equation}
-This method simply approximates the time derivative with a finite difference at each grid point, and the spacial residual is evaluated at the old time step. Notice that equation \ref{eq:forwardeuler} can be solved analyticaly for the conserved quantity $\mathbf{U}^{n+1}_{i, j, k}$. This means that we are dealing with an \textit{explicit time stepping}. Although equation \label{eq:forwardeuler} has a very direct and simple implementation, this method is first-order accurate i.e. it has an approximation error that scales with $\Delta t$.
+This method simply approximates the time derivative with a finite difference at each grid point, and the spacial residual is evaluated at the old time step. Notice that equation \ref{eq:forwardeuler} can be solved analytically for the conserved quantity $\mathbf{U}^{n+1}_{i, j, k}$. This means that we are dealing with an \textit{explicit time stepping}. Although equation \label{eq:forwardeuler} has a very direct and simple implementation, this method is first-order accurate i.e. it has an approximation error that is $\mathcal{O}(\Delta t)$.
 
-A considerable amount of higher-order explicit time stepping schemes are available. In SLH the so-called third-order Runge-Kutta scheme (RK3) developed by Shu and Osher (1988). 
+A considerable amount of higher-order explicit time stepping schemes are available. In SLH the so-called third-order Runge-Kutta scheme (RK3) developed by Shu and Osher (1988) is implemented. 
 
 The advantages of an explicit time stepping method are essentially two: they are easy to implement and they require little resources memory wise on the hardware. The biggest disadvantage is that one always has to choose the time step lower than a maximum value $\delta t$. In case this condition is not fulfilled, numerical errors start to grow over time and dominate over the physical solution. In the case of Euler equation, in order to determine $\delta t$, the CFL criterion is generally used
 \begin{equation}\label{eq:cfl}
 	\Delta t = \frac{\mathrm{CFL}}{N_{\mathrm{dim}}}\mathrm{min} \left(  \frac{\Delta x}{|q_n| + c/M}   \right)
 \end{equation}
 where $N_{\mathrm{dim}}$ is the number of dimensions, $\Delta x$ is the cell width, the quantity at denominator is the wave velocity and the minimum has to be intended over all the computational grid. At last CFL is a dimensionless coefficient that determines how many cells a wave can travel for time step. For all the explicit time steppers implemented in SLH, CFL is always smaller than unity. Roughly one can see that $\Delta t \propto M$, hence the lower the mach number, the lower the maximum allowed time step. This criterion shows why the use of explicit time steppers for low mach flow is computationally impracticable.
+For this reason we rely on a new discretization method, namely the \textbf{backward Euler method}. According to this discretization the conserved quantities at the time step $n+1$ are given by
+\begin{equation}\label{eq:backward}
+	\frac{\mathbf{U}^{n+1}_{i, j, k} - \mathbf{U}^{n}_{i, j, k}}{\Delta t} + \mathbf{R}_{i, j, k}(\mathbf{U}^{n+1})=0
+\end{equation}
+The only difference compared to the forward Euler method is that the residual is evaluated at the time step $n+1$ instead of $n$. An analytic solution for this equations is hence in general not possible, and sophisticated numerical solvers need to be employed in order to find an approximate solution (in our case we implement the so-called \textbf{Newton-Raphson method}, see next section). The advantage of integrating implicitly is very well explained by figure \ref{fig:implicit}. What is shown is a slow advection wave with a relatively low frequency, with a high frequency acoustic wave on it. Suppose to start from $t=0$ integrating explicitly with the forward Euler method. Since the derivative is evaluated at $t=0$, the risk is that the acoustic wave completely dominates the result, leading to a corrupted value for the conserved quantity. Integrating implicitly instead, the derivative is evaluated over the entire time step. In other words we extrapolate the derivative starting from the final point backward to the initial one, ensuring that the finite difference method resolves the phenomena at the time scale we are interested in. Acoustic waves in the low mach regime in fact decouple from the advective solution, hence we don't need to resolve them. The backward Euler method again generates an error which is $\mathcal{O}(\Delta t)$, but more refined methods are available in the literature and are implemented in SLH. 
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=10cm]{./img/implicit}
+\caption{Conceptual difference between explicit and implicit integration. Picture from Miczek, 2013.}
+\label{fig:implicit}
+\centering
+\end{figure}
+The question we need to answer when choosing the integration technique is if the rise in efficiency given by implicit methods compensate the loss, given by the expensive numerical solvers needed to approximate the solution of the implicit equation. In the low mach regime (from $M \simeq 10^{-4}$ to $10^{-3}$) an implicit integration with SLH is always more convenient. 
 
 \section{Newton-Raphson Method}
+In this section we analyze the so-called \textbf{Newton-Raphson method}, which is the iterative solver implemented in SLH in order to find an approximate solution to the implicit equation \ref{eq:backward}. The first step we need to take is to move every term of our discretized equation to the left-hand side and define a quantity $\mathbf{D}_{i, j, k}(\mathbf{U}^{n+1})$ called \textit{defect}
+\begin{equation}\label{eq:defect}
+	\mathbf{D}_{i, j, k}(\mathbf{U}^{n+1}) = \mathbf{R}_{i, j, k}(\mathbf{U}^{n+1}) + \frac{\mathbf{U}_{i, j, k}^{n+1}}{\Delta t} - \frac{\mathbf{U}^n_{i, j, k}}{\Delta t} = 0
+\end{equation}
+Obviously the equations are solved if the defect is zero. This algorithm starts from an initial guess $\mathbf{U^0}$, which is iteratively refined by calling
+\begin{equation}\label{eq:newtonraphson}
+	\mathbf{U}^{k+1} = \mathbf{U}^k - \left( \lambda \frac{\partial \mathbf{D}^k}{\partial \mathbf{U}}  \right)^{-1} \mathbf{D}^k
+\end{equation}
+Where $\lambda$ is a convergence parameter that in generally set to one (in pathological cases it might be set $\lambda > 1$ to dump the convergence ratio). The bigger the number of iterations, the closer $\mathbf{U}^k$ gets to the root of $\mathbf{D}$.
 
+In order to compute the right-hand side, one should invert the Jacobian of the defect, but this is computationally and memory wise very expensive. It is instead easier to rewrite \ref{eq:newtonraphson} as 
+\begin{equation}
+	\lambda \frac{\partial \mathbf{D}^k}{\partial \mathbf{U}} \Delta \mathbf{U} = - \mathbf{D}^k
+\end{equation}
+where $\Delta \mathbf{U}=\mathbf{U}^{k+1} - \mathbf{U}^k$. This is a very effective method to transform a system of non-linear equations to a set of systems of linear equations.
+
+The Newton-Raphson method converges quadratically to the solution. Obviously the initial guess should be as close as possible to the root of the defect (in case $\mathbf{U}^0$ is too far away from the root, in might not converge at all). In SLH we choose as $\mathbf{U}^0$ the solution of the previous time step.
+
+SLH prints in the log file information about every iteration of the Newton-Raphson method for every variable. Specifically it prints the $\mathrm{L2}$ norm of the defect. For the density $\rho$ for instance
+\begin{equation}\label{eq:l2defect}
+	||\mathbf{D}||^{\rho} = \sqrt{ \sum_{i, j, k} \left( \mathbf{D}^{\rho}_{i, j, k}  \right)^2}
+\end{equation}
+This is the quantity that shoud decrease quadratically.
