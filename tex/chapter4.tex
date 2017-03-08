@@ -1,8 +1,11 @@
 \chapter{Code Description}
 \section{Code Overview}
-The code we used is called SLH (Seven League Hydro). It was originally developed by Dr. Fabian Miczek during his PhD thesis (2013). SLH is a finite-volume multidimensional code that solves Euler equations (ideal hydrodynamic) using explicit or implicit methods. The advantage of implicit methods lies in the fact that the time step is constantly redefined optimizing computational resources using the so called cfl criterion for numerical stability. In this case a non-linear system of equations is solved using the Newton-Ralphson method, in which at every time step a linear system is solved through the Krylov subspace methods. The efficiency of all these computational methods is strongly dependent on the type of linear system solved and the cluster architecture used. \\
-From the point of view of simulation domain SLH allows us to implement a general curvilinear grid instead of a simple Cartesian one by defining a metric, the elements of which are needed to correctly compute the fluxes at the cells interfaces. The code decomposes automatically the domain to parallelize the computation on the desired number of processors, using MPI and openMP. A wide choice of boundary conditions are implemented. \\
-Furthermore SLH implements a general equation of state, a nuclear reaction network, passive and active scalars which are fundamental for the study of the chemical composition of the fluid, radiation in the diffusion limit and thermal conduction. \\
+The code we used is called SLH (Seven League Hydro). It was originally developed by Dr. Fabian Miczek during his PhD thesis (2013). SLH is a finite-volume multidimensional code that solves Euler equations (ideal hydrodynamic) using explicit or implicit methods. The advantage of implicit methods lies in the fact that the time step is constantly redefined optimizing computational resources using the so called cfl criterion for numerical stability. In this case a non-linear system of equations is solved using the Newton-Ralphson method, in which at every time step a linear system is solved through the Krylov subspace methods. The efficiency of all these computational methods is strongly dependent on the type of linear system solved and the cluster architecture used. 
+
+From the point of view of simulation domain SLH allows us to implement a general curvilinear grid instead of a simple Cartesian one by defining a metric, the elements of which are needed to correctly compute the fluxes at the cells interfaces. The code decomposes automatically the domain to parallelize the computation on the desired number of processors, using MPI and openMP. A wide choice of boundary conditions are implemented. 
+
+Furthermore SLH implements a general equation of state, a nuclear reaction network, passive and active scalars which are fundamental for the study of the chemical composition of the fluid, radiation in the diffusion limit and thermal conduction. 
+
 Over the years SHL has undergone several scaling tests, the most remarkable of which at the Jülich Supercomputing Center (JSC) in 2016 where it scaled over all the $458752$ cores of \textit{JUQUEEN} (a Blue Gene machine, currently the last generation of IBM supercomputers).
 
 \section{Finite Volume Discretization}
@@ -94,11 +97,11 @@ In this section we analyze the so-called \textbf{Newton-Raphson method}, which i
 \begin{equation}\label{eq:defect}
 	\mathbf{D}_{i, j, k}(\mathbf{U}^{n+1}) = \mathbf{R}_{i, j, k}(\mathbf{U}^{n+1}) + \frac{\mathbf{U}_{i, j, k}^{n+1}}{\Delta t} - \frac{\mathbf{U}^n_{i, j, k}}{\Delta t} = 0
 \end{equation}
-Obviously the equations are solved if the defect is zero. This algorithm starts from an initial guess $\mathbf{U^0}$, which is iteratively refined by calling
+Obviously the equations are solved if the defect is zero. This algorithm starts from an initial guess $\mathbf{U}^0$, which is iteratively refined by calling
 \begin{equation}\label{eq:newtonraphson}
 	\mathbf{U}^{k+1} = \mathbf{U}^k - \left( \lambda \frac{\partial \mathbf{D}^k}{\partial \mathbf{U}}  \right)^{-1} \mathbf{D}^k
 \end{equation}
-Where $\lambda$ is a convergence parameter that in generally set to one (in pathological cases it might be set $\lambda > 1$ to dump the convergence ratio). The bigger the number of iterations, the closer $\mathbf{U}^k$ gets to the root of $\mathbf{D}$.
+Where $\lambda$ is a convergence parameter that in generally set to one (in pathological cases it might be set $\lambda > 1$ to dump the convergence ratio). The more the iterations, the closer $\mathbf{U}^k$ gets to the root of $\mathbf{D}$.
 
 In order to compute the right-hand side, one should invert the Jacobian of the defect, but this is computationally and memory wise very expensive. It is instead easier to rewrite \ref{eq:newtonraphson} as 
 \begin{equation}
@@ -106,10 +109,23 @@ In order to compute the right-hand side, one should invert the Jacobian of the d
 \end{equation}
 where $\Delta \mathbf{U}=\mathbf{U}^{k+1} - \mathbf{U}^k$. This is a very effective method to transform a system of non-linear equations to a set of systems of linear equations.
 
-The Newton-Raphson method converges quadratically to the solution. Obviously the initial guess should be as close as possible to the root of the defect (in case $\mathbf{U}^0$ is too far away from the root, in might not converge at all). In SLH we choose as $\mathbf{U}^0$ the solution of the previous time step.
+The Newton-Raphson method generally converges quadratically to the solution, i.e. the number of significant digits doubles at every iteration. In particular cases like a double root (namely $f'(\alpha)$=0, where $\alpha$ is the defect root) the convergence is linear. Obviously the first and second derivative should be non-zero over the iterative domain and to improve the efficiency the initial guess should be as close as possible to the root of the defect. In SLH we choose as $\mathbf{U}^0$ the solution of the previous time step.
 
 SLH prints in the log file information about every iteration of the Newton-Raphson method for every variable. Specifically it prints the $\mathrm{L2}$ norm of the defect. For the density $\rho$ for instance
 \begin{equation}\label{eq:l2defect}
 	||\mathbf{D}||^{\rho} = \sqrt{ \sum_{i, j, k} \left( \mathbf{D}^{\rho}_{i, j, k}  \right)^2}
 \end{equation}
-This is the quantity that shoud decrease quadratically.
+which is the quantity that decreases quadratically.
+
+In equation \ref{eq:defect} the very last term is a constant vector, since it's the state vector at the previous time step ($t=n$). Only the state vector at the current time step ($t=n+1$) changes at every iteration of the Newton-Raphson method. This is of course cause of numerical cancellation error. For this reason in SLH the $\mathrm{L2}$ norm of the defect is actually scaled by the $\mathrm{L2}$ norm of the constant vector, in order to monitor the convergence relative to machine precision \footnote{Recall that for double precision floating point value, machine precision is $\simeq 10^{-16}$}
+\begin{equation}
+	\frac{||\mathbf{D}||^{\rho}}{||\mathbf{U}^n / \Delta t||^{\rho}}
+\end{equation}
+In addition by scaling the defect $\mathrm{L2}$ norm, the convergence is monitored dimensionless.
+
+Note that reaching machine precision when converging is actually rarely possible because of
+\begin{itemize}
+	\item{round-off errors in the discretization in the flux functions and in the linear solvers}
+	\item{approximations in the defect Jacobian and in the linear systems}
+\end{itemize}
+Moreover, the process of discretization of Euler equations generates errors which depend on the numerical scheme and the grid. As a consequence, converging to machine precision might be a waste of computational resource.
