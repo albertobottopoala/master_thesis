@@ -123,6 +123,7 @@ $$
 $$
 This equation can be solved only if an equation of state (EoS) is provided. For instance if we choose a polytropic equation of state (which means that the pressure is a function of the density only and not of the temperature) we obtain the \textbf{Lane-Emden Equation} that allows stable solutions for adiabatic indices up to $4/3$ only. This EoS is used for instance for modeling white dwarfs, where the pressure doesn't depend on the temperature because of the degeneracy of the gas. 
 
+\section{Energy Transfer}
 \subsection{Transport of Energy by Radiation}
 In the deep interiors of stars energy is generated through nuclear reactions. In the Sun for instance all the energy is provided by hydrogen burning into helium (the so-called p-p chain), while just a little fraction by virialization. Because temperature is of the order of $10^9 K$, thermal motions allow protons to overcome the electrostatic potential barriers and interact through the nuclear force, giving rise to the reaction
 \begin{equation}\label{ppchain}
@@ -181,6 +182,7 @@ which in lagrangian coordinate reads
 We should never forget the assumptions we made when deriving this equation, namely the LTE. When we approach the photosphere, for instance, the density decreases, the mean free path increases, and two scattering events happen so far away that LTE doesn't hold any longer. In this case radiation transport is no more a diffusive process. 
 
 Another form of heat transfer is conduction, but in stellar physics it becomes relevant only in cores of red giants or white dwarfs and it is fully neglected in our simulations.
+
 \subsection{The astrophysical $\nabla$}
 Assuming hydrostatic equilibrium we can now divide \ref{partialTpartialm} by \ref{HydroEquilibrium} in lagrangian coordinates and obtain
 \begin{equation}
@@ -302,8 +304,8 @@ If the left hand side is bigger than the right hand side, it means that our stra
 
 Note that up until now we simply have found a stability criterion, but we don't know anything about the convection that will arise. In the next section we will try to quantify it, especially since we need to know how much energy is transported from one layer to the other in order to map this result in 1D simulations of stellar evolution.
 
-\section{Mixing length theory}
-A fundamental problem in stellar astrophysics is to understand how much energy is transported by convection. Before the era of computational physics, when only analytics solutions were available, the most common tool used to model convective energy transport was the so called \textbf{mixing length theory}. 
+\subsection{Mixing length theory}
+A fundamental problem in stellar astrophysics is to understand how much energy is transported by convection. Before the era of computational physics, when only analytics solutions were available, the most common tool used to model convective energy transport was the so called \textbf{mixing length theory} (Böhm-Vitense 1958). 
 
 The total energy flux $l/4 \pi r^2$ at given radius is given by the radiative flux $F_{\mathrm{rad}}$ (which may also include the conductive flux), and the convective flux $F_{\mathrm{con}}$. Their sum is according to \label{nablarad} what defines the $\nabla_{\mathrm{rad}}$ that would be necessary to transport away all the energy.
 \begin{equation}\label{7.1}
@@ -353,7 +355,7 @@ Plugging in the expression that we derived for $(dE/dt)_{\mathrm{rad}}$ and taki
 \end{equation}
 We finally obtained five equations(\ref{7.1}, \ref{7.2}, \ref{7.6}, \ref{7.7}, \ref{7.11}) in five variables ($F_{\mathrm{rad}}$, $F_{\mathrm{con}}$, $v$, $\nabla_e$, $\nabla$). Note that the mixing length $l_m$ is not one of those variables, and hence is a free parameter for which we have to assume a value. 
 
-Although the mixing length theory has been used extensively in 1D stellar evolution, in many occasions it has been proven unsuccessful, especially because of the uncertainties about the parameters. Thanks to the rise of computational resources over the last decade, atmospheric scientists and astrophysicists were able to run 2D and 3D Hydro simulations and approach the problem more heuristically. They concluded that the controlling parameter for the boundary migration could be the \textbf{bulk-Richardson number}, which is the topic of the next section.  
+Although the mixing length theory has been used extensively in 1D stellar evolution, in many occasions it has been proven unsuccessful, especially because of the uncertainties about the parameters (Viallet \emph{et al.} 2015, Georgy \emph{et al.} 2016). Thanks to the rise of computational resources over the last decade, atmospheric scientists and astrophysicists were able to run 2D and 3D Hydro simulations and approach the problem more heuristically. They concluded that the controlling parameter for the boundary migration could be the \textbf{bulk-Richardson number}, which is the topic of the next section.  
 
 
 \subsection{Bulk-Richardson Number}

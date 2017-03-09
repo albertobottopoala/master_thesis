@@ -23,7 +23,7 @@ Both for analytic and numerical study of Euler equations, it is useful to switch
 \begin{equation}
 \frac{\partial \mathbf{\hat{U}}}{\partial \hat{t}} + \frac{\partial \mathbf{\hat{F}}_x}{\partial \hat{x}} + \frac{\partial \mathbf{\hat{F}}_y}{\partial \hat{y}} + \frac{\partial \mathbf{\hat{F}}_z}{\partial \hat{z}} = \mathbf{\hat{S}}
 \end{equation}
-where the quantities $\mathbf{\hat{U}}$, $\mathbf{\hat{F}}_x$, $\mathbf{\hat{F}}_y$ and $\mathbf{\hat{F}}_z$ are defined by the stress-energy tensor as discussed in the previous chapter. From now on for simplicity we will drop the hat notation. We discretize \textit{in space} Euler equation as 
+where the quantities $\mathbf{\hat{U}}$, $\mathbf{\hat{F}}_x$, $\mathbf{\hat{F}}_y$ and $\mathbf{\hat{F}}_z$ are defined by the stress-energy tensor as discussed in the previous chapter. From now on for simplicity we will drop the hat notation. We discretize \textit{in space} Euler equations as 
 \begin{equation}
 J^{-1}\frac{\partial \mathbf{U}}{\partial t} + \nabla_{\xi, \eta, \zeta} \cdot \mathbf{F} = J^{-1} \mathbf{S}
 \end{equation}
@@ -58,7 +58,9 @@ This allows us to write down the discretized Euler equations as
 	& \mathbf{F}_{i , j - 1/2, k} +  \mathbf{F}_{i , j, k + 1/2} + \mathbf{F}_{i , j, k - 1/2}) = \mathbf{S}_{i, j, k}
 \end{split}
 \end{equation}
-What is stored in the memory are the cell-averaged quantities. Their value changes only by numerical fluxes from the neighbor cells or by source terms. This implies that, if there are no source terms, the sum of cell-averaged variables cannot change. In this way, the finite volume discretization perfectly reflects the conservative nature of Hydrodynamic. We would like to underline that the numerical fluxes still remain unknown, and should be reconstructed for the cell $(i, j, k)$ from the surrounding cells. In addition to that, what we performed was a \textit{partial discretization}, since in time we still have a continuous time derivative and no finite difference. This method, through which we discretize first the spatial dimension and then separately the temporal one, is known as \textbf{method of lines}. It is a very effective method to reduce partial differential equations to a set of coupled ordinary differential equations such as
+What is stored in the memory are the cell-averaged quantities. Their value changes only by numerical fluxes from the neighbor cells or by source terms. This implies that, if there are no source terms, the sum of cell-averaged variables cannot change. In this way, the finite volume discretization perfectly reflects the conservative nature of Hydrodynamic. We would like to underline that the numerical fluxes still remain unknown, and should be reconstructed for the cell $(i, j, k)$ from the surrounding cells. 
+
+In addition to that, what we performed was a \textit{partial discretization}, since in time we still have a continuous time derivative and no finite difference. This method, through which we discretize first the spatial dimension and then separately the temporal one, is known as \textbf{method of lines}. It is a very effective method to reduce partial differential equations to a set of coupled ordinary differential equations such as
 \begin{equation}\label{eq:methodoflines}
 	\frac{\partial \mathbf{U}_{i, j, k}}{\partial t} + \mathbf{R}_{i, j, k}=0
 \end{equation}
@@ -93,7 +95,9 @@ The only difference compared to the forward Euler method is that the residual is
 The question we need to answer when choosing the integration technique is if the rise in efficiency given by implicit methods compensate the loss, given by the expensive numerical solvers needed to approximate the solution of the implicit equation. In the low mach regime (from $M \simeq 10^{-4}$ to $10^{-3}$) an implicit integration with SLH is always more convenient. 
 
 \section{Newton-Raphson Method}
-In this section we analyze the so-called \textbf{Newton-Raphson method}, which is the iterative solver implemented in SLH in order to find an approximate solution to the implicit equation \ref{eq:backward}. The first step we need to take is to move every term of our discretized equation to the left-hand side and define a quantity $\mathbf{D}_{i, j, k}(\mathbf{U}^{n+1})$ called \textit{defect}
+In this section we analyze the so-called \textbf{Newton-Raphson method}, which is the iterative solver implemented in SLH in order to find an approximate solution to the implicit equation \ref{eq:backward}. 
+
+The first step we need to take is to move every term of our discretized equation to the left-hand side and define a quantity $\mathbf{D}_{i, j, k}(\mathbf{U}^{n+1})$ called \textit{defect}
 \begin{equation}\label{eq:defect}
 	\mathbf{D}_{i, j, k}(\mathbf{U}^{n+1}) = \mathbf{R}_{i, j, k}(\mathbf{U}^{n+1}) + \frac{\mathbf{U}_{i, j, k}^{n+1}}{\Delta t} - \frac{\mathbf{U}^n_{i, j, k}}{\Delta t} = 0
 \end{equation}
@@ -117,7 +121,7 @@ SLH prints in the log file information about every iteration of the Newton-Raphs
 \end{equation}
 which is the quantity that decreases quadratically.
 
-In equation \ref{eq:defect} the very last term is a constant vector, since it's the state vector at the previous time step ($t=n$). Only the state vector at the current time step ($t=n+1$) changes at every iteration of the Newton-Raphson method. This is of course cause of numerical cancellation error. For this reason in SLH the $\mathrm{L2}$ norm of the defect is actually scaled by the $\mathrm{L2}$ norm of the constant vector, in order to monitor the convergence relative to machine precision \footnote{Recall that for double precision floating point value, machine precision is $\simeq 10^{-16}$}
+In equation \ref{eq:defect} the very last term is a constant vector, since it's the state vector at the previous time step ($t=n$). Only the state vector at the current time step ($t=n+1$) changes at every iteration of the Newton-Raphson method. These sums are of course cause of numerical cancellation errors. For this reason in SLH the $\mathrm{L2}$ norm of the defect is actually scaled by the $\mathrm{L2}$ norm of the constant vector, in order to monitor the convergence relative to machine precision \footnote{Recall that for double precision floating point value, machine precision is $\simeq 10^{-16}$.}
 \begin{equation}
 	\frac{||\mathbf{D}||^{\rho}}{||\mathbf{U}^n / \Delta t||^{\rho}}
 \end{equation}
@@ -128,4 +132,4 @@ Note that reaching machine precision when converging is actually rarely possible
 	\item{round-off errors in the discretization in the flux functions and in the linear solvers}
 	\item{approximations in the defect Jacobian and in the linear systems}
 \end{itemize}
-Moreover, the process of discretization of Euler equations generates errors which depend on the numerical scheme and the grid. As a consequence, converging to machine precision might be a waste of computational resource.
+Moreover, the process of discretization of Euler equations generates errors which depend on the numerical scheme called and the grid chosen. As a consequence, converging to machine precision is often a waste of computational resources.

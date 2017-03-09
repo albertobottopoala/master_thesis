@@ -7,7 +7,7 @@
 \subsection{Simulations setup}
 The physical setup used for our simulations is the so called "box in a star" method, meaning that we simulate some relatively very small internal region of a star. 
 
-In our case for the 2D runs it will be a box of $2.50 \times 10^{9} cm$ on the $x$ axis and $1.25 \times 10^{9} cm$ on the $y$ axis. Gravity is constantly pointing downward on the $y$ axis with a magnitude of $1000 cm/s^2$. This generates a pressure stratification in the fluid that covers approximately three pressure scale heights. 
+In our case for the 2D runs it will be a box of $2.50 \times 10^{9} \ \mathrm{cm}$ on the $x$ axis and $1.25 \times 10^{9} \ \mathrm{cm}$ on the $y$ axis. Gravity is constantly pointing downward on the $y$ axis with a magnitude of $1000 cm/s^2$. This generates a pressure stratification in the fluid that covers approximately three pressure scale heights. 
 
 The controlling parameter in our setup is the temperature gradient that can be initialized to any value. In our case we divided the simulated region in three parts. The bottom region (labeled as $1$) starts at the lower boundary and reaches $4/12$ of the domain, the central (labeled as $2$) proceeds until the middle, and the upper one (labeled as $3$) reaches the upper boundary, as shown in \ref{fig:tempprofile}. We define a parameter $\alpha_{i}$ ($i=1, 2, 3$) which is nothing but the fraction of the $\nabla$ over the $\nabla_{\mathrm{ad}}$. As seen in previous sections $\alpha_{i}<1$ implies stability in the $i-$region, instability otherwise. 
 
@@ -67,7 +67,7 @@ Second of all it is clear that some internal modes are excited by the convective
   \hfill
   \subfloat[The same passive scalar of above, advected at $t \simeq 800 \ \mathrm{min}$. This defines the topology of the boundary.]{\includegraphics[width=10cm]{./img/passiveacc2.pdf}\label{fig:ent}}
   \end{figure}
-In figure \ref{fig:2dsingle} we plot the passive scalar initialized inside the upper region, which over time is entrained by convection. We clearly see the movement of the boundaries that over the $60000 s$ of simulated time move gradually upward and downward. Specifically in the upper case it starts in the middle of the simulated region and ends up at $\sim 7.0 \times 10^{6} cm$, for the lower case it starts at $\sim 3.7 \times 10^{6} cm$ and moves downwards to the middle of the simulated region 
+  In figure \ref{fig:2dsingle} we plot the passive scalar initialized inside the upper region, which over time is entrained by convection. We clearly see the movement of the boundaries that over the $800 \ \mathrm{min}$ of simulated time move gradually upward and downward. Specifically in the upper case it starts in the middle of the simulated region and ends up at $\sim 7.0 \times 10^{6} \ \mathrm{cm}$, for the lower case it starts at $\sim 3.7 \times 10^{6} \ \mathrm{cm}$ and moves downwards to the middle of the simulated region 
 
 In figure \ref{fig:2dsingle} we plot some parameters relevant to our analysis. 
 
@@ -89,7 +89,7 @@ In figure \ref{fig:2dsingle} we plot some parameters relevant to our analysis.
 	\caption{Plots of the relevant parameters for our analysis over time. Blue lines represent the upper boundary, green lines the lower boundary.}
 	  \label{fig:2dsingle}
   \end{figure}
-We show first of all the bulk-Richardson number over time. Blue lines represent the upper boundary, green lines lower boundary. At around $t=\mathrm{300 \ min}$, when the entrainment becomes linear, the bulk-Richardson number still oscillates over half an order of magnitude. This obviously deeply affects our data analysis, making necessary a large amount of runs to collect as much data as possible. This also makes a differential study of the entrainment over time impracticable . 
+We show first of all the bulk-Richardson number over time. Blue lines represent the upper boundary, green lines lower boundary. At around $t=\mathrm{300 \ min}$, when the entrainment becomes linear, the bulk-Richardson number still oscillates over half an order of magnitude. This obviously deeply affects our data analysis, making necessary a large amount of runs to collect as much data as possible. This also makes a differential study of the entrainment over time impracticable. 
 
 Second of all we plot in figure \ref{fig:ent} the entrained mass over time. As already mentioned we will perform a Lagrangian study of entrainment, because it is impracticable to quantify how much of the boundary movement is due to the entrained mass or to the adiabatic expansion of the fluid. We notice that also the entrainment rate stabilizes after the initial transition. 
 
@@ -106,7 +106,7 @@ Second of all we plot in figure \ref{fig:ent} the entrained mass over time. As a
 \label{fig:brunt}
 \centering
 \end{figure}
-For completeness we plot the boundary position over time in \ref{fig:boundpos.} As previously mentioned an Eulerian study is impracticable for this phenomenon, because it is hard to quantify how much of the boundary migration in an Eulerian frame is due to the entrainment and how much due to the adiabatic expansion of the fluid. Nevertheless we would like to point out that, once the entrainment rate stabilizes at $t=300 \ \mathrm{min}$, the boundary thickness is also overall stable in both the upper and lower case. 
+For completeness we plot the boundary position over time in \ref{fig:boundpos.pdf} As previously mentioned an Eulerian study is impracticable for this phenomenon, because it is hard to quantify how much of the boundary migration in an Eulerian frame is due to the entrainment and how much due to the adiabatic expansion of the fluid. Nevertheless we would like to point out that, once the entrainment rate stabilizes at $t=300 \ \mathrm{min}$, the boundary thickness is also overall stable in both the upper and lower case. 
 
 For every 2D or 3D run we will extrapolate the relevant parameters and present them in the following layout
 \begin{center}
@@ -126,7 +126,7 @@ For every 2D or 3D run we will extrapolate the relevant parameters and present t
  \end{center}
  Where the U at the end of the run name stands for upper boundary, and the L for lower boundary. 
 
- Notice that the lower boundary is stiffer than the upper one (the buoyancy jump is higher, and hence the bulk-Richardson number) even if in the initial setup the Brunt-Väisälä frequency is the same for the two stable regions. Looking at figure \ref{fig:brunt} it is clear that at the convective boundaries a spike arises during the simulation in the Brunt-Väisälä frequency, and in the lower case it is more pronounced. Obviously when integrated over the interface, this gives rise to a bigger buoyancy jump.
+ Notice that the lower boundary is stiffer than the upper one (the buoyancy jump is higher, and hence the bulk-Richardson number) even if in the initial setup the Brunt-Väisälä frequency is the same for the two stable regions. Looking at figure \ref{fig:brunt} it is clear that at the convective boundaries a spike arises during the simulation in the Brunt-Väisälä frequency, and in the lower case it is more pronounced. Obviously when integrated over the interface, this gives rise to a bigger buoyancy jump. These spikes in the Brunt-Väisälä frequency at the interfaces were also found by Arnett \emph{et al.} (2015).
 
 
 \subsection{Resolution study}
@@ -144,7 +144,7 @@ In the last section we analysed the run 2d0.10-0.80. What we will do in this sec
 
 The same setup was run on a $1024 \times 512$ and $512 \times 256$. As expected, the highest resolution run shows smaller and more refined turbulent structures in the convective region, while in the smallest run we observe less eddies but of bigger size (see figure \ref{fig:differentialmach}).
 
-We report in the following table the relevant parameters of the upper boundary for the different resolution runs. We observe that all the parameters are overall constant, within a $10 \%$ oscillation range. Woodward \textit{et al.} \cite{woodward} found that the entrainment rate decreases exponentially with the enhancement of the resolution, before converging to the physical value. In our case we observe a constant entrainment (with a slight increasing trend, we presume due to second order phenomena), hence we can safely assume that even in the lowest resolution case we are properly resolving the system. One could still point out that the convergence reached in a 2D setup does not imply a convergence in 3D, but being that 3D simulations are computationally so expensive, it is impracticable for us to test this hypothesis.
+We report in the following table the relevant parameters of the upper boundary for the different resolution runs. We observe that all the parameters are overall constant, within a $10 \%$ oscillation range. Woodward \textit{et al.} (2016) found that the entrainment rate decreases exponentially with the enhancement of the resolution, before converging to the physical value. In our case we observe a constant entrainment (with a slight increasing trend, we presume due to second order phenomena), hence we can safely assume that even in the lowest resolution case we are properly resolving the system. One could still point out that the convergence reached in a 2D setup does not imply a convergence in 3D, but being that 3D simulations are computationally so expensive, it is impracticable for us to test this hypothesis.
 \begin{center}
  \begin{tabular}{l|c|c|c}
 	 Run &$2048 \times 1024$ U& $1024  \times 512$ U& $512 \times 256$ U\\
@@ -180,4 +180,10 @@ Even in the lower boundary all the parameters oscillate within a $10 \%$ range.
 
 
 
-\section{Differential study}
+\subsection{Differential 2D study}
+
+\section{3D simulations}
+
+\subsection{Evolution of a 3D run}
+
+\subsection{Differential 3D study}
