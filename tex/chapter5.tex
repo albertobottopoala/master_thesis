@@ -7,7 +7,7 @@
 \subsection{Simulations setup}
 The physical setup used for our simulations is the so called "box in a star" method, meaning that we simulate some relatively very small internal region of a star. 
 
-In our case for the 2D runs it will be a box of $2.50 \times 10^{9} \ \mathrm{cm}$ on the $x$ axis and $1.25 \times 10^{9} \ \mathrm{cm}$ on the $y$ axis. Gravity is constantly pointing downward on the $y$ axis with a magnitude of $1000 cm/s^2$. This generates a pressure stratification in the fluid that covers approximately three pressure scale heights. 
+In our case for the 2D runs it will be a box of $2.50 \times 10^{9} \ \mathrm{cm}$ on the $x$ axis and $1.25 \times 10^{9} \ \mathrm{cm}$ on the $y$ axis. Gravity is constantly pointing downward on the $y$ axis with a magnitude of $1000 \mathrm{cm/s^2}$. This generates a pressure stratification in the fluid that covers approximately three pressure scale heights. 
 
 The controlling parameter in our setup is the temperature gradient that can be initialized to any value. In our case we divided the simulated region in three parts. The bottom region (labeled as $1$) starts at the lower boundary and reaches $4/12$ of the domain, the central (labeled as $2$) proceeds until the middle, and the upper one (labeled as $3$) reaches the upper boundary, as shown in \ref{fig:tempprofile}. We define a parameter $\alpha_{i}$ ($i=1, 2, 3$) which is nothing but the fraction of the $\nabla$ over the $\nabla_{\mathrm{ad}}$. As seen in previous sections $\alpha_{i}<1$ implies stability in the $i-$region, instability otherwise. 
 
@@ -17,7 +17,7 @@ One of the hardest tasks has been to generate the correct amount of heating such
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=10cm]{./img/tempprofile}
+\includegraphics[width=10cm]{./img/twin.pdf}
 \caption{Example of initial temperature profile along the $y$-axis}
 \label{fig:tempprofile}
 \centering
@@ -101,7 +101,7 @@ Second of all we plot in figure \ref{fig:ent} the entrained mass over time. As a
 
  \begin{figure}[t!]
 \centering
-\includegraphics[width=0.5\textwidth]{./img/brunt}
+\includegraphics[width=0.6\textwidth]{./img/brunt}
 \caption{Horizontal average of the Brunt-Väisälä frequency at about $t=500 \ \mathrm{min}$.}
 \label{fig:brunt}
 \centering
@@ -139,41 +139,42 @@ For every 2D or 3D run we will extrapolate the relevant parameters and present t
     \caption{Turbulent structures at different resolutions at about $t=500 \ \mathrm{min}$.}
     \label{fig:differentialmach}
  \end{figure}
-
 In the last section we analysed the run 2d0.10-0.80. What we will do in this section is to compare the previous results with the ones obtained by running the same setup on smaller resolutions, in order to understand if we are properly resolving the system. 
 
 The same setup was run on a $1024 \times 512$ and $512 \times 256$. As expected, the highest resolution run shows smaller and more refined turbulent structures in the convective region, while in the smallest run we observe less eddies but of bigger size (see figure \ref{fig:differentialmach}).
 
-We report in the following table the relevant parameters of the upper boundary for the different resolution runs. We observe that all the parameters are overall constant, within a $10 \%$ oscillation range. Woodward \textit{et al.} (2016) found that the entrainment rate decreases exponentially with the enhancement of the resolution, before converging to the physical value. In our case we observe a constant entrainment (with a slight increasing trend, we presume due to second order phenomena), hence we can safely assume that even in the lowest resolution case we are properly resolving the system. One could still point out that the convergence reached in a 2D setup does not imply a convergence in 3D, but being that 3D simulations are computationally so expensive, it is impracticable for us to test this hypothesis.
+We report in the following table the relevant parameters of the upper boundary for the different resolution runs. We observe that all the parameters are overall constant, within a $10 \%$ oscillation range. Woodward \textit{et al.} (2016) found that the entrainment rate decreases exponentially with the enhancement of the resolution, before converging to the physical value. In our case we observe a constant entrainment (with a slight increasing trend, we presume due to second order phenomena), hence we can safely assume that even in the lowest resolution case we are properly resolving the system. Notice that the turbulence standard deviation increases with the resolution as expected, because of the higher Reynolds number due to smaller numerical viscosity. 
+
+One could still point out that the convergence reached in a 2D setup does not imply a convergence in 3D, but being that 3D simulations are computationally so expensive, it is impracticable for us to test this hypothesis.
 \begin{center}
  \begin{tabular}{l|c|c|c}
 	 Run &$2048 \times 1024$ U& $1024  \times 512$ U& $512 \times 256$ U\\
 	  	\hline
-		$\Delta b$ $(\mathrm{cm/s^{2}})$ & $ 18.17 \pm 7.41 $ & $8.18 \pm 1.16$ & $8.28 \pm 0.53$\\
+		$\Delta b$ $(\mathrm{cm/s^{2}})$ & $ 18.17 \pm 7.41 $ & $15.48 \pm 2.31$ & $12.82 \pm 2.40$\\
 		\hline
-		$\sigma_t$ $(\mathrm{cm/s})$ & $ 1118 \pm 202 $ & $1082 \pm 227$ & $1277 \pm 81$\\
+		$\sigma_t$ $(\mathrm{cm/s})$ & $ 1118 \pm 202 $ & $1020 \pm 196$ & $970 \pm 233$\\
 		\hline
-		$L$ $(\mathrm{cm})$&$(10.88 \pm 2.56) \times 10^5$ & $(11.23 \pm 2.52) \times 10^5$ & $(13.10 \pm 1.07) \times 10^5$\\
+		$L$ $(\mathrm{cm})$&$(10.88 \pm 2.56) \times 10^5$ & $(11.07 \pm 3.30) \times 10^5$ & $(11.50 \pm 1.71) \times 10^5$\\
 		\hline
-		$Ri_{\mathrm{B}}$& $17.070 \pm 7.407 $ & $8.495 \pm 3.324 $ & $6.773 \pm 1.277$\\
+		$Ri_{\mathrm{B}}$& $17.070 \pm 7.407 $ & $17.694 \pm 8.397 $ & $17.598 \pm 7.663$\\
 		\hline
-		$\dot{M}_{\mathrm{E}}$ $(\mathrm{g/s})$ &$(1.287 \pm 0.006) \times 10^9$&$(1.192 \pm 0.013) \times 10^9$ & $(1.132 \pm 0.011) \times 10^9$\\
+		$\dot{M}_{\mathrm{E}}$ $(\mathrm{g/s})$ &$(1.287 \pm 0.006) \times 10^9$&$(1.255 \pm 0.013) \times 10^9$ & $(1.174 \pm 0.016) \times 10^9$\\
       \end{tabular}
  \end{center}
-Even in the lower boundary all the parameters oscillate within a $10 \%$ range.
+Even at the lower boundary all the parameters oscillate within a $10 \%$ range. The only exception is the bulk-Richardson number but this is affected by a significant error in the lower runs. Again in the higher resolution case the turbulence standard deviation is higher, as the entrainment rate.
 \begin{center}
  \begin{tabular}{l|c|c|c}
 	 Run &$2048 \times 1024$ L& $1024  \times 512$ L& $512 \times 256$ L\\
 	  	\hline
-		$\Delta b$ $(\mathrm{cm/s^{2}})$ & $ 27.68 \pm 7.18 $ & $8.18 \pm 1.16$ & $8.28 \pm 0.53$\\
+		$\Delta b$ $(\mathrm{cm/s^{2}})$ & $ 27.62 \pm 6.54 $ & $25.85 \pm 6.48$ & $25.46 \pm 6.15$\\
 		\hline
-		$\sigma_t$ $(\mathrm{cm/s})$ & $ 1118 \pm 202 $ & $1082 \pm 227$ & $1277 \pm 81$\\
+		$\sigma_t$ $(\mathrm{cm/s})$ & $ 1190 \pm 202 $ & $985 \pm 179$ & $977 \pm 143$\\
 		\hline
-		$L$ $(\mathrm{cm})$&$(10.88 \pm 2.56) \times 10^5$ & $(11.23 \pm 2.52) \times 10^5$ & $(13.10 \pm 1.07) \times 10^5$\\
+		$L$ $(\mathrm{cm})$&$(10.88 \pm 2.56) \times 10^5$ & $(11.07 \pm 3.31) \times 10^5$ & $(11.50 \pm 1.71) \times 10^5$\\
 		\hline
-		$Ri_{\mathrm{B}}$& $21.622 \pm 6.538 $ & $8.495 \pm 3.324 $ & $6.773 \pm 1.277$\\
+		$Ri_{\mathrm{B}}$& $21.622 \pm 6.538 $ & $31.934 \pm 17.718 $ & $33.334 \pm 17.721$\\
 		\hline
-		$\dot{M}_{\mathrm{E}}$ $(\mathrm{g/s})$ &$(9.125 \pm 0.015) \times 10^8$&$(1.192 \pm 0.013) \times 10^9$ & $(1.132 \pm 0.011) \times 10^9$\\
+		$\dot{M}_{\mathrm{E}}$ $(\mathrm{g/s})$ &$(9.252 \pm 0.015) \times 10^8$&$(1.006 \pm 0.017) \times 10^9$ & $(1.026 \pm 0.031) \times 10^9$\\
       \end{tabular}
  \end{center}
 
