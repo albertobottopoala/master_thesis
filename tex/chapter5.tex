@@ -4,6 +4,13 @@
 
 \chapter{Hydrodynamic Simulations}
 \section{2D Simulations}
+\new{
+	The physics of 2D hydrodynamic is qualitatively very similar but quantitatively very different to the 3D case. Concepts such as hydrostatic equilibrium or the Schwarzschild criterion can be applied in 2D as well as in 3D, but the resulting flows will have different properties. Turbulence for instance in the 2D case transfers kinetic energy from small eddies to large eddies, while in the 3D case the opposite happens. We expect hence the entrainment mass ratio to be different between the 2D and 3D cases. 
+	
+	Nevertheless, being 2D simulations computationally so cheap, they are a very useful tool to make experience with the code and to run tests in order to setup bigger and more expensive 3D runs. In our case for instance it was necessary to have a rough estimate of the entrainment rate, of the boundary migration velocity and of the convective turnover timescale.
+
+	
+}
 \subsection{Simulations setup}
 The physical setup used for our simulations is the so called "box in a star" method, meaning that we simulate some relatively very small internal region of a star. 
 
@@ -11,15 +18,15 @@ In our case for the 2D runs it will be a box of $2.50 \times 10^{9} \ \mathrm{cm
 
 The controlling parameter in our setup is the temperature gradient that can be initialized to any value. In our case we divided the simulated region in three parts. The bottom region (labeled as $1$) starts at the lower boundary and reaches $4/12$ of the domain, the central (labeled as $2$) proceeds until the middle, and the upper one (labeled as $3$) reaches the upper boundary, as shown in \ref{fig:tempprofile}. We define a parameter $\alpha_{i}$ ($i=1, 2, 3$) which is nothing but the fraction of the $\nabla$ over the $\nabla_{\mathrm{ad}}$. As seen in previous sections $\alpha_{i}<1$ implies stability in the $i-$region, instability otherwise. 
 
-We always initialized the setup with $\alpha_{1} = \alpha_{3}$ widely smaller than $1$; and $\alpha_{2}=0.99$, which means a very precarious situation in terms of stability in the second region. A heating function furthermore heats the second region with a Gaussian profile (see \label{fig:tempprofile}) to generate convection that will expand downward and upward by entrainment. The values of $\alpha_{1}$ and $\alpha_{3}$ are controlling parameters for the bulk-Richardson number, since they are proportional to $\Delta b$. The advantage of simulating a strip of convection between two stable layers (miming a Shell convection) instead of a convective region at the bottom that grows upward (Core convection-like) is twofold: it gives us two convective boundaries to study instead of one, and we avoid high mach number at the boundary which can at times generate problems or unphysical situations. 
+We always initialized the setup with $\alpha_{1} = \alpha_{3}$ widely smaller than $1$; and $\alpha_{2}=0.99$, which means a very precarious situation in terms of stability in the second region. A heating function furthermore heats the second region with a Gaussian profile (see figure \ref{fig:twin}) to generate convection that will expand downward and upward by entraining mass. The values of $\alpha_{1}$ and $\alpha_{3}$ are controlling parameters for the bulk-Richardson number, since they are proportional to $\Delta b$. The advantage of simulating a strip of convection between two stable layers (miming a Shell convection) instead of a convective region at the bottom that grows upward (Core convection-like) is twofold: it gives us two convective boundaries to study instead of one, and we avoid high mach number at the boundary which can at times generate problems or unphysical situations. 
 
-One of the hardest tasks has been to generate the correct amount of heating such that the turbulence standard deviation \textit{at the interface} was constant during the run (which is one of the ingredients of the bulk-Richardson number, hence one of the parameters we want to control in order to perform a differential study). In order to do that, the heating function is tuned such that, at $t=100K s$ the total heat generation is reduced to $50 \%$ of the original amount.
+One of the hardest tasks has been to generate the correct amount of heating such that the turbulence standard deviation \textit{at the interface} was constant during the run (which is one of the ingredients of the bulk-Richardson number, hence one of the parameters we want to control in order to perform a differential study). In order to do that, the heating function is tuned such that, at $t=100K \ \mathrm{s}$ the total heat generation is reduced to $50 \%$ of the original amount.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=10cm]{./img/twin.pdf}
 \caption{Example of initial temperature profile along the $y$-axis}
-\label{fig:tempprofile}
+\label{fig:twin}
 \centering
 \end{figure}
 At the bottom of the simulated region small perturbations in temperature and mach number had been imprinted on the stratification in order to break the initial symmetry of the system.
@@ -29,6 +36,15 @@ A wide range of boundary conditions have been tested for this problem. We used p
 As briefly explained in the previous sections, in order to define the topology of the convective boundaries, we initialized a passive scalar inside each one of the regions. Recall that passive scalars are just like colors of the fluid and in no way influence the dynamics of the system, nor do they diffuse.
 
 As previously stated our goal is to perform a \textit{differential} study of the bulk-Richardson number and the CBM problem. This implies running simulations with different values of $\Delta b$ and $\sigma_t$ at different resolutions. Being that 2D simulations computationally so cheap, we managed to run a copious amount of them. With the code 2d0.10-0.80 we will refer to a 2-dimensional run with $\alpha_{1} = \alpha_{3}=0.1$ and $80 \%$ of the heating referring to the arbitrary value of $4.5 10^{15} \mathrm{erg/s}$.
+\begin{figure}[t!]
+      \centering
+        \subfloat[Mach number profile over time.]{\includegraphics[width=10cm]{./img/mach.pdf}\label{fig:2d0.7-0.01LR.turbmach}}
+     \centering
+	\hfill
+        \subfloat[Entrainment of passive scalar from the upper stable region in the convective region.]{\includegraphics[width=10cm]{./img/ps2.pdf}\label{fig:2d0.7-0.01LR.bp}}
+	\caption{Time evolution of a 2D run.}
+	\label{2dsingle}
+\end{figure}
 
 We run in 2D on a $2048 \times 1024$ uniform Cartesian grid. It is worth remarking that when doing CFD with a higher resolution, one not only better resolves the features of the system, but also decreases the numerical viscosity (increases the Reynolds number). This is the reason for which we chose this grid setup: we want to keep cells squared and keep viscosity a scalar quantity, and prevent it from becoming a tensorial one. In the next section we will perform a convergence study, in order to understand which roles the resolution and the viscosity play in the phenomenon of convective entrainment.
 
@@ -37,15 +53,6 @@ We run in 2D on a $2048 \times 1024$ uniform Cartesian grid. It is worth remarki
 
 
 
-\begin{figure}[t]
-      \centering
-        \subfloat[Mach number profile over time.]{\includegraphics[width=9.9cm]{./img/mach.pdf}\label{fig:2d0.7-0.01LR.turbmach}}
-     \centering
-	\hfill
-        \subfloat[Entrainment of passive scalar from the upper stable region in the convective region.]{\includegraphics[width=9.9cm]{./img/ps2.pdf}\label{fig:2d0.7-0.01LR.bp}}
-	\caption{Time evolution of a 2D run.}
-	\label{2dsingle}
-\end{figure}
  %%%%%%%
  % divisione figure %
  %%%%%%%
@@ -66,6 +73,7 @@ Second of all it is clear that some internal modes are excited by the convective
   \centering
   \hfill
   \subfloat[The same passive scalar of above, advected at $t \simeq 800 \ \mathrm{min}$. This defines the topology of the boundary.]{\includegraphics[width=10cm]{./img/passiveacc2.pdf}\label{fig:ent}}
+  \caption{\new{Advection of the passive scalar initialized in the central region over the simulated time}}
   \end{figure}
   In figure \ref{fig:2dsingle} we plot the passive scalar initialized inside the upper region, which over time is entrained by convection. We clearly see the movement of the boundaries that over the $800 \ \mathrm{min}$ of simulated time move gradually upward and downward. Specifically in the upper case it starts in the middle of the simulated region and ends up at $\sim 7.0 \times 10^{6} \ \mathrm{cm}$, for the lower case it starts at $\sim 3.7 \times 10^{6} \ \mathrm{cm}$ and moves downwards to the middle of the simulated region 
 
@@ -89,7 +97,7 @@ In figure \ref{fig:2dsingle} we plot some parameters relevant to our analysis.
 	\caption{Plots of the relevant parameters for our analysis over time. Blue lines represent the upper boundary, green lines the lower boundary.}
 	  \label{fig:2dsingle}
   \end{figure}
-We show first of all the bulk-Richardson number over time. Blue lines represent the upper boundary, green lines lower boundary. At around $t=\mathrm{300 \ min}$, when the entrainment becomes linear, the bulk-Richardson number still oscillates over half an order of magnitude. This obviously deeply affects our data analysis, making necessary a large amount of runs to collect as much data as possible. This also makes a differential study of the entrainment over time impracticable. 
+We show first of all the bulk-Richardson number over time. Blue lines represent the upper boundary, green lines lower boundary. At around $t=\mathrm{350 \ min}$, when the entrainment becomes linear and we start our analysis, the bulk-Richardson number still oscillates over half an order of magnitude. This obviously deeply affects our data analysis, making necessary a large amount of runs to collect as much data as possible. This also makes a differential study of the entrainment over time impracticable. 
 
 Second of all we plot in figure \ref{fig:ent} the entrained mass over time. As already mentioned we will perform a Lagrangian study of entrainment, because it is impracticable to quantify how much of the boundary movement is due to the entrained mass or to the adiabatic expansion of the fluid. We notice that also the entrainment rate stabilizes after the initial transition. 
 
@@ -125,10 +133,11 @@ For every 2D or 3D run we will extrapolate the relevant parameters and present t
       \end{tabular}
  \end{center}
  Where the U at the end of the run name stands for upper boundary, and the L for lower boundary. 
+ 
+ \new{
+ Notice that the lower boundary is stiffer than the upper one (the buoyancy jump is higher, hence the bulk-Richardson number) even if in the initial setup the Brunt-Väisälä frequency is the same for the two stable regions. Looking at figure \ref{fig:brunt} it is clear that at the convective boundaries a spike arises during the simulation in the Brunt-Väisälä frequency, and in the lower case it is more pronounced. Obviously when integrated over the interface, this gives rise to a bigger buoyancy jump. These spikes in the Brunt-Väisälä frequency at the interfaces were also found by Arnett \emph{et al.} (2015).
 
- Notice that the lower boundary is stiffer than the upper one (the buoyancy jump is higher, and hence the bulk-Richardson number) even if in the initial setup the Brunt-Väisälä frequency is the same for the two stable regions. Looking at figure \ref{fig:brunt} it is clear that at the convective boundaries a spike arises during the simulation in the Brunt-Väisälä frequency, and in the lower case it is more pronounced. Obviously when integrated over the interface, this gives rise to a bigger buoyancy jump. These spikes in the Brunt-Väisälä frequency at the interfaces were also found by Arnett \emph{et al.} (2015).
-
-
+}
 \subsection{Resolution study}
 \begin{figure}[t!]
   \centering
@@ -139,13 +148,12 @@ For every 2D or 3D run we will extrapolate the relevant parameters and present t
     \caption{Turbulent structures at different resolutions at about $t=500 \ \mathrm{min}$.}
     \label{fig:differentialmach}
  \end{figure}
-In the last section we analysed the run 2d0.10-0.80. What we will do in this section is to compare the previous results with the ones obtained by running the same setup on smaller resolutions, in order to understand if we are properly resolving the system. 
+In the last section we analyzed the run 2d0.10-0.80. What we will do in this section is to compare the previous results with the ones obtained by running the same setup on smaller resolutions, in order to understand if we are properly resolving the system. 
 
 The same setup was run on a $1024 \times 512$ and $512 \times 256$. As expected, the highest resolution run shows smaller and more refined turbulent structures in the convective region, while in the smallest run we observe less eddies but of bigger size (see figure \ref{fig:differentialmach}).
 
-We report in the following table the relevant parameters of the upper boundary for the different resolution runs. We observe that all the parameters are overall constant, within a $10 \%$ oscillation range. Woodward \textit{et al.} (2016) found that the entrainment rate decreases exponentially with the enhancement of the resolution, before converging to the physical value. In our case we observe a constant entrainment (with a slight increasing trend, we presume due to second order phenomena), hence we can safely assume that even in the lowest resolution case we are properly resolving the system. Notice that the turbulence standard deviation increases with the resolution as expected, because of the higher Reynolds number due to smaller numerical viscosity. 
+We report in the following table the relevant parameters of the upper boundary for the different resolution runs.
 
-One could still point out that the convergence reached in a 2D setup does not imply a convergence in 3D, but being that 3D simulations are computationally so expensive, it is impracticable for us to test this hypothesis.
 \begin{center}
  \begin{tabular}{l|c|c|c}
 	 Run &$2048 \times 1024$ U& $1024  \times 512$ U& $512 \times 256$ U\\
@@ -161,7 +169,12 @@ One could still point out that the convergence reached in a 2D setup does not im
 		$\dot{M}_{\mathrm{E}}$ $(\mathrm{g/s})$ &$(1.287 \pm 0.006) \times 10^9$&$(1.255 \pm 0.013) \times 10^9$ & $(1.174 \pm 0.016) \times 10^9$\\
       \end{tabular}
  \end{center}
-Even at the lower boundary all the parameters oscillate within a $10 \%$ range. The only exception is the bulk-Richardson number but this is affected by a significant error in the lower runs. Again in the higher resolution case the turbulence standard deviation is higher, as the entrainment rate.
+ \new{
+We observe that all the parameters are overall constant, within a $10 \%$ oscillation range. Woodward \textit{et al.} (2016) found that the entrainment rate decreases exponentially with the enhancement of the resolution, before converging to the physical value. In our case we observe a constant entrainment (with a slight increasing trend, we presume due to second order phenomena), hence we can safely assume that even in the lowest resolution case we are properly resolving the system. Notice that the turbulence standard deviation increases with the resolution as expected, because of the higher Reynolds number due to smaller numerical viscosity. 
+
+One could still point out that the convergence reached in a 2D setup does not imply a convergence in 3D, but being that 3D simulations are computationally so expensive, it is impracticable for us to test this hypothesis.
+
+Even at the lower boundary all the parameters oscillate within a $10 \%$ range. The only exception is the bulk-Richardson number but this is affected by a significant error in the lower resolution runs. Again in the higher resolution case the turbulence standard deviation is higher, as the entrainment rate.
 \begin{center}
  \begin{tabular}{l|c|c|c}
 	 Run &$2048 \times 1024$ L& $1024  \times 512$ L& $512 \times 256$ L\\
@@ -178,7 +191,7 @@ Even at the lower boundary all the parameters oscillate within a $10 \%$ range. 
       \end{tabular}
  \end{center}
 
-
+}
 
 
 \subsection{Differential 2D study}
