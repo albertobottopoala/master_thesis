@@ -198,6 +198,29 @@ Even at the lower boundary all the parameters oscillate within a $10 \%$ range. 
 
 \section{3D simulations}
 
-\subsection{Evolution of a 3D run}
+\new{
+	After having correctly tuned the heating function in a 2D setup, we switched to a 3D setup. Two simulations were run: 3d0.5-100 and 3d0.1-080, where the $0.5$ and $0.1$ stand again for the fraction $\nabla T / \nabla$ and the $100$ and $080$ stand for the percentage of the heating referring to the arbitrary value of $2.309 \times 10^{18} \mathrm{erg/s}$. These two values have been chosen in order to space as much as possible the resulting bulk-Richardson numbers, by generating a relatively stronger turbulence with a softer boundary (3d0.5-100) and a weaker turbulence with a stiffer boundary (3d0.1-080). As in the 2D case, the heating function has a Gaussian profile peaked in the convective zone and decreasing in time.
 
+	Both runs were performed on a $512 \times 256 \times 512$ uniform Cartesian grid. The first simulation was run locally on the IWR cluster in Heidelberg and scaled over $512$ haswell cores, for a total run time of about 2 weeks. The second was run on the JUQUEEN machine at JSC and scaled over an entire rack ($16384$ cores) for four days. Although SLH scales very well even on tens of thousands of cores, on JUQUEEN a higher number of CPU hours was needed for two reasons. First of all the PowerPC\textregistered \ A2 processors (IBM) of JUQUEEN are optimized to obtain the highest efficiency in terms of computations per watt, rather that per core. Second the PowerPC\textregistered \ A2 belongs to a earlier architecture generation than the haswell (Intel) one.
+
+}
+
+\subsection{Evolution of a 3D run}
+\new{
+We analyze the run 3d0.1-080.
+
+Similarly to the 2D case, convection start at $t \simeq 250 \mathrm{min}$ and in figure \ref{fig:3dsingle} is visible the growth of the convective region by entrainment of stable medium.
+
+In comparison to the 2D case we add more heating into the fluid and we simulate a stiffer boundary (that should help contain the entropy raise better than a softer one), nevertheless the turbulence mach number is lower. This result was expected because, as previously mentioned, three-dimensional turbulence has a different behavior compared to the two-dimensional one. In our case the 3D turbulence standard deviation was always a factor of a few lower than in the 2D case, which is in agreement with what found by Meakin and Arnett (2007) in their core-convection simulation. 
+\begin{figure}[t!]
+      \centering
+        \subfloat[Mach number profile over time.]{\includegraphics[width=10cm]{./img/mach.pdf}\label{fig:2d0.7-0.01LR.turbmach}}
+     \centering
+	\hfill
+        \subfloat[Entrainment of passive scalar from the upper stable region into the convective region.]{\includegraphics[width=10cm]{./img/ps2.pdf}\label{fig:2d0.7-0.01LR.bp}}
+	\caption{Time evolution of a 3D run. In comparison to the 2D case less output files were saved, hence the lower resolution in time.}
+	\label{3dsingle}
+\end{figure}
+The different turbulence configuration between the 2D and 3D case can be better understood by comparing figure \ref{} with figure \ref{}. In the previous section we showed that, the better the resolution, the more refined and complex the turbulent structure. When running a 3D simulation, even by looking at a $512 \times 256$ section of the grid, the mach number already shows a very sophisticated and convoluted shape, comparable to the $2048 \times 1024$ 2D case.
+}
 \subsection{Differential 3D study}
