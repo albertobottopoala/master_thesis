@@ -7,7 +7,7 @@
 \subsection{Derivation of the Equations of Ideal Hydrodynamics}
 As with all the most beautiful and successful laws of Physics, Hydrodynamics is derived from some conserved quantities. 
 
-The following derivation of the equations of hydrodynamics, which are the foundation for our simulations, is inspired to the one presented by M. Bartelmann \cite{theoastro}. 
+The following derivation of the equations of hydrodynamics, which are the foundation for our simulations, is inspired to the one presented by M. Bartelmann in \textit{Theoretical Astrophysics} \cite{theoastro}. 
 
 Let's consider for instance a monoatomic gas in a box. A fundamental assumption in ideal hydrodynamics is that the mean free path of particles is infinitesimal. Particles might be spatially equally distributed (like in a bottle) or might not (maybe because the box is so big that we get a density stratification like in the atmosphere). The same concept holds for the velocity distribution: it might be Maxwellian or it might not be. 
 In any case we can define the \textbf{distribution function in phase space} $f( \vec{x^{\mu}}, \vec{p^{\mu}})$ such that
@@ -74,7 +74,7 @@ so what we are actually writing is Newton's equation per unit volume
 $$
 \rho \vec{a} = \vec \nabla P
 $$
-In case other macroscopic forces like gravity are present, we simply add them on the right hand side as we would do in classical cechanics. 
+In case other macroscopic forces like gravity are present, we simply add them on the right hand side as we would do in classical mechanics. 
 
 So far we have obtained 5 equations in 6 unknowns, namely the internal energy $\epsilon$, the momentum $\vec{p}$, the pressure $P$ and the density $\rho$. If we want to have at least a chance of integrating the system we're missing one equation, the \textbf{equation of state}, that relates the thermodynamic variables.
 
@@ -124,6 +124,9 @@ $$
 This equation can be solved only if an equation of state (EoS) is provided. For instance if we choose a polytropic equation of state (which means that the pressure is a function of the density only and not of the temperature) we obtain the \textbf{Lane-Emden Equation} that allows stable solutions for adiabatic indices up to $4/3$ only. This EoS is used for instance for modeling white dwarfs, where the pressure doesn't depend on the temperature because of the degeneracy of the gas. 
 
 \section{Energy Transfer}
+\new{
+	The present chapter about energy transfer and the following one about convection are inspired to the work of Kippenhahn, Weigert and Weiss \textit{Stellar Structure and Evolution} \cite{stellarstruc}.
+}
 \subsection{Transport of Energy by Radiation}
 In the deep interiors of stars energy is generated through nuclear reactions. In the Sun for instance all the energy is provided by hydrogen burning into helium (the so-called p-p chain), while just a little fraction by virialization. Because temperature is of the order of $10^9 K$, thermal motions allow protons to overcome the electrostatic potential barriers and interact through the nuclear force, giving rise to the reaction
 \begin{equation}\label{ppchain}
@@ -215,7 +218,7 @@ We have already encountered the hydrostatic equilibrium equation
 So far we have written down two equations in three variables, namely $m$, $\rho$, and $P$. If we want to have at lest a chance to solve them we need another equation, namely the equation of state. Possible choices are:
 \begin{itemize}
 	\item $\rho=const$ this would be the case for liquids.
-	\item $P\propto \rho^\gamma$ i.e. the density and pressure are not a function of the temperature. This is the case, as already stated in the previous section for white dwarfs and leads to the Lane-Edmen equation and its solutions.
+	\item $P\propto \rho^\gamma$ i.e. \ the density and pressure are not a function of the temperature. This is the case, as already stated in the previous section for white dwarfs and leads to the Lane-Edmen equation and its solutions.
 	\item $P=\frac{\mu}{R}\frac{P}{T}$ the equation of state for perfect gases and it's the case for the sun. It has the inconvenience that it introduces another variable, namely the temperature $T$, and hence it doesn't solve our original problem. We need at least another equation to solve the system. 
 \end{itemize}
 
@@ -251,7 +254,7 @@ DA=A_e - A_s
 $$
 For instance we could imagine that a little region of a star is slightly hotter than the surroundings, hence we have in that region $DT > 0$. Note that because of the assumption we have made $DP=0$ always, because when these is a pressure spike, the gas expands at the sound velocity $c_s$ which is way higher than the low hydro regime we observe in stellar inertia.
 
-If we have a $DT>0$, since in a perfect gas the equation of state reads $\rho \sim P/T$, we obtain $D \rho < 0$. With a lower density, that mass element will be lifted by buoyancy. In a non adiabatic workframe it might happen that heat is exchanged so quickly that temperature differences vanish immediately, but we assumed adiabatic processes. The question we are trying to answer is if the mass element, after a little upward movement, will still be buoyant and give rise to macroscopic convection, or if it will bounce back. The answer lies obviously in the temperature gradient, i.e. if once lifted a little bit the new $DT$ will still be in favor to buoy it to the next layer, and so on. 
+If we have a $DT>0$, since in a perfect gas the equation of state reads $\rho \sim P/T$, we obtain $D \rho < 0$. With a lower density, that mass element will be lifted by buoyancy. In a non adiabatic workframe it might happen that heat is exchanged so quickly that temperature differences vanish immediately, but we assumed adiabatic processes. The question we are trying to answer is if the mass element, after a little upward movement, will still be buoyant and give rise to macroscopic convection, or if it will bounce back. The answer lies obviously in the temperature gradient, i.e. \ if once lifted a little bit the new $DT$ will still be in favor to buoy it to the next layer, and so on. 
 
 Let's approach the problem from another point of view. Let's assume that we have a stable layer without perturbations, and we lift a mass element upward of $\Delta r$. The density difference now is
 \begin{equation}\label{eq:displacement}
@@ -372,7 +375,7 @@ In our case we define the length scale of the turbulence $L$ as follows. Let's c
 \begin{equation}\label{correlation}
 	a(\Delta r)= \langle f(r) f(r + \Delta r) \rangle
 \end{equation}
-where the brackets mean average over all possible $r$, but at fixed correlation length $\Delta r$. Recall that such a function always has a maximum for $\Delta r=0$, (because every function $f$ is perfectly equal to itself), then $a(\Delta r)$ decreases with increasing $\Delta r$ (because $f(r+\Delta r)$ resembles less and less $f(r)$ as $\Delta r$ increases). If $f$ is periodic with period $T$, then the autocorrelation function $a$ has maximum with periodicity $T$. In order to define $L$ we autocorrelate the mach number in the horizontal direction of the convective region and take the length at which $a$ drops to a half of its maximum, i.e. $a(L)/a(0)=0.5$.
+where the brackets mean average over all possible $r$, but at fixed correlation length $\Delta r$. Recall that such a function always has a maximum for $\Delta r=0$, (because every function $f$ is perfectly equal to itself), then $a(\Delta r)$ decreases with increasing $\Delta r$ (because $f(r+\Delta r)$ resembles less and less $f(r)$ as $\Delta r$ increases). If $f$ is periodic with period $T$, then the autocorrelation function $a$ has maximum with periodicity $T$. In order to define $L$ we autocorrelate the mach number in the horizontal direction of the convective region and take the length at which $a$ drops to a half of its maximum, i.e. \ $a(L)/a(0)=0.5$.
 
 The buoyancy jump is defined by considering the \textbf{Brunt-Väisälä frequency} 
 \begin{equation}
@@ -394,5 +397,5 @@ In a Lagrangian workframe this transforms to
 \begin{equation}
 	\dot{M}_\mathrm{E}=\frac{\partial M}{\partial r} u_E
 \end{equation}
-If this relation is proven to be true, it would be possible to know the boundary migration speed $u_b$ or the mass entrainment rate $\dot{M}_\mathrm{E}$ given only $L$, $\Delta b$ and $\sigma_t$, and consequentially map this phenomenon into 1D stellar models. In the hope that these two free parameters exist and are universal (i. e. not system-, code- or resolution-dependent), the goal of this work is to determine them and to test their universality.
+If this relation is proven to be true, it would be possible to know the boundary migration speed $u_b$ or the mass entrainment rate $\dot{M}_\mathrm{E}$ given only $L$, $\Delta b$ and $\sigma_t$, and consequentially map this phenomenon into 1D stellar models. In the hope that these two free parameters exist and are universal (i.e. \ not system-, code- or resolution-dependent), the goal of this work is to determine them and to test their universality.
 
