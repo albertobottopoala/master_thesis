@@ -145,7 +145,7 @@ For every 2D or 3D run we will extrapolate the relevant parameters and present t
   \centering
       \hfill
     \subfloat[Mach number profile for the $512 \times 256$ run.]{\includegraphics[width=10cm]{./img/machlowres.pdf}}
-    \caption{Turbulent structures at different resolutions at about $t=500 \ \mathrm{min}$.}
+    \caption{Turbulent structures at different resolutions at about $t=500 \ \mathrm{min}$. Notice the higher mach number in the $2048 \times 1024$ run due to lower numerical viscosity (see text).}
     \label{fig:differentialmach}
  \end{figure}
 In the last section we analyzed the run 2d0.10-0.80. What we will do in this section is to compare the previous results with the ones obtained by running the same setup on smaller resolutions, in order to understand if we are properly resolving the system. 
@@ -195,6 +195,9 @@ Even at the lower boundary all the parameters oscillate within a $10 \%$ range. 
 
 
 \subsection{Differential 2D study}
+\new{
+	Differential 2d
+}
 
 \section{3D simulations}
 
@@ -214,13 +217,13 @@ Similarly to the 2D case, convection start at $t \simeq 250 \mathrm{min}$ and in
 In comparison to the 2D case we add more heating into the fluid and we simulate a stiffer boundary (that should help contain the entropy raise better than a softer one), nevertheless the turbulence mach number is lower. This result was expected because, as previously mentioned, three-dimensional turbulence has a different behavior compared to the two-dimensional one. In our case the 3D turbulence standard deviation was always a factor of a few lower than in the 2D case, which is in agreement with what found by Meakin and Arnett (2007) in their core-convection simulation. 
 \begin{figure}[t!]
       \centering
-        \subfloat[Mach number profile over time.]{\includegraphics[width=10cm]{./img/mach.pdf}\label{fig:2d0.7-0.01LR.turbmach}}
+        \subfloat[Mach number profile over time.]{\includegraphics[width=10cm]{./img/mach.pdf}\label{fig:mach3d}}
      \centering
 	\hfill
-        \subfloat[Entrainment of passive scalar from the upper stable region into the convective region.]{\includegraphics[width=10cm]{./img/ps2.pdf}\label{fig:2d0.7-0.01LR.bp}}
+        \subfloat[Entrainment of passive scalar from the upper stable region into the convective region.]{\includegraphics[width=10cm]{./img/ps2.pdf}\label{fig:ps3d}}
 	\caption{Time evolution of a 3D run. In comparison to the 2D case less output files were saved, hence the lower resolution in time.}
 	\label{3dsingle}
 \end{figure}
-The different turbulence configuration between the 2D and 3D case can be better understood by comparing figure \ref{} with figure \ref{}. In the previous section we showed that, the better the resolution, the more refined and complex the turbulent structure. When running a 3D simulation, even by looking at a $512 \times 256$ section of the grid, the mach number already shows a very sophisticated and convoluted shape, comparable to the $2048 \times 1024$ 2D case.
+The different turbulence configuration between the 2D and 3D case can be better understood by comparing figure \ref{} with figure \ref{mach3d}. In the previous section we showed that, the better the resolution, the more refined and complex the turbulent structure. When running a 3D simulation, even by looking at a $512 \times 256$ section of the grid, the mach number already shows a very sophisticated and convoluted shape, comparable to the $2048 \times 1024$ 2D case.
 }
 \subsection{Differential 3D study}

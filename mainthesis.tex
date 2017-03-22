@@ -20,52 +20,29 @@ Advisor Prof. Dr. Friedrich Röpke}
 \renewcommand{\arraystretch}{1.2}
 \printinunitsof{in}\prntlen{\textwidth} \\
 \the\textwidth
-\begin{titlepage}
-\begin{center}
 
 % Upper part of the page. The '~' is needed because \\
 % only works if a paragraph has started.
 % to set spelling in Vim type :setlocal spell spelllang=en_us
 
-\textsc{\LARGE Universität Heidelberg}\\[1.8cm]
-
-\textsc{\Large Master Thesis}\\[0.5cm]
-
-% Title
-
-{ \huge \bfseries NUMERICAL SIMULATIONS OF CONVECTIVE BOUNDARY MIXING FOR ASTROPHYSICAL APPLICATIONS \\[0.5cm] }
-
-
-
 % Author and supervisor
-\begin{minipage}{0.4\textwidth}
-\begin{flushleft} \large
-\emph{Candidate}\\
-Alberto \textsc{Botto Poala}
-\end{flushleft}
-\end{minipage}
-\begin{minipage}{0.4\textwidth}
-\begin{flushright} \large
-\emph{Advisor Professor} \\
-Prof. Friedrich \textsc{Röpke}
-\end{flushright}
-\end{minipage}
-
-\vfill
 
 % Bottom of the page
-{07.03.17}
 
-\end{center}
-\end{titlepage}
 
+%\maketitle
+
+\input{./tex/titlepages-ger.tex}
+\input{./tex/titlepages-eng.tex}
+\input{./tex/abstracts.tex}
 \tableofcontents
-\maketitle
-
 \input{./tex/chapter1.tex}
 \input{./tex/chapter2.tex}
 \input{./tex/chapter3.tex}
 \input{./tex/chapter4.tex}
 \input{./tex/chapter5.tex}
 \input{./tex/bibliography.tex}
+\clearpage
+\input{./tex/aknowledgements.tex}
+\input{./tex/deposition.tex}
 \end{document}
