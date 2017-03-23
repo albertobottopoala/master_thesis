@@ -4,10 +4,10 @@
 
 \chapter{Underlying Physics}
 \section{Hydrodynamics}
-\subsection{Derivation of the Equations of Ideal Hydrodynamics}
 As with all the most beautiful and successful laws of Physics, Hydrodynamics is derived from some conserved quantities. 
 
 The following derivation of the equations of hydrodynamics, which are the foundation for our simulations, is inspired to the one presented by M. Bartelmann in \textit{Theoretical Astrophysics} \cite{theoastro}. 
+\subsection{Derivation of the Equations of Ideal Hydrodynamics}
 
 Let's consider for instance a monoatomic gas in a box. A fundamental assumption in ideal hydrodynamics is that the mean free path of particles is infinitesimal. Particles might be spatially equally distributed (like in a bottle) or might not (maybe because the box is so big that we get a density stratification like in the atmosphere). The same concept holds for the velocity distribution: it might be Maxwellian or it might not be. 
 In any case we can define the \textbf{distribution function in phase space} $f( \vec{x^{\mu}}, \vec{p^{\mu}})$ such that
@@ -218,7 +218,7 @@ We have already encountered the hydrostatic equilibrium equation
 So far we have written down two equations in three variables, namely $m$, $\rho$, and $P$. If we want to have at lest a chance to solve them we need another equation, namely the equation of state. Possible choices are:
 \begin{itemize}
 	\item $\rho=const$ this would be the case for liquids.
-	\item $P\propto \rho^\gamma$ i.e. \ the density and pressure are not a function of the temperature. This is the case, as already stated in the previous section for white dwarfs and leads to the Lane-Edmen equation and its solutions.
+	\item $P\propto \rho^\gamma$ i.e.\ the density and pressure are not a function of the temperature. This is the case, as already stated in the previous section for white dwarfs and leads to the Lane-Edmen equation and its solutions.
 	\item $P=\frac{\mu}{R}\frac{P}{T}$ the equation of state for perfect gases and it's the case for the sun. It has the inconvenience that it introduces another variable, namely the temperature $T$, and hence it doesn't solve our original problem. We need at least another equation to solve the system. 
 \end{itemize}
 
@@ -254,7 +254,7 @@ DA=A_e - A_s
 $$
 For instance we could imagine that a little region of a star is slightly hotter than the surroundings, hence we have in that region $DT > 0$. Note that because of the assumption we have made $DP=0$ always, because when these is a pressure spike, the gas expands at the sound velocity $c_s$ which is way higher than the low hydro regime we observe in stellar inertia.
 
-If we have a $DT>0$, since in a perfect gas the equation of state reads $\rho \sim P/T$, we obtain $D \rho < 0$. With a lower density, that mass element will be lifted by buoyancy. In a non adiabatic workframe it might happen that heat is exchanged so quickly that temperature differences vanish immediately, but we assumed adiabatic processes. The question we are trying to answer is if the mass element, after a little upward movement, will still be buoyant and give rise to macroscopic convection, or if it will bounce back. The answer lies obviously in the temperature gradient, i.e. \ if once lifted a little bit the new $DT$ will still be in favor to buoy it to the next layer, and so on. 
+If we have a $DT>0$, since in a perfect gas the equation of state reads $\rho \sim P/T$, we obtain $D \rho < 0$. With a lower density, that mass element will be lifted by buoyancy. In a non adiabatic workframe it might happen that heat is exchanged so quickly that temperature differences vanish immediately, but we assumed adiabatic processes. The question we are trying to answer is if the mass element, after a little upward movement, will still be buoyant and give rise to macroscopic convection, or if it will bounce back. The answer lies obviously in the temperature gradient, i.e.\ if once lifted a little bit the new $DT$ will still be in favor to buoy it to the next layer, and so on. 
 
 Let's approach the problem from another point of view. Let's assume that we have a stable layer without perturbations, and we lift a mass element upward of $\Delta r$. The density difference now is
 \begin{equation}\label{eq:displacement}
@@ -365,7 +365,7 @@ Although the mixing length theory has been used extensively in 1D stellar evolut
 
 So far we got to the point where we have a convective layer and a stable layer above or beneath it. What happens over time is that the convective boundary entrains mass from the stable layer by ingestion, because turbulent eddies capture stable fluid that is consequentially dragged and entrained in the turbulent layer. A fundamental problem in stellar evolution is to understand the dynamics of this boundary: what is its velocity (if we are in an eulerian workframe), or how much mass from the stable layer is entrained in unit time (in a Lagrangian workframe).
 
-One of the methods used to model the migration is the \textbf{bulk-Richardson number}
+One of the methods used to model the migration is the bulk-Richardson number
 \begin{equation}\label{bulkrichardson}
 	\mathrm{Ri}_{B}=\frac{\Delta b L}{\sigma_t^2}
 \end{equation}

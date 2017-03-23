@@ -18,7 +18,7 @@ In order to discretize the physical domain we employ a set of curvilinear coordi
 \zeta \in [1/2, N_{\zeta} + 1/2] 
 \end{split}
 \end{equation}
-Here we are imposing that the cells volume is constant, i.e. $\Delta \xi = \Delta \eta = \Delta \zeta = 1$ in order to simplify some calculations. This may, in general, not be the case, since SLH allows the user to call a general curvilinear grid. In this particular case integer values of coordinates refer to cell centers, half integer to cell faces, e.g. by $(\xi, \eta, \zeta) = (i, j + 1/2, k)$ we refer to the interface at the right-hand side of cell $(i, j, k)$.
+Here we are imposing that the cells volume is constant, i.e.\ $\Delta \xi = \Delta \eta = \Delta \zeta = 1$ in order to simplify some calculations. This may, in general, not be the case, since SLH allows the user to call a general curvilinear grid. In this particular case integer values of coordinates refer to cell centers, half integer to cell faces, e.g. by $(\xi, \eta, \zeta) = (i, j + 1/2, k)$ we refer to the interface at the right-hand side of cell $(i, j, k)$.
 
 Both for analytic and numerical study of Euler equations, it is useful to switch to a dimensionless workframe. This is achieved by decomposing state variables into two parts, namely a reference value (denoted with an $r$) and a dimensionless number (denoted with a hat), e.g. $\rho = \rho_r \cdot \hat{\rho}$. This leads to equations for the state vector 
 \begin{equation}
@@ -114,7 +114,7 @@ In order to compute the right-hand side, one should invert the Jacobian of the d
 \end{equation}
 where $\Delta \mathbf{U}=\mathbf{U}^{k+1} - \mathbf{U}^k$. This is a very effective method to transform a system of non-linear equations to a set of systems of linear equations.
 
-The Newton-Raphson method generally converges quadratically to the solution, i.e. the number of significant digits doubles at every iteration. In particular cases like a double root (namely $f'(\alpha)$=0, where $\alpha$ is the defect root) the convergence is linear. Obviously the first and second derivative should be non-zero over the iterative domain and to improve the efficiency the initial guess should be as close as possible to the root of the defect. In SLH we choose as $\mathbf{U}^0$ the solution of the previous time step.
+The Newton-Raphson method generally converges quadratically to the solution, i.e.\ the number of significant digits doubles at every iteration. In particular cases like a double root (namely $f'(\alpha)$=0, where $\alpha$ is the defect root) the convergence is linear. Obviously the first and second derivative should be non-zero over the iterative domain and to improve the efficiency the initial guess should be as close as possible to the root of the defect. In SLH we choose as $\mathbf{U}^0$ the solution of the previous time step.
 
 SLH prints in the log file information about every iteration of the Newton-Raphson method for every variable. Specifically it prints the $\mathrm{L2}$ norm of the defect. For the density $\rho$ for instance
 \begin{equation}\label{eq:l2defect}
