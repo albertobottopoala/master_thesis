@@ -382,7 +382,7 @@ The buoyancy jump is defined by considering the \textbf{Brunt-Väisälä frequen
 	N^2(r)=-g \left (  \frac{\partial \ln \rho}{\partial r} -  \frac{\partial \ln \rho}{\partial r} \Big|_{s}  \right )
 \end{equation}
 and integrating it over the boundary
-\begin{equation}
+\begin{equation}\label{eq:buoyancyjump}
 	\Delta b = \int_{r_i}^{r_f} N^2 dr
 \end{equation}
 Of course we need a proper definition of the boundary limits $r_i$ and $r_f$. In our case we defined them by initializing a passive scalar in the convective region, which is over time advected in the unstable layer. By looking at the gradient of the concentration of the passive scalar in the vertical direction, one notices two spikes, which represent the boundary positions at given horizontal position. By averaging over all the horizontal positions and by computing the standard deviation, we are able to define the boundary position and its width.
