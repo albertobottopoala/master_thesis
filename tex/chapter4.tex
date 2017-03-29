@@ -1,15 +1,16 @@
 \chapter{Code Description}
 \section{Code Overview}
-The code we used is called SLH (Seven League Hydro). It was originally developed by Dr.\ Fabian Miczek during his PhD thesis (2013). SLH is a finite-volume multidimensional code that solves the Euler equations (ideal hydrodynamic) using explicit or implicit methods. The advantage of implicit methods lies in the fact that the time step is constantly redefined optimizing computational resources using a modified version of the so called CFL criterion for numerical stability, that allows us to take much larger time steps. In this case a non-linear system of equations is solved using the Newton-Ralphson method, in which a linear system is solved through the Krylov subspace methods at every iteration of the method. The efficiency of all these computational schemes are strongly dependent on the type of linear system solved and the cluster architecture used. 
+The code we used is called Seven League Hydro (SLH). It was originally developed by Dr.\ Fabian Miczek during his PhD thesis (Miczek, 2013). SLH is a finite-volume multidimensional code that solves the Euler equations (ideal hydrodynamic) using explicit or implicit time discretization.
 
-From the point of view of simulation domain SLH allows us to implement a general curvilinear grid instead of a simple Cartesian one by defining a metric, the elements of which are needed to correctly compute the fluxes at the cells interfaces. The code automatically decomposes the domain to parallelize the computation on the desired number of processors on distributed memory (MPI) and shared memory enviroments (OpenMP). A wide choice of boundary conditions are implemented. 
+The code automatically decomposes the domain to parallelize the computation on the desired number of processors on distributed memory (MPI) and shared memory enviroments (OpenMP). A wide choice of boundary conditions are implemented. 
 
 Furthermore SLH implements a general equation of state, a nuclear reaction network, passive and active scalars which are fundamental for the study of the chemical composition of the fluid, radiation in the diffusion limit and thermal conduction. 
 
-Over the years SHL has undergone several scaling tests, the most remarkable of which at the Jülich Supercomputing Center (JSC) in 2016 where it scaled over all the $458752$ cores of \textit{JUQUEEN} (a Blue Gene machine, currently the last generation of IBM supercomputers).
+Over the years SHL has undergone several scaling tests, the most remarkable of which at the Jülich Supercomputing Center (JSC) in 2016 where it scaled over all the $458752$ cores of \textit{JUQUEEN} (a Blue Gene machine, currently the latest generation of IBM supercomputers).
 
 \section{Finite Volume Discretization}
-This chapter follows chapters 4 and 5 of Miczek (2013)
+This chapter follows section 3.3 of Miczek (2013).
+
 In order to discretize the physical domain we employ a set of curvilinear coordinates $\xi, \eta, \zeta$. This set is partitioned by a regular, equidistant grid with $N_{\xi} \times N_{\eta} \times N_{\zeta}$ cells. Without loss of generality, we define the domain extent such that
 \begin{equation}
 \begin{split}
@@ -18,13 +19,13 @@ In order to discretize the physical domain we employ a set of curvilinear coordi
 \zeta \in [1/2, N_{\zeta} + 1/2] 
 \end{split}
 \end{equation}
-Here we are imposing that the cells volume is constant, i.e.\ $\Delta \xi = \Delta \eta = \Delta \zeta = 1$ in order to simplify some calculations. This may, in general, not be the case, since SLH allows the user to call a general curvilinear grid. In this particular case integer values of coordinates refer to cell centers, half integer to cell faces, e.g. by $(\xi, \eta, \zeta) = (i, j + 1/2, k)$ we refer to the interface at the right-hand side of cell $(i, j, k)$.
+Here we impose that the cell volume is constant, i.\ e.\ $\Delta \xi = \Delta \eta = \Delta \zeta = 1$ in order to simplify some calculations. This may, in general, not be the case, since SLH allows the user to call a general curvilinear grid. In this particular with this notation integer values of coordinates refer to the centers of the cells, half integer to cell faces, e.\ g.\ by $(\xi, \eta, \zeta) = (i, j + 1/2, k)$ we refer to the interface at the right-hand side of cell $(i, j, k)$.
 
 Both for analytic and numerical study of Euler equations, it is useful to switch to a dimensionless workframe. This is achieved by decomposing state variables into two parts, namely a reference value (denoted with an $r$) and a dimensionless number (denoted with a hat), e.g. $\rho = \rho_r \cdot \hat{\rho}$. This leads to equations for the state vector 
 \begin{equation}
 \frac{\partial \mathbf{\hat{U}}}{\partial \hat{t}} + \frac{\partial \mathbf{\hat{F}}_x}{\partial \hat{x}} + \frac{\partial \mathbf{\hat{F}}_y}{\partial \hat{y}} + \frac{\partial \mathbf{\hat{F}}_z}{\partial \hat{z}} = \mathbf{\hat{S}}
 \end{equation}
-where the quantities $\mathbf{\hat{U}}$, $\mathbf{\hat{F}}_x$, $\mathbf{\hat{F}}_y$ and $\mathbf{\hat{F}}_z$ are defined by the stress-energy tensor as discussed in the previous chapter. From now on for simplicity we will drop the hat notation. We discretize the spatial component of \textit{in space} Euler equations as 
+where the quantities $\mathbf{\hat{U}}$, $\mathbf{\hat{F}}_x$, $\mathbf{\hat{F}}_y$ and $\mathbf{\hat{F}}_z$ are defined by the stress-energy tensor as discussed in the previous chapter. From now on for simplicity we will drop the hat notation. We discretize the spatial component of in space Euler equations as 
 \begin{equation}
 J^{-1}\frac{\partial \mathbf{U}}{\partial t} + \nabla_{\xi, \eta, \zeta} \cdot \mathbf{F} = J^{-1} \mathbf{S}
 \end{equation}
@@ -67,6 +68,8 @@ In addition to that, what we performed was a \textit{partial discretization}, si
 \end{equation}
 where the vector $\mathbf{R}_{i, j, k}$ is known as \textit{spatial residual} of the cell $(i, j, k)$. As previously mentioned, this is a function with the numerical fluxes of the surrounding cells, and suitable numerical methods are needed in order to correctly compute them.
 \section{Explicit vs. Implicit Time Stepping}
+This follows sections 5.1 and 5.2 of Miczek (2015).
+
 The simplest way to discretize in time equation \ref{eq:methodoflines} is the so called \textbf{forward Euler method} \footnote{The forward Euler method can be applied to resolve general PDEs, not only Euler equations. It is a coincidence that both the fluid dynamics equations and the numerical scheme that we use to solve them were discovered by Swiss mathematician Leonhard Euler.}:
 \begin{equation}\label{eq:forwardeuler}
 	\frac{\mathbf{U}^{n+1}_{i, j, k} - \mathbf{U}^{n}_{i, j, k}}{\Delta t} + \mathbf{R}_{i, j, k}(\mathbf{U}^n)=0
