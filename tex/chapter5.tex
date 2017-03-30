@@ -39,7 +39,7 @@ A wide range of boundary conditions have been tested for this problem. In our fi
 
 As briefly explained in the previous sections, in order to define the topology of the convective boundaries, we initialized a passive scalar inside each one of the regions. Recall that passive scalars are just like colors of the fluid and in no way influence the dynamics of the system, nor do they diffuse.
 
-As previously stated our goal is to perform a \textit{differential} study of the bulk-Richardson number and the CBM problem. This implies running simulations with different values of $\Delta b$ and $\sigma_t$ at different resolutions. Being that 2D simulations computationally so cheap, we managed to run a copious amount of them. With the code 2d0.10-0.80 we will refer to a 2-dimensional run with $\alpha_{1} = \alpha_{3}=0.1$ and $80 \%$ of the heating referring to the arbitrary value of $4.5 10^{15} \mathrm{erg/s}$.
+As previously stated our goal is to perform a \textit{differential} study of the bulk-Richardson number and the CBM problem. This implies running simulations with different values of $\Delta b$ and $\sigma_t$ at different resolutions. Being that 2D simulations are computationally so cheap, we managed to run a copious amount of them. With the code 2d0.10-100 we will refer to a 2-dimensional run with $\alpha_{1} = \alpha_{3}=0.1$ and $100 \%$ of the heating referring to the arbitrary value of $4.5 10^{15} \, \mathrm{erg/s}$.
 
 We run in 2D on a $2048 \times 1024$ uniform Cartesian grid. It is worth remarking that when doing CFD with a higher resolution, one not only better resolves the features of the system, but also decreases the numerical viscosity (increases the Reynolds number). This is the reason for which we chose this grid setup: we want to keep cells squared and keep viscosity a scalar quantity, and prevent it from becoming a tensorial one. In the next section we will perform a convergence study, in order to understand which roles the resolution and the viscosity play in the phenomenon of convective entrainment.
 
@@ -54,7 +54,7 @@ We run in 2D on a $2048 \times 1024$ uniform Cartesian grid. It is worth remarki
 	\caption{Time evolution of a 2D run for the Mach number and the third passive scalar (average on the horizontal direction).}
 	\label{fig:2dsinglefirst}
 \end{figure}
-Let's consider the setup 2d0.10-0.80. 
+Let's consider the setup 2d0.10-100. 
 
 Convection starts at around $t \sim 150 \mathrm{min}$. Because of the already mentioned implicit time stepping, the lower the Mach number, the bigger the time step, allowing us to save a huge amount of computational resources before the rise of convection. A remarkable difference is also observed in the convective regime, as long as the Mach number is below $10 \%$, which has always been our case.
 
@@ -126,98 +126,74 @@ In Figure (\ref{fig:ent}) the entrained mass over time. As already mentioned we 
 
 We show in Figure (\ref{fig:bulk}) the bulk-Richardson number over time. Blue lines represent the upper boundary, green lines the lower boundary. At around $t=\mathrm{300 \ min}$, when the entrainment becomes linear and we start our analysis, the bulk-Richardson number still oscillates over half an order of magnitude. This obviously deeply affects our data analysis, making necessary a large amount of runs to collect as much data as possible. This also makes a differential study of the entrainment over time impracticable. 
 
-For every 2D or 3D run we will extrapolate the relevant parameters and present them in the following layout
-\begin{center}
- \begin{tabular}{l|c|c}
-	 Run &2d0.7-0.01U&2d0.7-0.01L\\
-	  	\hline
-	   $\Delta b$ $(\mathrm{cm/s^{2}})$&$ 18.17 \pm 3.62 $&$27.68 \pm 7.18$\\
-		\hline
-	   $\sigma_t$ $(\mathrm{cm/s})$ &$ 1118 \pm 202 $&$1190 \pm 218$\\
-		\hline
-	   $L$ $(\mathrm{cm})$&$(10.88 \pm 2.56) \times 10^5$&$(10.88 \pm 2.56) \times 10^5$\\
-		\hline
-	   $Ri_{\mathrm{B}}$& $17.070 \pm 7.407 $&$21.622 \pm 6.538$\\
-		\hline
-	   $\dot{M}_{\mathrm{E}}$ $(\mathrm{g/s})$ &$(1.287 \pm 0.006) \times 10^9$&$(9.125 \pm 0.015) \times 10^8$\\
-      \end{tabular}
- \end{center}
- Where the U at the end of the run name stands for upper boundary, and the L for lower boundary. 
+For every 2D or 3D run we will extrapolate the relevant parameters and present them in the layout of Table (\ref{2dsingletab})
+ \begin{table}\caption{Boundaries Parameters for the 2d0.10-100 run, U stands for the upper boundary, L for the lower boundary.}
+ \begin{tabular}{lccccc}
+	 \toprule
+	 Run &$\Delta b  $&$\sigma_t$ & $L$&$Ri_{\mathrm{B}}$&$\dot{M}_{\mathrm{E}}$ \\
+		    & $(\mathrm{cm \, s^{-2}})$&$(\mathrm{cm \, s^{-1}})$&$(10^5 \, \mathrm{cm})$ & & $(10^9 \, \mathrm{g \, s^{-1}})$ \\
+	  	\midrule
+		2d0.7-0.01U&$ 18.17 \pm 3.62 $&$1118 \pm 202 $ &  $10.88 \pm 2.56 $ & $17.070 \pm 7.407 $ & $1.287 \pm 0.006$\\
+		2d0.7-0.01L &$27.68 \pm 7.18$&$1190 \pm 218$ & $10.88 \pm 2.56$ &  $21.622 \pm 6.538$ & $0.913 \pm 0.002$\\
+		\bottomrule
+	\end{tabular}\label{2dsingletab}
+ \end{table}
 
- \new{
-
-}
 \subsection{Resolution study}
+\begin{table}[b!]\caption{Boundaries parameters for the high, medium, and low resolution runs.}
+ \begin{tabular}{lccccc}
+	 \toprule
+	 Run &$\Delta b  $&$\sigma_t$ & $L$&$Ri_{\mathrm{B}}$&$\dot{M}_{\mathrm{E}}$ \\
+		    & $(\mathrm{cm \, s^{-2}})$&$(\mathrm{cm \, s^{-1}})$&$(10^5 \, \mathrm{cm})$ & & $(10^9 \, \mathrm{g \, s^{-1}})$ \\
+	  	\midrule
+		$2048 \times 1024$ U&$ 18.17 \pm 7.41  $&$1118 \pm 202 $ &  $10.88 \pm 2.56 $ & $17.070 \pm 7.407 $ & $1.287 \pm 0.006$\\
+		$1024  \times 512$ U &$15.48 \pm 2.31$&$1020 \pm 196$ & $11.07 \pm 3.30$ &  $17.694 \pm 8.397 $ & $1.255 \pm 0.013$\\
+		$512 \times 256$ U &$12.82 \pm 2.40$&$970 \pm 233$ & $11.50 \pm 1.71$ &  $17.598 \pm 7.663$ & $1.174 \pm 0.016$\\
+		$2048 \times 1024$ L&$ 27.62 \pm 6.54 $&$1190 \pm 202 $ &  $10.88 \pm 2.56 $ & $21.622 \pm 6.538 $ & $0.926 \pm 0.002$\\
+		$1024  \times 512$ L &$25.85 \pm 6.48$&$985 \pm 179$ & $11.07 \pm 3.30$ &  $31.934 \pm 17.718$ & $1.006 \pm 0.017$\\
+		$512 \times 256$ L &$25.46 \pm 6.15$&$977 \pm 143$ & $11.50 \pm 1.71$ &  $33.334 \pm 17.721$ & $1.026 \pm 0.031$\\
+		\bottomrule
+	\end{tabular}\label{2ddifftab}
+ \end{table}
+In the last section we analyzed the run 2d0.10-100. What we will do in this section is to compare the previous results with the ones obtained by running the same setup on smaller resolutions, in order to understand if we are properly resolving the system. 
+
+The same setup was run on a $1024 \times 512$ and $512 \times 256$. As expected, the highest resolution run shows smaller and more refined turbulent structures in the convective region, while in the smallest run we observe less eddies but of bigger size (see figure \ref{fig:differentialmach}).
+
+We report in Table (\ref{2ddifftab}) the relevant parameters of the upper boundary for the different resolution runs.
+
+We observe that all the parameters are overall constant, within a $10 \%$ oscillation range. Woodward \textit{et al.} (2016) found that the entrainment rate decreases exponentially with the enhancement of the resolution, before converging to the physical value. In our case we observe a constant entrainment (with a slight increasing trend, we presume due to second order phenomena), hence we can safely assume that even in the lowest resolution case we are properly resolving the system. Notice that the turbulence standard deviation increases with the resolution as expected, because of the higher Reynolds number due to smaller numerical viscosity. 
+
+One could still point out that the convergence reached in a 2D setup does not imply a convergence in 3D, but being that 3D simulations are computationally so expensive, it is impracticable for us to test this hypothesis.
+
+Even at the lower boundary all the parameters oscillate within a $10 \%$ range. The only exception is the bulk-Richardson number but this is affected by a significant error in the lower resolution runs. Again in the higher resolution case the turbulence standard deviation is higher, as the entrainment rate.
 \begin{figure}[t!]
   \centering
   \subfloat[Mach number profile for the $2048 \times 1024$ run.]{\includegraphics[width=12.cm]{./img/machhighres.pdf}}
   \centering
       \hfill
     \subfloat[Mach number profile for the $512 \times 256$ run.]{\includegraphics[width=12.cm]{./img/machlowres.pdf}}
-    \caption{\new{Turbulent structures at different resolutions at about $t=500 \ \mathrm{min}$. Notice the higher Mach number in the $2048 \times 1024$ run due to lower numerical viscosity (see text).}}
+    \caption{Turbulent structures at different resolutions at about $t=500 \ \mathrm{min}$. Notice the higher Mach number in the $2048 \times 1024$ run due to lower numerical viscosity (see text).}
     \label{fig:differentialmach}
  \end{figure}
-In the last section we analyzed the run 2d0.10-0.80. What we will do in this section is to compare the previous results with the ones obtained by running the same setup on smaller resolutions, in order to understand if we are properly resolving the system. 
 
-The same setup was run on a $1024 \times 512$ and $512 \times 256$. As expected, the highest resolution run shows smaller and more refined turbulent structures in the convective region, while in the smallest run we observe less eddies but of bigger size (see figure \ref{fig:differentialmach}).
-
-We report in the following table the relevant parameters of the upper boundary for the different resolution runs.
-
-\begin{center}
- \begin{tabular}{l|c|c|c}
-	 Run &$2048 \times 1024$ U& $1024  \times 512$ U& $512 \times 256$ U\\
-	  	\hline
-		$\Delta b$ $(\mathrm{cm/s^{2}})$ & $ 18.17 \pm 7.41 $ & $15.48 \pm 2.31$ & $12.82 \pm 2.40$\\
-		\hline
-		$\sigma_t$ $(\mathrm{cm/s})$ & $ 1118 \pm 202 $ & $1020 \pm 196$ & $970 \pm 233$\\
-		\hline
-		$L$ $(\mathrm{cm})$&$(10.88 \pm 2.56) \times 10^5$ & $(11.07 \pm 3.30) \times 10^5$ & $(11.50 \pm 1.71) \times 10^5$\\
-		\hline
-		$Ri_{\mathrm{B}}$& $17.070 \pm 7.407 $ & $17.694 \pm 8.397 $ & $17.598 \pm 7.663$\\
-		\hline
-		$\dot{M}_{\mathrm{E}}$ $(\mathrm{g/s})$ &$(1.287 \pm 0.006) \times 10^9$&$(1.255 \pm 0.013) \times 10^9$ & $(1.174 \pm 0.016) \times 10^9$\\
-      \end{tabular}
- \end{center}
- \new{
-We observe that all the parameters are overall constant, within a $10 \%$ oscillation range. Woodward \textit{et al.} (2016) found that the entrainment rate decreases exponentially with the enhancement of the resolution, before converging to the physical value. In our case we observe a constant entrainment (with a slight increasing trend, we presume due to second order phenomena), hence we can safely assume that even in the lowest resolution case we are properly resolving the system. Notice that the turbulence standard deviation increases with the resolution as expected, because of the higher Reynolds number due to smaller numerical viscosity. 
-
-One could still point out that the convergence reached in a 2D setup does not imply a convergence in 3D, but being that 3D simulations are computationally so expensive, it is impracticable for us to test this hypothesis.
-
-Even at the lower boundary all the parameters oscillate within a $10 \%$ range. The only exception is the bulk-Richardson number but this is affected by a significant error in the lower resolution runs. Again in the higher resolution case the turbulence standard deviation is higher, as the entrainment rate.
-\begin{table}\caption{ciao}
- \begin{tabular}{l|c|c|c}
-	 Run &$2048 \times 1024$ L& $1024  \times 512$ L& $512 \times 256$ L\\
-	  	\hline
-		$\Delta b$ $(\mathrm{cm/s^{2}})$ & $ 27.62 \pm 6.54 $ & $25.85 \pm 6.48$ & $25.46 \pm 6.15$\\
-		\hline
-		$\sigma_t$ $(\mathrm{cm/s})$ & $ 1190 \pm 202 $ & $985 \pm 179$ & $977 \pm 143$\\
-		\hline
-		$L$ $(\mathrm{cm})$&$(10.88 \pm 2.56) \times 10^5$ & $(11.07 \pm 3.31) \times 10^5$ & $(11.50 \pm 1.71) \times 10^5$\\
-		\hline
-		$Ri_{\mathrm{B}}$& $21.622 \pm 6.538 $ & $31.934 \pm 17.718 $ & $33.334 \pm 17.721$\\
-		\hline
-		$\dot{M}_{\mathrm{E}}$ $(\mathrm{g/s})$ &$(9.252 \pm 0.015) \times 10^8$&$(1.006 \pm 0.017) \times 10^9$ & $(1.026 \pm 0.031) \times 10^9$\\
-      \end{tabular}
-\end{table}
-}
 
 
 \subsection{Differential 2D study}
-\new{
+
 	
-}
+
 
 \section{3D simulations}
 
-\new{
+
 	After having correctly tuned the heating function in a 2D setup, we switched to a 3D setup. Two simulations were run: 3d0.5-100 and 3d0.1-080, where the $0.5$ and $0.1$ stand again for the fraction $\nabla T / \nabla$ and the $100$ and $080$ stand for the percentage of the heating referring to the arbitrary value of $2.309 \times 10^{18} \mathrm{erg/s}$. These two values have been chosen in order to space as much as possible the resulting bulk-Richardson numbers, by generating a relatively stronger turbulence with a softer boundary (3d0.5-100) and a weaker turbulence with a stiffer boundary (3d0.1-080). As in the 2D case, the heating function has a Gaussian profile peaked in the convective zone and decreasing in time.
 
 	Both runs were performed on a $512 \times 256 \times 512$ uniform Cartesian grid. The first simulation was run locally on the IWR cluster in Heidelberg and scaled over $512$ haswell cores, for a total run time of about 2 weeks. The second was run on the JUQUEEN machine at JSC and scaled over an entire rack ($16384$ cores) for four days. Although SLH scales very well even on tens of thousands of cores, on JUQUEEN a higher number of CPU hours was needed for two reasons. First of all the PowerPC\textregistered \ A2 processors (IBM) of JUQUEEN are optimized to obtain the highest efficiency in terms of computations per watt, rather that per core. Second the PowerPC\textregistered \ A2 belongs to a earlier architecture generation than the haswell (Intel) one.
 
-}
+
 
 \subsection{Evolution of a 3D run}
-\new{
+
 We analyze the run 3d0.1-080.
 
 Similarly to the 2D case, convection start at $t \simeq 250 \mathrm{min}$ and in figure \ref{fig:3dsingle} is visible the growth of the convective region by entrainment of stable medium.
@@ -233,5 +209,5 @@ In comparison to the 2D case we add more heating into the fluid and we simulate 
 	\label{3dsingle}
 \end{figure}
 The different turbulence configuration between the 2D and 3D case can be better understood by comparing figure \ref{} with figure \ref{mach3d}. In the previous section we showed that, the better the resolution, the more refined and complex the turbulent structure. When running a 3D simulation, even by looking at a $512 \times 256$ section of the grid, the Mach number already shows a very sophisticated and convoluted shape, comparable to the $2048 \times 1024$ 2D case.
-}
+
 \subsection{Differential 3D study}
