@@ -74,7 +74,7 @@ The simplest way to discretize in time equation \ref{eq:methodoflines} is the so
 \begin{equation}\label{eq:forwardeuler}
 	\frac{\mathbf{U}^{n+1}_{i, j, k} - \mathbf{U}^{n}_{i, j, k}}{\Delta t} + \mathbf{R}_{i, j, k}(\mathbf{U}^n)=0
 \end{equation}
-This method simply approximates the time derivative with a finite difference at each grid point, and a spacial residual is evaluated at the old time step. Notice that equation \ref{eq:forwardeuler} can be solved analytically for the conserved quantity $\mathbf{U}^{n+1}_{i, j, k}$. This means that we are dealing with an \textit{explicit time stepping}. Although equation \ref{eq:forwardeuler} has a very direct and simple implementation, this method is accurate to firstorder i.e.\ it has an approximation error that is $\mathcal{O}(\Delta t)$.
+This method simply approximates the time derivative with a finite difference at each grid point, and a spacial residual is evaluated at the old time step. Notice that equation \ref{eq:forwardeuler} can be solved analytically for the conserved quantity $\mathbf{U}^{n+1}_{i, j, k}$. This means that we are dealing with an \textit{explicit time stepping}. Although equation \ref{eq:forwardeuler} has a very direct and simple implementation, this method is accurate to first order, i.e.\ it has an approximation error that is $\mathcal{O}(\Delta t)$.
 
 A considerable amount of higher-order explicit time stepping schemes are available. In SLH the a third-order Runge-Kutta scheme (RK3) developed by Shu and Osher (1988) is implemented. 
 
@@ -99,6 +99,7 @@ The only difference compared to the forward Euler method is that the residual is
 The question we need to answer when choosing the integration technique is if the rise in efficiency given by implicit methods compensate the loss, given by the expensive numerical solvers needed to approximate the solution of the implicit equation. In the low mach regime (from $M \simeq 10^{-4}$ to $10^{-3}$) an implicit integration with SLH is always more convenient. 
 
 \section{Newton-Raphson Method}
+This chapter follows section 5.4 of Miczek (2013).
 In this section we analyze the so-called \textbf{Newton-Raphson method}, which is the iterative solver implemented in SLH in order to find an approximate solution to the implicit equation \ref{eq:backward}. 
 
 The first step we need to take is to move every term of our discretized equation to the left-hand side and define a quantity $\mathbf{D}_{i, j, k}(\mathbf{U}^{n+1})$ called the \textit{defect}:

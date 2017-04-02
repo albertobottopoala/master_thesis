@@ -39,7 +39,7 @@ A wide range of boundary conditions have been tested for this problem. In our fi
 
 As briefly explained in the previous sections, we initialized two different passive scalars inside the regions one and three. Recall that passive scalars are just like dyes in the fluid and in no way they influence the dynamics of the system, nor do they diffuse. The passive scalar one and three (because they are initialized in the regions 1 and 3) will be used to compute the entrained mass, i.\ e.\ for every time step we integrate the passive scalar densities in the convective region and obtain the total entrained mass at each boundary. The two passive scalars are also used in order to define the boundary topology (hence position and width), by looking at the biggest drop in passive scalar density.
 
-As previously stated our goal is to perform a \textit{differential} study of the bulk-Richardson number and the CBM problem. This implies running simulations with different values of $\Delta b$ and $\sigma_t$ at different resolutions. Being that 2D simulations are computationally so cheap, we managed to run a copious amount of them. With the code 2d0.10-100 we will refer to a 2-dimensional run with $\alpha_{1} = \alpha_{3}=0.1$ and $100 \%$ of the heating referring to the arbitrary value of $4.5 10^{15} \, \mathrm{erg/s}$.
+As previously stated our goal is to perform a \textit{differential} study of the bulk-Richardson number and the CBM problem. This implies running simulations with different values of $\Delta b$ and $\sigma_t$ at different resolutions. Being that 2D simulations are computationally so cheap, we managed to run a copious amount of them. With the code 2d0.10-100 we will refer to a 2-dimensional run with $\alpha_{1} = \alpha_{3}=0.1$ and $100 \%$ of the heating referring to the arbitrary value of $3.6 10^{15} \, \mathrm{erg/s}$.
 
 We run in 2D on a $2048 \times 1024$ uniform Cartesian grid. It is worth remarking that when doing CFD with a higher resolution, one not only better resolves the features of the system, but also decreases the numerical viscosity (increases the Reynolds number). This is the reason for which we chose this grid setup: we want to keep cells squared and keep viscosity a scalar quantity, and prevent it from becoming a tensorial one. In the next section we will perform a convergence study, in order to understand which roles the resolution and the viscosity play in the phenomenon of convective entrainment.
 
@@ -61,13 +61,13 @@ Convection starts at around $t \sim 150 \mathrm{min}$. Because of the already me
 In figure \ref{fig:2dmachprofile} we plot the profile of the Mach number over the simulated time. Convection starts at around $t=150 \mathrm{min}$ in the central region (region 2), while the upper and lower region remain stable. Some time is needed for convection so start, because the fluid needs to be heated to an unstable configuration. One can also observe that the convective region expands over time, i.\ e.\ the upper boundary moves upward and the lower boundary downward. Two remarks need to be done. 
 
 \begin{figure}[t!]
-  \centering
-  \subfloat[Advection of the upper passive scalar (from region 3) at the onset of convective motions, at $t \simeq 150 \ \mathrm{min}$]{\includegraphics[width=12cm]{./img/passive2acc1.pdf}\label{fig:passiveacc1}}
-  \centering
-  \hfill
-  \subfloat[The same passive scalar of above, advected at $t \simeq 800 \ \mathrm{min}$. This defines the topology of the boundary. In the magnification a region of fully convective fluid with density of passive scalar close to unity (see text).]{\includegraphics[width=12cm]{./img/passive2acc2.pdf}\label{fig:passiveacc2}}
-  \caption{\new{Advection of the passive scalar initialized in the central region over the simulated time}}
-  \end{figure}
+\centering
+\subfloat[Advection of the upper passive scalar (from region 3) at the onset of convective motions, at $t \simeq 150 \ \mathrm{min}$]{\includegraphics[width=12cm]{./img/passive2acc1.pdf}\label{fig:passiveacc1}}
+\hfill
+\subfloat[The same passive scalar of above, advected at $t \simeq 800 \ \mathrm{min}$. This defines the topology of the boundary. In the magnification a region of fully convective fluid with density of passive scalar close to unity (see text).]{\includegraphics[width=12cm]{./img/passive2acc2mag.pdf}\label{fig:passiveacc2}}
+\caption{\new{Advection of the passive scalar initialized in the central region over the simulated time}}
+\end{figure}
+
 First of all the Mach number is stable over time, thanks to the heating function that we implemented, featuring a decrease of heat generation as previously explained. 
 Second it is clear that some internal modes are excited by the convective blobs when they hit the stable layers and they propagate through them. They appear more significant in the upper region and to a certain extent this is true, but mainly this is due to the fact that the speed of sound there is lower. The difference is not so dramatic when plotting the absolute velocity. Two interesting questions remain without answer. First of all it is impossible to tell to which extent the dynamic of the boundary is influenced by these modes. Second of all it is possible that the chemical mixing due to these modes in the stable stratification might have a significant impact on the evolution of a star, which is obviously not considered in 1D simulations. We believe that further investigations of this hypothesis are needed.
 
@@ -75,17 +75,24 @@ In figure \ref{fig:2dpsprofile} we plot the upper passive scalar (initialized in
 
 As previously mentioned the two passive scalars are also used to define the boundary topology, position and width. In Figure (\ref{fig:passiveacc1}) we show the upper passive scalar at the onset of convection. The rise of the first convective blobs is clearly visible. In the next $650 \mathrm{min}$ part of this dye will be entrained from the upper stable layer in the convective region as it can be clearly seen in Figure (\ref{fig:passiveacc2}). We define the boundary position as the surface where the gradient of the concentration of the upper passive scalar changes the most. This holds for both the upper and lower boundary.
   
-  For the runs with lower resolution this method worked perfectly, but when moving to a higher resolution a problem appeared. As the magnification in Figure (\ref{fig:passiveacc2}) shows, in the middle of the convective layer some blobs of entrained material are visible, that even when fully in a convective regime still contain a very high passive scalar density. This is due to the fact that the higher the resolution, the lower the numerical diffusion.
+For the runs with lower resolution this method worked perfectly, but when moving to a higher resolution a problem appeared. As the magnification in Figure (\ref{fig:passiveacc2}) and (\ref{fig:topology}) show, in the middle of the convective layer some blobs of entrained material are visible, that even when fully in a convective regime still contain a very high passive scalar density. This is due to the fact that the higher the resolution, the lower the numerical diffusion.
   
+  This obviously is a problem for the boundary definition, because when looking for the highest change in passive scalar concentration, one at times finds a value that is on no way related to the boundary position, but it is instead one of these ingested blobs. If we take as an example Figure (\ref{fig:passiveacc2}) for instance, the position detected by our script for the upper and lower boundary at $x \simeq 1 \times 10^{7} \mathrm{cm}$ is at around $y \simeq - 5 \times 10^{6} \, \mathrm{cm}$. This does not make any sense for the upper boundary, given its initial positions. We fixed this problem in out analysis script by checking if the automatically detected boundary position was behind the initial position. If this was the case, the script automatically considers the data corrupted, and substitutes it with the mean value of the other detected positions. For the future 2D simulations that we are planning to run, we are considering to implement the passive scalar diffusion deep in the convective region and possibly only in the horizontal direction. In this way these regions of high passive scalar density would ideally fade away in a lower timescale than the convective turnover timescale. Intrestingly enough for the 3D runs this problem does not appear, because of the different turbulent structure of convection. In fact in the 3D case, turbulent blobs decay in smaller and smaller blobs (contrarily to what happens in the 2D case), and this natural process helps brake down these spikes.
+
 \begin{figure}[t!]
+\centering
+\includegraphics[width=10cm]{./img/topology.pdf}
+\caption{The detected boundary topology over the passive scalar density. In the magnification a corrupted value for the boundary position (see text).}
+\label{fig:twin}
+\centering
+\end{figure}
+
+\begin{figure}[b!]
 \centering
 \includegraphics[width=0.6\textwidth]{./img/boundpos.pdf}
 \caption{Boundaries positions over time. Shaded regions represent the boundary thickness (see text). Blue lines represent the upper boundary, green lines the lower boundary.}
 \label{fig:boundpos}
 \end{figure}
-  This obviously is a problem for the boundary definition, because when looking for the highest change in passive scalar concentration, one at times finds a value that is on no way related to the boundary position, but it is instead one of these ingested blobs. If we take as an example Figure (\ref{fig:passiveacc2}) for instance, the position detected by our script for the upper and lower boundary at $x \simeq 1 \times 10^{7} \mathrm{cm}$ is at around $y \simeq - 5 \times 10^{6} \, \mathrm{cm}$. This does not make any sense for the upper boundary, given its initial positions. We fixed this problem in out analysis script by checking if the automatically detected boundary position was behind the initial position. If this was the case, the script automatically considers the data corrupted, and substitutes it with the mean value of the other detected positions. For the future 2D simulations that we are planning to run, we are considering to implement the passive scalar diffusion deep in the convective region and possibly only in the horizontal direction. In this way these regions of high passive scalar density would ideally fade away in a lower timescale than the convective turnover timescale. Intrestingly enough for the 3D runs this problem does not appear, because of the different turbulent structure of convection. In fact in the 3D case, turbulent blobs decay in smaller and smaller blobs (contrarily to what happens in the 2D case), and this natural process helps brake down these spikes.
-
-  The problem of the detection of the boundary position appeared more significative in the first analysis we undertook, in which we used the entrained passive scalars (passive scalar 1 and 3) to define the boundary topology. This is due to the fact that passive scalars diffuse numerically over time. Numerical diffusion hence helps fill the empty blobs in the final setup we used
 
 \begin{figure}[t!]
   \centering
@@ -188,7 +195,7 @@ Even at the lower boundary all the parameters oscillate within a $10 \%$ range. 
 \section{3D simulations}
 
 
-	After having correctly tuned the heating function in a 2D setup, we switched to a 3D setup. Two simulations were run: 3d0.50-120 and 3d0.10-100, where the $0.5$ and $0.1$ stand again for the fraction $\nabla T / \nabla$ and the $120$ and $100$ stand for the percentage of the heating referring to the arbitrary value of $2.309 \times 10^{18} \mathrm{erg/s}$. These two values have been chosen in order to space as much as possible the resulting bulk-Richardson numbers, by generating a relatively stronger turbulence with a softer boundary (3d0.5-120) and a weaker turbulence with a stiffer boundary (3d0.1-0100). As in the 2D case, the heating function has a Gaussian profile peaked in the convective zone and decreasing in time.
+	After having correctly tuned the heating function in a 2D setup, we switched to a 3D setup. Two simulations were run: 3d0.50-120 and 3d0.10-100, where the $0.5$ and $0.1$ stand again for the fraction $\nabla T / \nabla$ and the $120$ and $100$ stand for the percentage of the heating referring to the arbitrary value of $1.8 \times 10^{18} \mathrm{erg/s}$. These two values have been chosen in order to space as much as possible the resulting bulk-Richardson numbers, by generating a relatively stronger turbulence with a softer boundary (3d0.5-120) and a weaker turbulence with a stiffer boundary (3d0.1-100). As in the 2D case, the heating function has a Gaussian profile peaked in the convective zone and decreasing in time.
 
 	Both runs were performed on a $512 \times 256 \times 512$ uniform Cartesian grid. The first simulation was run locally on the HITS cluster in Heidelberg and scaled over $512$ haswell cores, for a total run time of about 2 weeks. The second was run on the JUQUEEN machine at JSC and scaled over an entire rack ($16384$ cores) for four days. Although SLH scales very well even on tens of thousands of cores, on JUQUEEN a higher number of CPU hours was needed for two reasons. First of all the PowerPC\textregistered \ A2 processors (IBM) of JUQUEEN are optimized to obtain the highest efficiency in terms of computations per watt, rather that per core. Second the PowerPC\textregistered \ A2 belongs to a earlier architecture generation than the haswell (Intel) one.
 
@@ -203,7 +210,7 @@ Similarly to the 2D case, convection starts at $t \simeq 250 \mathrm{min}$ and i
 
 In analogy to the 2D case we adopt the same heating rate and we simulate the same fluid stratification. The 3D case shows also a turbulence Mach number profile constant in time over the run, as shown in Figure (\ref{fig:3dmachprofile}), but compared to the 2D in Figure (\ref{fig:2dmachprofile}) it is significantly lower. This result was expected because, as previously mentioned, three-dimensional turbulence has a different behavior compared to the two-dimensional one. In our cases the 3D turbulence standard deviation was always a factor of a few lower than in the 2D case, which is in agreement with what found by Meakin and Arnett (2007) in their core-convection simulation. 
 
-The entrainment plotted over time in Figure (\ref{fig:3dpsprofile}) is also roughly linear and qualitatively resembles the 2D result, with the upper and loer boundaries that are migrating upward and downward respectively.
+The entrainment plotted over time in Figure (\ref{fig:3dpsprofile}) is also roughly linear and qualitatively resembles the 2D result, with the upper and lower boundaries that are migrating upward and downward respectively.
 \begin{figure}[t!]
       \centering
         \subfloat[Mach number profile over time.]{\includegraphics[width=10cm]{./img/mach.pdf}\label{fig:3dmachprofile}}
