@@ -5,7 +5,7 @@
 \chapter{Hydrodynamic Simulations}
 \section{2D Simulations}
 \new{
-	The physics of 2D hydrodynamic is qualitatively very similar but quantitatively very different to the 3D case. Concepts such as hydrostatic equilibrium or the Schwarzschild criterion can be applied in 2D as well as in 3D, but the resulting flows will have different properties. Turbulence for instance in the 2D case transfers kinetic energy from small eddies to large eddies, while in the 3D case the opposite happens. We expect hence the entrainment mass ratio to be different between the 2D and 3D cases. 
+	The physics of 2D hydrodynamic is qualitatively very similar but quantitatively very different to the 3D case. Concepts such as hydrostatic equilibrium or the Schwarzschild criterion can be applied in 2D as well as in 3D, but the resulting flows will have different properties. Turbulence for instance in the 2D case transfers kinetic energy from small eddies to large eddies, while in the 3D case the opposite happens (for an introduction in the subject see Boffetta, 2011). We expect hence the entrainment mass ratio to be different between the 2D and 3D cases. 
 	
 	Nevertheless, being 2D simulations computationally so cheap, they are a very useful tool to make experience with the code and to run tests in order to setup bigger and more expensive 3D runs. In our case for instance it was necessary to have a rough estimate of the entrainment rate, of the boundary migration velocity and of the convective turnover timescale.
 
@@ -64,7 +64,7 @@ In figure \ref{fig:2dmachprofile} we plot the profile of the Mach number over th
 \centering
 \subfloat[Advection of the upper passive scalar (from region 3) at the onset of convective motions, at $t \simeq 150 \ \mathrm{min}$]{\includegraphics[width=12cm]{./img/passive2acc1.pdf}\label{fig:passiveacc1}}
 \hfill
-\subfloat[The same passive scalar of above, advected at $t \simeq 800 \ \mathrm{min}$. This defines the topology of the boundary. In the magnification a region of fully convective fluid with density of passive scalar close to unity (see text).]{\includegraphics[width=12cm]{./img/passive2acc2mag.pdf}\label{fig:passiveacc2}}
+\subfloat[The same passive scalar of above, advected at $t \simeq 800 \ \mathrm{min}$. This defines the topology of the boundary.]{\includegraphics[width=12cm]{./img/passive2acc2.pdf}\label{fig:passiveacc2}}
 \caption{\new{Advection of the passive scalar initialized in the central region over the simulated time}}
 \label{fig:2dpassive}
 \end{figure}
@@ -76,14 +76,16 @@ In figure \ref{fig:2dpsprofile} we plot the upper passive scalar (initialized in
 
 As previously mentioned the two passive scalars are also used to define the boundary topology, position and width. In Figure (\ref{fig:passiveacc1}) we show the upper passive scalar at the onset of convection. The rise of the first convective blobs is clearly visible. In the next $650 \mathrm{min}$ part of this dye will be entrained from the upper stable layer in the convective region as it can be clearly seen in Figure (\ref{fig:passiveacc2}). We define the boundary position as the surface where the gradient of the concentration of the upper passive scalar changes the most. This holds for both the upper and lower boundary.
   
-For the runs with lower resolution this method worked perfectly, but when moving to a higher resolution a problem appeared. As the magnification in Figure (\ref{fig:passiveacc2}) and (\ref{fig:topology}) show, in the middle of the convective layer some blobs of entrained material are visible, that even when fully in a convective regime still contain a very high passive scalar density. This is due to the fact that the higher the resolution, the lower the numerical diffusion.
+For the runs with lower resolution this method worked perfectly, but when moving to a higher resolution a problem appeared. In Figure (\ref{fig:topology})  in the middle of the convective layer some blobs of entrained material are visible, that even when fully in a convective regime still contain a very high passive scalar density. This is due to the fact that the higher the resolution, the lower the numerical diffusion.
   
-  This obviously is a problem for the boundary definition, because when looking for the highest change in passive scalar concentration, one at times finds a value that is on no way related to the boundary position, but it is instead one of these ingested blobs. If we take as an example Figure (\ref{fig:passiveacc2}) for instance, the position detected by our script for the upper and lower boundary at $x \simeq 1 \times 10^{7} \mathrm{cm}$ is at around $y \simeq - 5 \times 10^{6} \, \mathrm{cm}$. This does not make any sense for the upper boundary, given its initial positions. We fixed this problem in out analysis script by checking if the automatically detected boundary position was behind the initial position. If this was the case, the script automatically considers the data corrupted, and substitutes it with the mean value of the other detected positions. For the future 2D simulations that we are planning to run, we are considering to implement the passive scalar diffusion deep in the convective region and possibly only in the horizontal direction. In this way these regions of high passive scalar density would ideally fade away in a lower timescale than the convective turnover timescale. Intrestingly enough for the 3D runs this problem does not appear, because of the different turbulent structure of convection. In fact in the 3D case, turbulent blobs decay in smaller and smaller blobs (contrarily to what happens in the 2D case), and this natural process helps brake down these spikes.
+This obviously is a problem for the boundary definition, because when looking for the highest change in passive scalar concentration, one at times finds a value that is on no way related to the boundary position, but it is instead one of these ingested blobs. What at times happens is that the script detects values that are clearly corrupted, because the boundary would lye before its initial position. This does not make any sense, given the entrainment process. We fixed this problem in out analysis script by checking if the automatically detected boundary position was behind the initial position. If this was the case, the script automatically considers the data corrupted, and substitutes it with the mean value of the other detected positions. In the case of Figure (\ref{fig:topology}) where the data is clearly corrupted but the boundary lies always above its initial position, we can do nothing but accept this error. As we will show in the resolution study section, the boundary thicknesses are similar to the ones for lower reolution runs, hence we can safely assume that this imprecision does not affect significantly our analysis. 
+
+In case we will run further 2D simulations with even higher resolution, we will consider to implement the passive scalar diffusion deep in the convective region and possibly only in the horizontal direction. In this way these regions of high passive scalar density would ideally fade away in a lower timescale than the convective turnover timescale. Intrestingly enough for the 3D runs this problem does not appear, because of the different turbulent structure of convection. In fact in the 3D case, turbulent blobs decay in smaller and smaller blobs (contrarily to what happens in the 2D case), and this natural process helps brake down these spikes (at least at the 3D resolutions we performed out runs).
 
 \begin{figure}[t!]
 \centering
 \includegraphics[width=10cm]{./img/topology.pdf}
-\caption{The detected upper boundary topology over the passive scalar density. In the magnification a corrupted value for the boundary position (see text).}
+\caption{The detected upper boundary topology over the passive scalar density.}
 \label{fig:topology}
 \centering
 \end{figure}
@@ -180,7 +182,7 @@ We report in Table (\ref{2ddifftab}) the relevant parameters of the upper bounda
     \caption{Turbulent structures at different resolutions at about $t=500 \ \mathrm{min}$. Notice the higher Mach number in the $2048 \times 1024$ run due to lower numerical viscosity (see text).}
     \label{fig:differentialmach}
  \end{figure}
-We observe that all the parameters are overall constant, within a $10 \%$ oscillation range. Woodward \textit{et al.} (2016) found that the entrainment rate decreases exponentially with the enhancement of the resolution, before converging to the physical value. In our case we observe a constant entrainment (with a slight increasing trend, we presume due to second order phenomena), hence we can safely assume that even in the lowest resolution case we are properly resolving the system. Notice that the turbulence standard deviation increases with the resolution as expected, because of the higher Reynolds number due to smaller numerical viscosity. 
+We observe that all the parameters are overall constant, within a $10 \%$ oscillation range. Woodward \textit{et al.} (2016) found that the entrainment rate decreases exponentially with the enhancement of the resolution, before converging to the physical value. In our case we observe a constant entrainment (with a slight increasing trend, we presume due to second order phenomena), hence we can safely assume that even in the lowest resolution case we are properly resolving the system. Notice that the turbulence standard deviation increases with the resolution as expected, because of the higher Reynolds number due to lower numerical viscosity. 
 
 One could still point out that the convergence reached in a 2D setup does not imply a convergence in 3D, but being that 3D simulations are computationally so expensive, it is impracticable for us to test this hypothesis.
 
@@ -217,7 +219,7 @@ The entrainment plotted over time in Figure (\ref{fig:3dpsprofile}) is also roug
 	\hfill
         \subfloat[Entrainment of passive scalar from the upper stable region into the convective region.]{\includegraphics[width=10cm]{./img/3dpassivescalar.pdf}\label{fig:3dpsprofile}}
 	\caption{Time evolution of a 3D run for the Mach number and the upper passive scalar. In comparison to the 2D case less output files were saved, hence the lower resolution in time.}
-	\label{3dsingle}
+	\label{fig:3dsingle}
 \end{figure}
 The different turbulence configuration between the 2D and 3D case can be better understood by comparing Figure (\ref{fig:3dmach}) with Figure (\ref{fig:machhighres}). In Figure (\ref{fig:differentialmach}) showed that the better the resolution, the more refined and complex the turbulent structure. When considering a 3D output, even by looking at a $512 \times 256$ section of the grid, the Mach number already shows a very sophisticated and convoluted shape, comparable in complexity to the $2048 \times 1024$ 2D case. This obviously has an impact on the entrainment dynamics. Notice that also in this case the Mach numberis roughly the half of the 2D case. 
 
@@ -235,7 +237,7 @@ In Figure (\ref{fig:3dpassive}) we plot, as we did for Figure (\ref{fig:2dpassiv
       \subfloat[Onset of convective blobs at $t \simeq 150 \mathrm{min}$]{\includegraphics[width=10cm]{./img/3dpassive2accretion1.pdf}\label{fig:3dpassive2accretion1}}
      \centering
 	\hfill
-	\subfloat[Passive scalar advection at $t= \simeq 600 \mathrm{min}$.]{\includegraphics[width=10cm]{./img/3dpassive2accretion2.pdf}\label{fig:3dpassive2accretion2}}
+	\subfloat[Passive scalar advection at $t \simeq 600 \mathrm{min}$.]{\includegraphics[width=10cm]{./img/3dpassive2accretion2.pdf}\label{fig:3dpassive2accretion2}}
 	\caption{Passive scalar density advection for the 3D run. Notice the different shape of the convective blobs compared to Figure (\ref{fig:2dpassive}).}
 	\label{fig:3dpassive}
 \end{figure}
