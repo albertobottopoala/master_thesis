@@ -66,6 +66,7 @@ In figure \ref{fig:2dmachprofile} we plot the profile of the Mach number over th
 \hfill
 \subfloat[The same passive scalar of above, advected at $t \simeq 800 \ \mathrm{min}$. This defines the topology of the boundary. In the magnification a region of fully convective fluid with density of passive scalar close to unity (see text).]{\includegraphics[width=12cm]{./img/passive2acc2mag.pdf}\label{fig:passiveacc2}}
 \caption{\new{Advection of the passive scalar initialized in the central region over the simulated time}}
+\label{fig:2dpassive}
 \end{figure}
 
 First of all the Mach number is stable over time, thanks to the heating function that we implemented, featuring a decrease of heat generation as previously explained. 
@@ -82,8 +83,8 @@ For the runs with lower resolution this method worked perfectly, but when moving
 \begin{figure}[t!]
 \centering
 \includegraphics[width=10cm]{./img/topology.pdf}
-\caption{The detected boundary topology over the passive scalar density. In the magnification a corrupted value for the boundary position (see text).}
-\label{fig:twin}
+\caption{The detected upper boundary topology over the passive scalar density. In the magnification a corrupted value for the boundary position (see text).}
+\label{fig:topology}
 \centering
 \end{figure}
 
@@ -189,8 +190,6 @@ Even at the lower boundary all the parameters oscillate within a $10 \%$ range. 
 
 \subsection{Differential 2D study}
 
-	
-
 
 \section{3D simulations}
 
@@ -213,19 +212,31 @@ In analogy to the 2D case we adopt the same heating rate and we simulate the sam
 The entrainment plotted over time in Figure (\ref{fig:3dpsprofile}) is also roughly linear and qualitatively resembles the 2D result, with the upper and lower boundaries that are migrating upward and downward respectively.
 \begin{figure}[t!]
       \centering
-        \subfloat[Mach number profile over time.]{\includegraphics[width=10cm]{./img/mach.pdf}\label{fig:3dmachprofile}}
+        \subfloat[Mach number profile over time.]{\includegraphics[width=10cm]{./img/3dmachprofile.pdf}\label{fig:3dmachprofile}}
      \centering
 	\hfill
-        \subfloat[Entrainment of passive scalar from the upper stable region into the convective region.]{\includegraphics[width=10cm]{./img/ps2.pdf}\label{fig:3dpsprofile}}
-	\caption{Time evolution of a 3D run. In comparison to the 2D case less output files were saved, hence the lower resolution in time.}
+        \subfloat[Entrainment of passive scalar from the upper stable region into the convective region.]{\includegraphics[width=10cm]{./img/3dpassivescalar.pdf}\label{fig:3dpsprofile}}
+	\caption{Time evolution of a 3D run for the Mach number and the upper passive scalar. In comparison to the 2D case less output files were saved, hence the lower resolution in time.}
 	\label{3dsingle}
 \end{figure}
-The different turbulence configuration between the 2D and 3D case can be better understood by comparing Figure (\ref{fig:3dmach}) with Figure (\ref{fig:machhighres}). In Figure (\ref{fig:differentialmach}) showed that the better the resolution, the more refined and complex the turbulent structure. When considering a 3D output, even by looking at a $512 \times 256$ section of the grid, the Mach number already shows a very sophisticated and convoluted shape, comparable in complexity to the $2048 \times 1024$ 2D case. This obviously has an impact on the entrainment dynamics.
+The different turbulence configuration between the 2D and 3D case can be better understood by comparing Figure (\ref{fig:3dmach}) with Figure (\ref{fig:machhighres}). In Figure (\ref{fig:differentialmach}) showed that the better the resolution, the more refined and complex the turbulent structure. When considering a 3D output, even by looking at a $512 \times 256$ section of the grid, the Mach number already shows a very sophisticated and convoluted shape, comparable in complexity to the $2048 \times 1024$ 2D case. This obviously has an impact on the entrainment dynamics. Notice that also in this case the Mach numberis roughly the half of the 2D case. 
 
 \begin{figure}[t!]
 \centering
-\includegraphics[width=0.6\textwidth]{./img/boundpos.pdf}
+\includegraphics[width=0.6\textwidth]{./img/3dmach.pdf}
 \caption{Mach number of a 3D run at around $t=500 \, \mathrm{min}$.}
 \label{fig:3dmach}
+\end{figure}
+
+In Figure (\ref{fig:3dpassive}) we plot, as we did for Figure (\ref{fig:2dpassive}), the upper passive scalar density advection. In Figure (\ref{fig:3dpassive2accretion1}) the onset of convection is visible by the presence of the fist convective blobs, that over time fill the convective region as visible in Figure (\ref{fig:3dpsprofile}). Notice that in the 3D case the passive scalar is advected fairly homogeneously in the convective layer, and the problem described in Figure(\ref{fig:topology}) for the boundary detection did not appear.
+
+\begin{figure}[t!]
+      \centering
+      \subfloat[Onset of convective blobs at $t \simeq 150 \mathrm{min}$]{\includegraphics[width=10cm]{./img/3dpassive2accretion1.pdf}\label{fig:3dpassive2accretion1}}
+     \centering
+	\hfill
+	\subfloat[Passive scalar advection at $t= \simeq 600 \mathrm{min}$.]{\includegraphics[width=10cm]{./img/3dpassive2accretion2.pdf}\label{fig:3dpassive2accretion2}}
+	\caption{Passive scalar density advection for the 3D run. Notice the different shape of the convective blobs compared to Figure (\ref{fig:2dpassive}).}
+	\label{fig:3dpassive}
 \end{figure}
 \subsection{Differential 3D study}
