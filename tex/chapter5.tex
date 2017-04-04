@@ -12,9 +12,9 @@
 \subsection{Simulations setup}
 The physical setup used for our simulations is the so called "box in a star" method, meaning that we simulate some relatively very small internal region of a star. 
 
-In our case for the 2D runs it will be a box of $2.50 \times 10^{9} \ \mathrm{cm}$ on the $x$ axis and $1.25 \times 10^{9} \ \mathrm{cm}$ on the $y$ axis. Gravity is constantly pointing downward on the $y$ axis with a magnitude of $1000 \mathrm{cm/s^2}$. This generates a pressure stratification in the fluid that covers approximately three pressure scale heights. 
+In our case for the 2D runs it will be a box of $2.50 \times 10^{9} \ \mathrm{cm}$ on the $x$ axis and $1.25 \times 10^{9} \ \mathrm{cm}$ on the $y$ axis. Gravity is constantly pointing downward on the $y$ axis with a magnitude of $1000 \ \mathrm{cm/s^2}$. This generates a pressure stratification in the fluid that covers approximately three pressure scale heights. 
 
-The controlling parameter in our setup is the temperature gradient that can be initialized to any value. In our case we divided the simulated region in three parts. The bottom region (labeled as $1$) starts at the lower boundary and reaches $4/12$ of the domain, the central (labeled as $2$) proceeds until the middle, and the upper one (labeled as $3$) reaches the upper boundary, as shown in \ref{fig:tempprofile}. We define a parameter $\alpha_{i}$ ($i=1, 2, 3$) which is nothing but the fraction of the $\nabla$ over the $\nabla_{\mathrm{ad}}$. As seen in previous sections $\alpha_{i}<1$ implies stability in the $i-$region, instability otherwise. 
+The controlling parameter in our setup is the temperature gradient that can be initialized to any value. In our case we divided the simulated region in three parts. The bottom region (labeled as $1$) starts at the lower boundary and reaches $4/12$ of the domain, the central (labeled as $2$) proceeds until the middle, and the upper one (labeled as $3$) reaches the upper boundary, as shown in \ref{fig:twin}. We define a parameter $\alpha_{i}$ ($i=1, 2, 3$) which is nothing but the fraction of the $\nabla$ over the $\nabla_{\mathrm{ad}}$. As seen in previous sections $\alpha_{i}<1$ implies stability in the $i-$region, instability otherwise. 
 
 We always initialized the setup with $\alpha_{1} = \alpha_{3}$ widely smaller than $1$; and $\alpha_{2}=0.99$, which means a very precarious situation in terms of stability in the second region. 
 
@@ -22,7 +22,7 @@ A heating function furthermore heats the second region with a Gaussian profile (
 
 The values of $\alpha_{1}$ and $\alpha_{3}$ are controlling parameters for the bulk-Richardson number, since they are proportional to $\Delta b$. The advantage of simulating a strip of convection between two stable layers (miming a Shell convection) instead of a convective region at the bottom that grows upward (core convection-like) is twofold: it gives us two convective boundaries to study instead of one, and we avoid high Mach number at the boundary which can at times generate problems or unphysical situations. 
 
-One of the hardest tasks has been to generate the correct amount of heating such that the turbulence standard deviation \textit{at the interface} was constant during the run (which is one of the ingredients of the bulk-Richardson number, hence one of the parameters we want to control in order to perform a differential study). In order to do that, the heating function is tuned such that, at $t=100K \ \mathrm{s}$ the total heat generation is reduced to $50 \%$ of the original amount.
+One of the hardest tasks has been to generate the correct amount of heating such that the turbulence standard deviation \textit{at the interface} was constant during the run (which is one of the ingredients of the bulk-Richardson number, hence one of the parameters we want to control in order to perform a differential study). In order to do that, the heating function is tuned such that, at $t=100 \ \mathrm{K}$ the total heat generation is reduced to $50 \%$ of the original amount.
 
 \begin{figure}[t]
 \centering
@@ -230,15 +230,15 @@ As shown in Figure (\ref{fig:diffrms}), the turbulence standard deviation can be
 
 \begin{figure}[t!]
   \centering
-    \subfloat[Buoyancy jump over time.]{\includegraphics[width=0.5\textwidth]{./img/differentialmach.pdf}\label{fig:diffrms}}
+  \subfloat[Dependency of the Mach number on the heating rate (see text).]{\includegraphics[width=0.5\textwidth]{./img/differentialmach.pdf}\label{fig:diffrms}}
       \hfill
-        \subfloat[Turbulence length scale over time.]{\includegraphics[width=0.5\textwidth]{./img/differentialdelb.pdf}\label{fig:diffjump}}
+        \subfloat[Dependency of the buoyancy jump on the initial Brunt-Väisälä frequency.]{\includegraphics[width=0.5\textwidth]{./img/differentialdelb.pdf}\label{fig:diffjump}}
 	\hfill
-	\caption{Time evolution of the parameters needed to compute the bulk-Richardson number and of the entrained mass at the boundaries. Blue lines represent the upper boundary, green lines the lower boundary.}
+	\caption{Dependency of the parameters needed to compute the bulk-Richardson number on the initial simulation setup. Blue dots represent the upper boundary, green dots the lower boundary.}
 	\label{fig:diffparam}
 \end{figure}
 
-We thoroughly understand that the range of the data is not sufficient to perform an accurate differential study (as the error values clearly show). We nevertheless believe that we deeply understood the nature of the problem. We are sure that in the future we will be able to set up runs capable of reaching bulk-Richardson numbers of one order of magnitude higher than the ones obtained for this work. This will be achieved primarily by using a non-uniform Cartesian grid which SHL implements, that will help us better refine the convective boundary regions without refining with the same precision the stable layers above and below.
+We thoroughly understand that the range of the data is not sufficient to perform an accurate differential study (as the error values clearly show). We nevertheless believe that we deeply understood the nature of the problem. We are sure that in the future we will be able to set up runs capable of reaching bulk-Richardson numbers of one order of magnitude higher than the ones obtained for this work. This will be achieved primarily by using a non-uniform Cartesian grid which is implemented in SHL This will help us better refine the convective boundary regions without the same precision on the stable layers above and below.
 
 \section{3D simulations}
 
