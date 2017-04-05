@@ -396,7 +396,7 @@ In a Lagrangian workframe this transforms to
 	\dot{M}_\mathrm{E}=\frac{\partial M}{\partial r} u_E
 \end{equation}
 If this relation is proven to be true, it would be possible to know the boundary migration speed $u_b$ or the mass entrainment rate $\dot{M}_\mathrm{E}$ given only $L$, $\Delta b$ and $\sigma_t$, and consequentially map this phenomenon into 1D stellar models. In the hope that these two free parameters exist and are universal (i.e. \ not system-, code- or resolution-dependent), the goal of this work is to determine them and to test their universality.
-
+\new{
 In order to do that, we will perform a \textit{differential} study of the entrainment rate. This implies to simulate a convective boundary varying differentially two parameters. The buoyancy jump $\Delta b$ is a function of the Brunt-Väisälä frequency, which is exactly one of the parameters that we set in our config file to initialize the stratification, hence we can control it very easily. There is no way, on the contrary, to directly control the turbulent Mach number $\sigma_t$. As we will explain in the chapter dedicated to the physical setup, we implemented a heating function of which we can control the heating rate. This will help us generate a stronger or weaker turbulence regime when required. Our goal will be then to look for a relation between the entrainment rate and the bulk-Richardson number. Specifically we will investigate if the relation (\ref{eq:bulkrichardson}) holds for different values of $Ri_{\mathrm{B}}$
 
-
+}
