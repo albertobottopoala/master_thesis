@@ -84,10 +84,6 @@ As previously mentioned the two passive scalars are also used to define the boun
   
 For the runs with lower resolution this method worked perfectly, but when moving to a higher resolution a problem appeared. In Figure (\ref{fig:topology})  in the middle of the convective layer some blobs of entrained material are visible, that even when fully in a convective regime still contain a very high passive scalar density. This is due to the fact that the higher the resolution, the lower the numerical diffusion.
   
-This obviously is a problem for the boundary definition, because when looking for the highest change in passive scalar concentration, one at times finds a value that is on no way related to the boundary position, but it is instead one of these ingested blobs. What at times happens is that the script detects values that are clearly corrupted, because the boundary would lye before its initial position. This does not make any sense, given the entrainment process. We fixed this problem in out analysis script by checking if the automatically detected boundary position was behind the initial position. If this was the case, the script automatically considers the data corrupted, and substitutes it with the mean value of the other detected positions. In the case of Figure (\ref{fig:topology}) where the data is clearly corrupted but the boundary lies always above its initial position, we can do nothing but accept this error. As we will show in the resolution study section, the boundary thicknesses are similar to the ones for lower reolution runs, hence we can safely assume that this imprecision does not affect significantly our analysis. 
-
-In case we will run further 2D simulations with even higher resolution, we will consider to implement the passive scalar diffusion deep in the convective region and possibly only in the horizontal direction. In this way these regions of high passive scalar density would ideally fade away in a lower timescale than the convective turnover timescale. Intrestingly enough for the 3D runs this problem does not appear, because of the different turbulent structure of convection. In fact in the 3D case, turbulent blobs decay in smaller and smaller blobs (contrarily to what happens in the 2D case), and this natural process helps brake down these spikes (at least at the 3D resolutions we performed out runs).
-
 \begin{figure}[t!]
 \centering
 \includegraphics[width=10cm]{./img/topology.pdf}
@@ -102,6 +98,10 @@ In case we will run further 2D simulations with even higher resolution, we will 
 \caption{Boundaries positions over time. Shaded regions represent the boundary thickness (see text). Blue lines represent the upper boundary, green lines the lower boundary.}
 \label{fig:boundpos}
 \end{figure}
+This obviously is a problem for the boundary definition, because when looking for the highest change in passive scalar concentration, one at times finds a value that is on no way related to the boundary position, but it is instead one of these ingested blobs. What at times happens is that the script detects values that are clearly corrupted, because the boundary would lye before its initial position. This does not make any sense, given the entrainment process. We fixed this problem in out analysis script by checking if the automatically detected boundary position was behind the initial position. If this was the case, the script automatically considers the data corrupted, and substitutes it with the mean value of the other detected positions. In the case of Figure (\ref{fig:topology}) where the data is clearly corrupted but the boundary lies always above its initial position, we can do nothing but accept this error. As we will show in the resolution study section, the boundary thicknesses are similar to the ones for lower reolution runs, hence we can safely assume that this imprecision does not affect significantly our analysis. 
+
+In case we will run further 2D simulations with even higher resolution, we will consider to implement the passive scalar diffusion deep in the convective region and possibly only in the horizontal direction. In this way these regions of high passive scalar density would ideally fade away in a lower timescale than the convective turnover timescale. Intrestingly enough for the 3D runs this problem does not appear, because of the different turbulent structure of convection. In fact in the 3D case, turbulent blobs decay in smaller and smaller blobs (contrarily to what happens in the 2D case), and this natural process helps brake down these spikes (at least at the 3D resolutions we performed out runs).
+
 
 \begin{figure}[t!]
   \centering
@@ -121,7 +121,7 @@ We plot in Figure (\ref{fig:boundpos}) the boundaries positions over time. Shade
 In Figure (\ref{fig:2dparam}) we plot the parameters relevant to our analysis. 
 The first ingredient of the bulk-Richardson number is the buoyancy jump $\Delta b$, that we plot in figure \ref{fig:delb}. In both cases there is an increasing trend, more significant in the lower boundary. This plot shows one of the biggest challenges of running simulations to study differentially the bulk-Richardson number: it is extremely hard to obtain a run where all the parameters ($\Delta b$, $L$, $\sigma_t$ and $M_{\mathrm{E}}$) are constant over time. Hence one finds itself in the inconvenient situation of having to average over values that span a full order of magnitude with a strong increasing or decreasing trend, and the quality of the analysis is consequentially affected by this uncertainty. 
 
-Notice that the lower boundary is stiffer than the upper one (the buoyancy jump is higher, hence the bulk-Richardson number) even if in the initial setup the Brunt-Väisälä frequency is the same for the two stable regions. Recall that the Brunt-Väisälä frequency $N^2$ is the quantity we integrate in equation (\ref{eq:buoyancyjump}) over the boundary thickness in order to calculate $\Delta b$. Looking at Figure (\ref{fig:brunt}) it is clear that at the convective boundaries spikes arise during the simulation in the Brunt-Väisälä frequency, and in the lower case it is more pronounced. Obviously when integrated over the interface, this gives rise to a bigger buoyancy jump. These spikes in the Brunt-Väisälä frequency at the interfaces were also found by Arnett \emph{et al.} (2015).
+Notice that the lower boundary is stiffer than the upper one (the buoyancy jump is higher, hence the bulk-Richardson number) even if in the initial setup the Brunt-Väisälä frequency is the same for the two stable regions. Recall that the Brunt-Väisälä frequency $N^2$ is the quantity we integrate in equation (\ref{eq:buoyancyjump}) over the boundary thickness in order to calculate $\Delta b$. Looking at Figure (\ref{fig:brunt}) it is clear that at the convective boundaries spikes arise during the simulation in the Brunt-Väisälä frequency, and in the lower case it is more pronounced. Obviously when integrated over the interface, this gives rise to a bigger buoyancy jump. These spikes in the Brunt-Väisälä frequency at the interfaces were also found by \citet{viallet2013}, \citet{arnett2015}, \citet{cristini}.
 
 \begin{figure}[t!]
 \centering
@@ -194,7 +194,9 @@ We observe that all the parameters are overall constant, within a $10 \%$ oscill
 
 The turbulence length scale (which is the same for upper and lower boundary because it is computed in the middle of the convective region) slightly decreases with the resolution. This is what one would intuitively expect, since more refined structure become uncorrelated after lower distances.
 
-Woodward \textit{et al.} (2016) found that the entrainment rate decreases exponentially with the enhancement of the resolution, before converging to the physical value. In our case we observe a constant entrainment (with a slight increasing trend, we presume due to second order phenomena), hence we can safely assume that even in the lowest resolution case we are properly resolving the system. Notice that the turbulence standard deviation increases with the resolution as expected, because of the higher Reynolds number due to lower numerical viscosity. 
+\cite{woodward} found that the entrainment rate decreases exponentially with the enhancement of the resolution, before converging to the physical value. In our case we observe a constant entrainment (with a slight increasing trend, we presume due to second order phenomena), hence we can safely assume that even in the lowest resolution case we are properly resolving the system. 
+
+Notice that the turbulence standard deviation increases with the resolution as expected, because of the higher Reynolds number due to lower numerical viscosity. One could show that the relation between the number of cells and the Reynolds number is $N \propto \mathrm{Re}^{9/4}$ (see for instance \citet{coleman}). 
 
 One could still point out that the convergence reached in a 2D setup does not imply a convergence in 3D, but being that 3D simulations are computationally so expensive, it is impracticable for us to test this hypothesis.
 
@@ -236,7 +238,7 @@ As it can be seen at a first glance, there is no clear correlation between the b
 
 We report parametric values of $n=-0.043 \pm ??$ and $A=0.161 \pm ??$. The $n$ parameter is one order of magnitude lower to the value usually found in the literature, while $A$ is in the same order of magnitude, but for no reason we would expect that the parameters extrapolated for a 2D setup would agree with the three-dimensional case.
 
-As shown in Figure (\ref{fig:diffrms}), the turbulence standard deviation can be controlled by the heating ratio, as one would expect. One would furthermore expect that the buoyancy jump responds proportionally to the Brunt-Väisälä frequency, but this is not the case, as shown in Figure (\ref{fig:diffjump}) where the data is clusterized. The reason for this non-linear response is to be found in equation (\ref{eq:buoyancyjump}). By increasing the Brunt-Väisälä frequency one surely increases the integrand, but the convective boundary gets stiffer. As a consequence the integral is performed on a smaller domain. Recall that the definition of the boundary thickness is purely model-dependent. It might be the case that the standard deviation of the boundary position is not the best method to quantify it.
+As shown in Figure (\ref{fig:diffrms}), the turbulence standard deviation can be controlled by the heating ratio, as one would expect. One would furthermore expect that the buoyancy jump responds proportionally to the Brunt-Väisälä frequency, but this is not the case, as shown in Figure (\ref{fig:diffjump}) where the data is clusterized. The reason for this non-linear response is to be found in equation (\ref{eq:buoyancyjump}). By increasing the Brunt-Väisälä frequency one surely increases the integrand, but the convective boundary gets stiffer. As a consequence the integral is performed on a smaller domain. This result was also found by \citet{arnett2009}. Recall that the definition of the boundary thickness is purely model-dependent. It might be the case that the standard deviation of the boundary position is not the best method to quantify it.
 
 
 
@@ -253,9 +255,7 @@ As shown in Figure (\ref{fig:diffrms}), the turbulence standard deviation can be
 The error values clearly show that the data range is not wide enouth to perform an accurate differential study. We nevertheless believe that we thoroughly understood the nature of the problem. We are sure that in the future we will be able to set up runs capable of reaching bulk-Richardson numbers of one order of magnitude higher than the ones obtained for this work. This will be achieved primarily by using a non-uniform Cartesian grid which is implemented in SHL. This will help us better refine the convective boundary regions and avoid wasting computational resources to resolve the stable layers above and below.
 
 \section{3D simulations}
-
-
-\begin{figure}[t!]
+\begin{figure}[b!]
       \centering
         \subfloat[Mach number profile over time.]{\includegraphics[width=10cm]{./img/3dmachprofile.pdf}\label{fig:3dmachprofile}}
      \centering
@@ -264,39 +264,38 @@ The error values clearly show that the data range is not wide enouth to perform 
 	\caption{Time evolution of a 3D run for the Mach number and the upper passive scalar. In comparison to the 2D case less output files were saved, hence the lower resolution in time.}
 	\label{fig:3dsingle}
 \end{figure}
-	After having correctly tuned the heating function in a 2D setup, we switched to a 3D setup. Only one simulation was run: 3d0.10-100, where the $0.1$ stands again for the fraction $\nabla T / \nabla$ and $100$ stands for the percentage of the heating referring to the arbitrary value of $1.8 \times 10^{18} \mathrm{erg/s}$. As in the 2D case, the heating function has a Gaussian profile peaked in the convective zone and decreasing in time.
+After having correctly tuned the heating function in a 2D setup, we switched to a 3D setup. Only one simulation was run: 3d0.10-100. In fact, because of the problems discussed in the differential study section, we want to make sure that we can successfully distanciate the bulk-Richardson numbers before running other computationally very expensive 3D runs.
 
-	The physical setup was mapped on a uniform Cartesian grid with $512 \times 256 \times 512$ cells. The simulation was run on the JUQUEEN machine at JSC and scaled over an entire rack ($16384$ cores) for four days. Although SLH scales very well even on tens of thousands of cores, on JUQUEEN a very high number of CPU hours was needed, primarily because the PowerPC\textregistered \ A2 processors (IBM) of JUQUEEN are optimized to obtain the highest efficiency in terms of computations per watt, rather that per core. 
-
-	Only one grid file every 500 time steps was saved, hence the lower resolution in time for the plots compared to the 2D analysis. This was not necessary to reduce the output size (around $300 \, \mathrm{GB}$ total), but to avoid to spend too many CPU hours in I/O processing.
-
-
+ The simulation was run on the JUQUEEN machine at JSC and scaled over an entire rack ($16384$ cores) for four days. Although SLH scales very well even on tens of thousands of cores, on JUQUEEN a very high number of CPU hours was needed, primarily because the PowerPC\textregistered \ A2 processors (IBM) of JUQUEEN are optimized to obtain the highest efficiency in terms of computations per watt, rather that per core. 
+ 
+ Only one grid file every 500 time steps was saved, hence the lower resolution in time for the plots compared to the 2D analysis. This was not necessary to reduce the output size (around $300 \, \mathrm{GB}$ total), but to avoid to spend too many CPU hours in I/O processing.
 \subsection{Evolution of a 3D run}
-
-In the following paragraphs we analyze the run 3d0.1-100.
-
-Similarly to the 2D case, convection starts at $t \simeq 150 \mathrm{min}$ and in Figure (\ref{fig:3dsingle}) is visible the growth of the convective region by entrainment of stable medium.
-
-In analogy to the 2D case we adopt the same heating rate and we simulate the same fluid stratification. The 3D case shows also a turbulence Mach number profile constant in time over the run, as shown in Figure (\ref{fig:3dmachprofile}), but compared to the 2D in Figure (\ref{fig:2dmachprofile}) it is significantly lower. This result was expected because, as previously mentioned, three-dimensional turbulence has a different behavior compared to the two-dimensional one. In our cases the 3D turbulence standard deviation was always a factor of a few lower than in the 2D case, which is in agreement with what found by \citet{meakin} in their core-convection simulation. 
-
-The entrainment plotted over time in Figure (\ref{fig:3dpsprofile}) is also roughly linear and qualitatively resembles the 2D result, with the upper and lower boundaries that are migrating upward and downward respectively.
-The different turbulence configuration between the 2D and 3D case can be better understood by comparing Figure (\ref{fig:3dmach}) with Figure (\ref{fig:machhighres}). In Figure (\ref{fig:differentialmach}) showed that the better the resolution, the more refined and complex the turbulent structure. When considering a 3D output, even by looking at a $512 \times 256$ section of the grid, the Mach number already shows a very sophisticated and convoluted shape, comparable in complexity to the $2048 \times 1024$ 2D case. This obviously has an impact on the entrainment dynamics. Notice that also in this case the Mach number is roughly the half of the 2D case. 
 
 \begin{figure}[t!]
 \centering
 \includegraphics[width=0.6\textwidth]{./img/3dmach.pdf}
-\caption{Mach number of a 3D run at around $t=500 \, \mathrm{min}$.}
+\caption{Mach number of a 3D run at about $t=500 \, \mathrm{min}$.}
 \label{fig:3dmach}
 \end{figure}
 
-In Figure (\ref{fig:3dpassive}) we plot, as we did for Figure (\ref{fig:2dpassive}), the upper passive scalar density advection. In Figure (\ref{fig:3dpassive2accretion1}) the onset of convection is visible by the presence of the fist convective blobs, that over time fill the convective region as visible in Figure (\ref{fig:3dpsprofile}). Notice that in the 3D case the passive scalar is advected fairly homogeneously in the convective layer, and the problem described in Figure(\ref{fig:topology}) for the boundary detection did not appear. This is another consequence of the already mentioned 3D turbulent cascade, that help diffuse the passive scalar in the convective region better than in the 2D case.
+The physical setup was mapped on a uniform Cartesian grid with $512 \times 256 \times 512$ cells. In analogy with the 2D setup, we implemented wall boundary conditions for the vertical direction, and periodic boundaries for the horizontal one. The same usual time-dependent gaussian-shaped heating function was furthermore implemented, with the same heating rate.
+
+Similarly to the 2D case, convection starts at $t \simeq 150 \, \mathrm{min}$ and in Figure (\ref{fig:3dsingle}) is visible the growth of the convective region by entrainment of stable medium.
+
+The 3D case shows also a turbulence Mach number profile constant in time over the run, as shown in Figure (\ref{fig:3dmachprofile}), but compared to the 2D in Figure (\ref{fig:2dmachprofile}) it is significantly lower. This result was expected because, as previously mentioned, three-dimensional turbulence has a different behavior compared to the two-dimensional one. In our cases the 3D turbulence standard deviation was always a factor of a few lower than in the 2D case, which is in agreement with what found by \citet{meakin} in their core-convection simulation. 
+
+The entrainment plotted over time in Figure (\ref{fig:3dpsprofile}) is also roughly linear and qualitatively resembles the 2D result, with the upper and lower boundaries that are migrating upward and downward respectively.
+The different turbulence configuration between the 2D and 3D case can be better understood by comparing Figure (\ref{fig:3dmach}) with Figure (\ref{fig:machhighres}). In Figure (\ref{fig:differentialmach}) showed that the better the resolution, the more refined and complex the turbulent structure. When considering a 3D output, even by looking at a $512 \times 256$ section of the grid, the Mach number already shows a very sophisticated and convoluted shape, comparable in complexity to the $2048 \times 1024$ 2D case. This obviously has an impact on the entrainment dynamics. Notice that also in this case the Mach number is roughly the half of the 2D case. 
+
+
+In Figure (\ref{fig:3dpassive}) we plot, as we did for Figure (\ref{fig:2dpassive}), the upper passive scalar density advection. In Figure (\ref{fig:3dpassive2accretion1}) the onset of convection is visible by the presence of the fist convective blobs, that over time fill the convective region as visible in Figure (\ref{fig:3dpsprofile}). Notice that in the 3D case the passive scalar is advected fairly homogeneously in the convective layer, and the problem described in Figure(\ref{fig:topology}) for the boundary detection did not appear. This is another consequence of the already mentioned 3D turbulent cascade, that help spread the passive scalar in the convective region better than in the 2D case.
 
 \begin{figure}[t!]
       \centering
-      \subfloat[Onset of convective blobs at $t \simeq 150 \mathrm{min}$]{\includegraphics[width=10cm]{./img/3dpassive2accretion1.pdf}\label{fig:3dpassive2accretion1}}
+      \subfloat[Onset of convective blobs at $t \simeq 150 \, \mathrm{min}$]{\includegraphics[width=10cm]{./img/3dpassive2accretion1.pdf}\label{fig:3dpassive2accretion1}}
      \centering
 	\hfill
-	\subfloat[Passive scalar advection at $t \simeq 600 \mathrm{min}$.]{\includegraphics[width=10cm]{./img/3dpassive2accretion2.pdf}\label{fig:3dpassive2accretion2}}
+	\subfloat[Passive scalar advection at $t \simeq 600  \, \mathrm{min}$.]{\includegraphics[width=10cm]{./img/3dpassive2accretion2.pdf}\label{fig:3dpassive2accretion2}}
 	\caption{Passive scalar density advection for the 3D run. Notice the different shape of the convective blobs compared to Figure (\ref{fig:2dpassive}).}
 	\label{fig:3dpassive}
 \end{figure}

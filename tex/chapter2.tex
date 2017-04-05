@@ -6,7 +6,7 @@
 \section{Hydrodynamics}
 As with all the most beautiful and successful laws of Physics, Hydrodynamics is derived from some conserved quantities. 
 
-The following derivation of the equations of hydrodynamics, which are the foundation for our simulations, is inspired to the one presented by M. Bartelmann in \textit{Theoretical Astrophysics} \cite{theoastro}. 
+The following derivation of the equations of hydrodynamics, which are the foundation for our simulations, is inspired to the one presented by M. Bartelmann in \textit{Theoretical Astrophysics} \citet{theoastro}. 
 \subsection{Derivation of the Equations of Ideal Hydrodynamics}
 
 Let's consider for instance a monoatomic gas in a box. A fundamental assumption in ideal hydrodynamics is that the mean free path of particles is infinitesimal. Particles might be spatially equally distributed (like in a bottle) or might not (maybe because the box is so big that we get a density stratification like in the atmosphere). The same concept holds for the velocity distribution: it might be Maxwellian or it might not be. 
@@ -124,7 +124,7 @@ $$
 This equation can be solved only if an equation of state (EoS) is provided. For instance if we choose a polytropic equation of state (which means that the pressure is a function of the density only and not of the temperature) we obtain the \textbf{Lane-Emden Equation} that allows stable solutions for adiabatic indices up to $4/3$ only. This EoS is used for instance for modeling white dwarfs, where the pressure doesn't depend on the temperature because of the degeneracy of the gas. 
 
 \section{Energy Transfer}
-	The present chapter about energy transfer and the following one about convection are inspired to the work of Kippenhahn, Weigert and Weiss \textit{Stellar Structure and Evolution} \cite{stellarstruc}.
+	The present chapter about energy transfer and the following one about convection are inspired to the work of Kippenhahn, Weigert and Weiss \textit{Stellar Structure and Evolution} \citet{stellarstruc}.
 \subsection{Transport of Energy by Radiation}
 In the deep interiors of stars energy is generated through nuclear reactions. In the Sun for instance all the energy is provided by burning hydrogen into helium (the so-called p-p chain), while just a little fraction by virialization. Because temperature is of the order of $10^9 \mathrm{K}$, thermal motions allow protons to overcome the electrostatic potential barriers and interact through the nuclear force, giving rise to the reaction
 \begin{equation}\label{ppchain}
@@ -201,14 +201,14 @@ At this point we are able to write down a system of equations that we will call 
 
 Here $m(r)$ is the mass contained inside the sphere of radius $r$
 \begin{equation}\label{masscons}
-	\frac{dm}{dr}=4 \pi r^2 \rho
+	\frac{dm}{dr}=4 \pi r^2 \rho.
 \end{equation}
 
 \textbf{Hydrostatic equilibrium} 
 
 We have already encountered the hydrostatic equilibrium equation
 \begin{equation}\label{hydroeq}
-	\frac{dP}{dr}= - \frac{G m(r)}{r^2} \rho
+	\frac{dP}{dr}= - \frac{G m(r)}{r^2} \rho.
 \end{equation}
 
 \textbf{Equation of State} 
@@ -224,14 +224,14 @@ So far we have written down two equations in three variables, namely $m$, $\rho$
 
 In case we have an energy source (such as nuclear reactions), this needs to be conserved
 \begin{equation}\label{energycons}
-	\frac{dL}{dr} = 4 \pi r^2 \epsilon
+	\frac{dL}{dr} = 4 \pi r^2 \epsilon.
 \end{equation}
 
 \textbf{Temperature gradient} 
 
 Of crucial importance to understand convection will be the following equation for the astrophysical nabla
 \begin{equation}\label{energytransfer}
-\frac{d T}{d r} = - \frac{T }{P} G m \rho\nabla
+\frac{d T}{d r} = - \frac{T }{P} G m \rho\nabla.
 \end{equation}
 
 
@@ -248,7 +248,7 @@ Let us consider a perfect density stratification like the one in a star or in th
 
 We define a local property of the fluid 
 $$
-DA=A_e - A_s
+DA=A_e - A_s.
 $$
 For instance we could imagine that a little region of a star is slightly hotter than the surroundings, hence we have in that region $DT > 0$. Note that because of the assumption we have made $DP=0$ always, because when there is a pressure spike, the gas expands at the sound velocity $c_s$ which is way higher than the low hydro regime we observe in stellar inertia.
 
@@ -262,7 +262,7 @@ where the first derivative tells us how much the density of the mass element cha
 
 We denote the buoyancy force per unit volume 
 $$
-f_b=- g \ D \rho
+f_b=- g \ D \rho,
 $$
 which points upward if $D \rho < 0$, which is the unstable configuration. If instead $D \rho > 0$ the mass element sinks back to its original position and no macroscopic motion appears. As a consequence $D \rho<0$ is our \textbf{condition for stability}.
 
@@ -299,14 +299,14 @@ and obtain the \textbf{Ledoux criterion}.
 
 In our simulations we use a monoatomic ideal gas equation of state, hence $\nabla_{\mu}=0$. What we obtain is the \textbf{Schwarzschild criterion} for dynamic stability
 \begin{equation}\label{schwarzschild}
-	\nabla_{\mathrm{rad}}<\nabla_{\mathrm{ad}}
+	\nabla_{\mathrm{rad}}<\nabla_{\mathrm{ad}}.
 \end{equation}
 If the left hand side is bigger than the right hand side, it means that our stratification is not able to transport all the energy generated only through radiation, and it is hence required to rely on convection. 
 
 Note that up until now we simply have found a stability criterion, but we do not know anything about the convection that will arise. In the next section we will try to quantify it, especially since we need to know how much energy is transported from one layer to the other in order to map this result in 1D simulations of stellar evolution.
 
 \subsection{Mixing length theory}
-A fundamental problem in stellar astrophysics is to understand how much energy is transported by convection. Before the era of computational physics, when only analytic solutions were available, the most common tool used to model convective energy transport was the so called \textbf{mixing length theory} (Böhm-Vitense 1958). 
+A fundamental problem in stellar astrophysics is to understand how much energy is transported by convection. Before the era of computational physics, when only analytic solutions were available, the most common tool used to model convective energy transport was the so called \textbf{mixing length theory} \citet{bohm}. 
 
 The total energy flux $l/4 \pi r^2$ at given radius is given by the radiative flux $F_{\mathrm{rad}}$ (which may also include the conductive flux), and the convective flux $F_{\mathrm{con}}$. Their sum defines the $\nabla$ that would be necessary to transport away all the energy generated in the center of the star
 \begin{equation}\label{7.1}
@@ -318,7 +318,7 @@ F_{\mathrm{rad}} \leq \frac{4 a c G T^4 m}{3 k P r^2} \nabla.
 \end{equation}
 In order to quantify then $F_{\mathrm{con}}$, let us consider a blob with a positive $DT$ over its surroundings. Its motion will be mainly radial which a velocity $v$ and with $DP=0$ for reasons already explained. We can write down the energy flux as
 \begin{equation}\label{fconv}
-	F_{\mathrm{con}}=\rho  v  c_P  DT
+	F_{\mathrm{con}}=\rho  v  c_P  DT.
 \end{equation}
 Of course we should average $v$ and $DT$ over an imaginary sphere and hence obtain an equation that holds statistically over the solid angle at a given radius and not locally. 
 
@@ -356,18 +356,18 @@ Plugging in the expression that we derived for $(dE/dt)_{\mathrm{rad}}$ and taki
 \end{equation}
 We finally obtained five equations(\ref{7.1}, \ref{7.2}, \ref{7.6}, \ref{7.7}, \ref{7.11}) in five variables ($F_{\mathrm{rad}}$, $F_{\mathrm{con}}$, $v$, $\nabla_e$, $\nabla$). Note that the mixing length $l_m$ is not one of those variables, and hence is a free parameter for which we have to assume a value. 
 
-Although the mixing length theory has been used extensively in 1D stellar evolution, in many occasions it has been proven unsuccessful, especially because of the uncertainties about the parameters (Viallet \emph{et al.} 2015, Georgy \emph{et al.} 2016). Thanks to the rise of computational resources over the last decade, atmospheric scientists and astrophysicists were able to run 2D and 3D hydro simulations and approach the problem more heuristically.
+Although the mixing length theory has been used extensively in 1D stellar evolution, in many occasions it has been proven unsuccessful, especially because of the uncertainties about the parameters \citet{viallet2015}. Thanks to the rise of computational resources over the last decade, atmospheric scientists and astrophysicists were able to run 2D and 3D hydro simulations and approach the problem more heuristically.
 
 
 \subsection{Bulk-Richardson Number}
 
 So far we got to the point where we have a convective layer and a stable layer above or beneath it. What happens over time is that the convective boundary entrains mass from the stable layer by ingestion, because turbulent eddies capture stable fluid that is consequentially dragged and entrained in the turbulent layer. A fundamental problem in stellar evolution is to understand the dynamics of this boundary: what is its velocity (if we are in an Eulerian workframe), or how much mass from the stable layer is entrained in unit time (in a Lagrangian workframe).
 
-One of the methods proposed to predict the entrainment rate is the \textbf{bulk-Richardson number}
+One of the methods proposed to predict the mass entrainment rate is the \textbf{bulk-Richardson number} \citet{meakin}, \citet{viallet2015}, \citet{cristini} 
 \begin{equation}\label{bulkrichardson}
 	\mathrm{Ri}_{B}=\frac{\Delta b L}{\sigma_t^2}
 \end{equation}
-which is a dimensionless parameter that compares the stiffness of the boundary to the strength of the turbulence. $L$ is the length scale of the turbulence (which is of course model dependent), $\sigma_t$ is the standard deviation of its velocity, $\Delta b$ is the buoyancy jump between unstable and stable layer.
+which is a dimensionless parameter \new{developed originally in atmospheric sciences (\citet{richardson}, or for a more updated review \citet{stull}) to study the boundary layer problem in the earth atmosphere.} It compares the stiffness of the boundary to the strength of the turbulence. $L$ is the length scale of the turbulence (which is of course model dependent), $\sigma_t$ is the standard deviation of its velocity, $\Delta b$ is the buoyancy jump between unstable and stable layer.
 
 In our case we define the length scale of the turbulence $L$ as follows. Let's consider the autocorrelation function 
 \begin{equation}\label{correlation}
@@ -393,7 +393,7 @@ Where $A$ and $n$ are coefficients that need to be determined, and this will be 
 
 In a Lagrangian workframe this transforms to
 \begin{equation}
-	\dot{M}_\mathrm{E}=\frac{\partial M}{\partial r} u_E
+	\dot{M}_\mathrm{E}=\frac{\partial M}{\partial r} u_E.
 \end{equation}
 If this relation is proven to be true, it would be possible to know the boundary migration speed $u_b$ or the mass entrainment rate $\dot{M}_\mathrm{E}$ given only $L$, $\Delta b$ and $\sigma_t$, and consequentially map this phenomenon into 1D stellar models. In the hope that these two free parameters exist and are universal (i.e. \ not system-, code- or resolution-dependent), the goal of this work is to determine them and to test their universality.
 \new{
