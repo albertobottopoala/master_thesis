@@ -213,6 +213,7 @@ Even at the lower boundary all the parameters oscillate within a $10 \%$ range, 
 	\caption{Dependency of the parameters needed to compute the bulk-Richardson number on the initial simulation setup. Blue dots represent the upper boundary, green dots the lower boundary.}
 	\label{fig:diffparam}
 \end{figure}
+\new{
 As mentioned more than once in the previous chapters, the goal of this work is to perform a \textit{differential} study of the CBM problem. To achieve this, we run four simulations (which provided us 8 boundaries to analyze) varying differentially the stratification and the turbulent regime. 
 
 Following the nomenclature we used in the previous section we hence run the six following simulations: 2d0.5-100 (where $\nabla T / \nabla = 0.5$ and the heating ratio is  $3.6 \times 10^{15} \mathrm{erg/s}$), 2d0.005-100, 2d0.5-050, 2d0.005-050, 2d0.5-005 and 2d0.005-005.
@@ -223,9 +224,10 @@ In order to vary differentially the stratification (hence $\Delta b$), we initia
 
 The first cause for this discrepancy might be the spikes in the Brunt-Väisälä frequency analyzed in section (\ref{single2d}). It is unclear if the magnitude of these spikes exhibit a non-linear behavior, and a further investigation of this phenomenon is necessary. 
 
-The second reason is shown in Figure (\ref{fig:diffcorr}). As already mentioned in countless occasions, the buoyancy jump $\Delta b$ is the thermodynamical term of the bulk-Richardson number that encapsulates the information about the stratification, in contrast to the hamiltonian term $\sigma_{\mathrm{T}}$. We found instead a clear dependency between $\Delta b$ and $\sigma_{\mathrm{T}}$. We impute this correlation to the deformations imprinted by a stronger turbulence to the convective boundary. This in fact leads to a bigger boundary thickness, which is the domain over which we integrate Equation (\ref{eq:buoyancyjump}). The data collected by us on the boundary thickness confirm this hypothesis.
+The second reason is shown in Figure (\ref{fig:diffcorr}). As already mentioned in multiple occasions, the buoyancy jump $\Delta b$ is the thermodynamical term of the bulk-Richardson number that encapsulates the information about the stratification, in contrast to the hamiltonian term $\sigma_{\mathrm{T}}$. We found instead a clear dependency between $\Delta b$ and $\sigma_{\mathrm{T}}$. We impute this correlation to the deformations imprinted by a stronger turbulence to the convective boundary. This in fact leads to a bigger boundary thickness, which is the domain over which we integrate Equation (\ref{eq:buoyancyjump}). The data collected by us on the boundary thickness confirm this hypothesis.
 
-
+The turbulent length scale $L$ also shows an increasing trend with the Mach number.
+}
 \begin{figure}[t!]
 \centering
 \includegraphics[width=0.7\textwidth]{./img/differentialcorr.pdf}
@@ -260,9 +262,6 @@ As it can be seen at a first glance, there is no clear correlation between the b
 We report parametric values of $n=-0.043 \pm ??$ and $A=0.161 \pm ??$. The $n$ parameter is one order of magnitude lower to the value usually found in the literature, while $A$ is in the same order of magnitude, but for no reason we would expect that the parameters extracted for a 2D setup would agree with the three-dimensional case.
 
 As shown in Figure (\ref{fig:diffrms}), the turbulence standard deviation can be controlled by the heating ratio, as one would expect. One would furthermore expect that the buoyancy jump responds proportionally to the Brunt-Väisälä frequency, but this is not the case, as shown in Figure (\ref{fig:diffjump}) where the data is clusterized. The reason for this non-linear response is to be found in equation (\ref{eq:buoyancyjump}). By increasing the Brunt-Väisälä frequency one surely increases the integrand, but the convective boundary gets stiffer. As a consequence the integral is performed on a smaller domain. This result was also found by \citet{arnett2009}. Recall that the definition of the boundary thickness is purely model-dependent. It might be the case that the standard deviation of the boundary position is not the best method to quantify it.
-
-
-
 
 The error values clearly show that the data range is not wide enough to perform an accurate differential study. Future runs that were not possible during the master project will reach bulk-Richardson numbers of one order of magnitude higher than the ones obtained for this work. This will be achieved primarily by using a non-uniform Cartesian grid which is implemented in SHL. This will help us better refine the convective boundary regions and avoid wasting computational resources to resolve the stable layers above and below.
 
@@ -311,3 +310,4 @@ In Figure (\ref{fig:3dpassive}) we plot, as we did for Figure (\ref{fig:2dpassiv
 	\caption{Passive scalar density advection for the 3D run. Notice the different shape of the convective blobs compared to Figure (\ref{fig:2dpassive}).}
 	\label{fig:3dpassive}
 \end{figure}
+
