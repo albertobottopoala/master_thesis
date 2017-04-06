@@ -6,13 +6,13 @@
 \section{Hydrodynamics}
 As with all the most beautiful and successful laws of Physics, Hydrodynamics is derived from some conserved quantities. 
 
-The following derivation of the equations of hydrodynamics, which are the foundation for our simulations, is inspired to the one presented by M. Bartelmann in \textit{Theoretical Astrophysics} \citet{theoastro}. 
+The following derivation of the equations of hydrodynamics, which are the foundation for our simulations, is inspired to the one presented by M. Bartelmann in \textit{Theoretical Astrophysics} (\citet{theoastro}). 
 \subsection{Derivation of the Equations of Ideal Hydrodynamics}
 
 Let's consider for instance a monoatomic gas in a box. A fundamental assumption in ideal hydrodynamics is that the mean free path of particles is infinitesimal. Particles might be spatially equally distributed (like in a bottle) or might not (maybe because the box is so big that we get a density stratification like in the atmosphere). The same concept holds for the velocity distribution: it might be Maxwellian or it might not be. 
 In any case we can define the \textbf{distribution function in phase space} $f( \vec{x^{\mu}}, \vec{p^{\mu}})$ such that
 
-$$N=\int \ d^4x \ d^4p \ f( x^{\mu}, p^{\mu}) \  \delta_D[(p^0)^2-\mathbf{p}^2+m^2c^2] \  \Theta(p^0)$$ 
+$$N=\int \ d^4x \ d^4p \ f( x^{\mu}, p^{\mu}) \  \delta_D[(p^0)^2-\mathbf{p}^2+m^2c^2] \  \Theta(p^0)$$,
  where $N$ is the total number of particles, $\delta_D$ is the Dirac $\delta$ function that selects in the integrations only the hypersurfaces physically allowed by the energy-momentum relation of General Relativity, and finally $\Theta$ makes sure that we are taking into account only positive momenta. 
 Keeping this in mind, we can define the first and second momenta of our distribution function
 
@@ -44,35 +44,35 @@ where $n(t, \mathbf{x})$ is the number density, $c$ the speed of light,  $\left<
 
 By integrating the first and second momentum of Boltzmann Equation, one can show that $J$ and $T$ are divergence free, meaning in the non-relativistic case
 \begin{align}
-\frac{\partial }{\partial^{\mu}}J^{\mu}=0 && \frac{\partial }{\partial^{\mu}}T^{\mu \nu}=0 \  \  \forall \nu =0,..,3 
+\frac{\partial }{\partial^{\mu}}J^{\mu}=0 && \frac{\partial }{\partial^{\mu}}T^{\mu \nu}=0 \  \  \forall \nu =0,..,3 .
 \end{align}
 This means that if we apply the operator $(c^{-1}\partial_t,\partial_x,\partial_y,\partial_z)$ to $J$ and $T$ we obtain zero. Doing so with the density current we obtain the \textbf{continuity equation}
 \begin{equation} \label{cont}
-	\partial_t \rho + \mathbf{\nabla} \cdot (\rho \mathbf{v})=0
+	\partial_t \rho + \mathbf{\nabla} \cdot (\rho \mathbf{v})=0.
 \end{equation}
 We then apply the same procedure to the energy-momentum tensor.
 
 We might choose to do it in the first column ($\nu=0$), and that would lead us to the \textbf{energy conservation equation}
 \begin{equation} \label{consen}
-	\partial_t \epsilon + \mathbf{ \nabla} \cdot (\epsilon \mathbf{v}) + P\mathbf{ \nabla} \cdot \mathbf{v}=0
+	\partial_t \epsilon + \mathbf{ \nabla} \cdot (\epsilon \mathbf{v}) + P\mathbf{ \nabla} \cdot \mathbf{v}=0,
 \end{equation}
 where $\epsilon$ is the internal energy and $P$ the pressure. These two variables, that were not explicitly included in $T$, arise naturally by splitting up the microscopic velocity of the fluid $\left <  \dot{x} \right >$ into a mean macroscopic velocity $\mathbf{v}$ and a random velocity $\mathbf{u}$ in the neighborhood of $\mathbf{v}$. 
-$$\left <  \dot{x} \right >= \mathbf{v}  +  \mathbf{u} $$
+$$\left <  \dot{x} \right >= \mathbf{v}  +  \mathbf{u} $$,
 and recalling that for a monoatomic gas
-$$\epsilon = \frac{\rho}{2} \left <  u^2 \right > = \frac{3}{2} n k_B T= \frac{P}{2}$$
+$$\epsilon = \frac{\rho}{2} \left <  u^2 \right > = \frac{3}{2} n k_B T= \frac{P}{2}$$.
 When we operate on the other three columns of $T$, we obtain the \textbf{momentum conservation equations} for the three spatial dimensions.
 \begin{equation} \label{euler}
-	\partial_t \mathbf{v} + (\mathbf{v} \cdot \mathbf{\nabla}) \mathbf{v} + \frac{\mathbf{ \nabla} P}{\rho}=0
+	\partial_t \mathbf{v} + (\mathbf{v} \cdot \mathbf{\nabla}) \mathbf{v} + \frac{\mathbf{ \nabla} P}{\rho}=0.
 \end{equation}
 These last three are often called \textbf{Euler equations}. 
 
 Note that the operator on the left hand side is nothing but the total time derivative
 $$
-\partial_t + \mathbf{v} \cdot \mathbf{ \nabla} = \frac{d}{dt}
+\partial_t + \mathbf{v} \cdot \mathbf{ \nabla} = \frac{d}{dt},
 $$
 so what we are actually writing is Newton's equation per unit volume
 $$
-\rho \mathbf{a} = \mathbf{\nabla} P
+\rho \mathbf{a} = \mathbf{\nabla} P.
 $$
 In case other macroscopic forces like gravity are present, we simply add them on the right hand side as we would do in classical mechanics. 
 
@@ -82,44 +82,44 @@ So far we have obtained 5 equations in 6 unknowns, namely the internal energy $\
 
 As stated at the beginning of the previous section, one fundamental assumption of ideal hydrodynamics is that particles have an infinitesimal mean free path. What actually happens in nature might be very different. Particle have a finite mean free path, and hence they can transport local properties all through the fluid by diffusion: transport of energy generates heat conduction, transport of momentum friction. The consequence is that we end up with one additional term in the energy-momentum tensor representing the diffusive processes
 $$
-T^{ij} \to T^{ij} + T^{ij}_d 
+T^{ij} \to T^{ij} + T^{ij}_d .
 $$
 
 The density current remains unchanged (hence continuity equation) because mass is always conserved. As in the previous subsection, the new energy-momentum tensor needs to be operated on with $\nabla$ and set equal to zero in order to obtain our modified equations in the viscous case. We will not carry out all the calculations, rather simply quote the result for the viscous versions (\ref{consen}) and (\ref{euler}). 
 
 The new energy balance equation reads
 $$
-\partial_t \epsilon + \mathbf{\nabla} \cdot (\epsilon \mathbf{v}) + P \mathbf{ \nabla} \cdot \mathbf{v} = \mathbf{\nabla} \cdot (k \vec \nabla T) + v_{ij} T_d^{ij} 
+\partial_t \epsilon + \mathbf{\nabla} \cdot (\epsilon \mathbf{v}) + P \mathbf{ \nabla} \cdot \mathbf{v} = \mathbf{\nabla} \cdot (k \vec \nabla T) + v_{ij} T_d^{ij} ,
 $$
 where $v_{ij}$ is the symmetrized velocity gradient tensor
 $$
-v_{ij} = \frac{1}{2}(\partial_i v_j + \partial_j v_i)
+v_{ij} = \frac{1}{2}(\partial_i v_j + \partial_j v_i).
 $$
 This equation shows that the internal energy in a certain region of the fluid can change either if there is a temperature gradient or if the fluid is moving with a velocity field with a non vanishing symmetrized gradient (non solid-body rotation) because of friction.
 The new momentum conservation equations read
 $$
-\rho \left( \partial_t + \vec{v} \cdot \vec \nabla \right) v^j+\partial^jP = \eta \vec \nabla^2v^j + \left( \xi + \frac{\eta}{3} \right) \partial^j \vec \nabla \cdot \vec{v}
+\rho \left( \partial_t + \vec{v} \cdot \vec \nabla \right) v^j+\partial^jP = \eta \vec \nabla^2v^j + \left( \xi + \frac{\eta}{3} \right) \partial^j \vec \nabla \cdot \vec{v}.
 $$
 These are often called \textbf{Navier-Stokes Equations}.
 
 \subsection{Hydrostatic Equilibrium in Stars}
 We shall now consider the static configuration of \ref{euler} with gravitational potential. It reads
 \begin{equation} \label{hystat}
-	\vec \nabla P = - \rho \vec \nabla \Phi
+	\vec \nabla P = - \rho \vec \nabla \Phi.
 \end{equation}
 This shows that the pressure stratification is adjusted only by the shape of the gravitational field. We can say more by taking the curl of this equation and we get
 $$
-\vec \nabla \rho \times  \vec \nabla \Phi =0
+\vec \nabla \rho \times  \vec \nabla \Phi =0,
 $$
 which shows that the gradient of the gravitational potential and of the density are parallel. Surfaces of constant density are surfaces of constant gravitational potential.
 
 It is known from classical mechanics that if we are given a spherically symmetric matter distribution, the gravitational acceleration is $g=Gm/r^2$ which leads to
 \begin{equation}\label{HydroEquilibrium}
-	\frac{\partial P}{\partial r}= - \frac{G m}{r^2} \rho
+	\frac{\partial P}{\partial r}= - \frac{G m}{r^2} \rho.
 \end{equation}
 The general approach to find the relation between the pressure and the density consists in taking the divergence of \ref{hystat} and substituting the Poisson equation 
 $$
-\vec \nabla \cdot \left ( \frac{\vec \nabla P}{\rho} \right ) = - 4 \pi G \rho 
+\vec \nabla \cdot \left ( \frac{\vec \nabla P}{\rho} \right ) = - 4 \pi G \rho .
 $$
 This equation can be solved only if an equation of state (EoS) is provided. For instance if we choose a polytropic equation of state (which means that the pressure is a function of the density only and not of the temperature) we obtain the \textbf{Lane-Emden Equation} that allows stable solutions for adiabatic indices up to $4/3$ only. This EoS is used for instance for modeling white dwarfs, where the pressure doesn't depend on the temperature because of the degeneracy of the gas. 
 
@@ -128,7 +128,7 @@ This equation can be solved only if an equation of state (EoS) is provided. For 
 \subsection{Transport of Energy by Radiation}
 In the deep interiors of stars energy is generated through nuclear reactions. In the Sun for instance all the energy is provided by burning hydrogen into helium (the so-called p-p chain), while just a little fraction by virialization. Because temperature is of the order of $10^9 \mathrm{K}$, thermal motions allow protons to overcome the electrostatic potential barriers and interact through the nuclear force, giving rise to the reaction
 \begin{equation}\label{ppchain}
-	6 ^1\mathrm{H} \to ^4_2\mathrm{He} + 2 ^1\mathrm{H} + 2 \gamma + 2 \nu
+	6 ^1\mathrm{H} \to ^4_2\mathrm{He} + 2 ^1\mathrm{H} + 2 \gamma + 2 \nu,
 \end{equation}
 where on the right hand side we have photons and neutrinos, that carry energy away. 
 
@@ -138,7 +138,7 @@ Photons instead, interacting electromagnetically, scatter multiple times before 
 
 Let's now make a rough estimate of the mean free path of a photon in the sun. 
 \begin{equation}\label{mfp}
-	l_{p,p}=\frac{1}{k \rho}
+	l_{p,p}=\frac{1}{k \rho},
 \end{equation}
 where $k$ is the mean cross section (averaged over all frequencies) per unit mass. For ionized hydrogen in stellar medium a rough average is $1 \ \mathrm{cm^2/g}$. The average density of the sun is $\bar\rho_{\odot}=3M_{\odot}/4 \pi R_{\odot}^3= 1.4 \mathrm{g /cm}^3$. 
 
@@ -146,7 +146,7 @@ Plugging in the numbers we get $\bar l_{p,p \odot}=2 \  \mathrm{cm}$.
 
 At this point we need to answer a fundamental question: do two sequential scatterings happen at thermodynamic equilibrium? In other words when one photon scatters, and then scatters again a few millimeters or centimeters away, does it encounter the same thermodynamic conditions? In order to evaluate that, let's consider the mean temperature gradient between the center of the sun and the photosphere
 $$
-\frac{\Delta T}{\Delta r} = \frac{10^7 \ \mathrm{K}-10^4  \ \mathrm{K}}{R_{\odot}} \simeq 1.4 \times 10^{-4} \  \mathrm{K} \ \mathrm{cm} ^{-1}
+\frac{\Delta T}{\Delta r} = \frac{10^7 \ \mathrm{K}-10^4  \ \mathrm{K}}{R_{\odot}} \simeq 1.4 \times 10^{-4} \  \mathrm{K} \ \mathrm{cm} ^{-1},
 $$
 which means that after $2 \mathrm{cm}$ on the radial direction a photon sees a difference in temperature of $\Delta T = l_{p,p} \times 1.4 \times 10^{-4}  \  \mathrm{K} \ \mathrm{cm} ^{-1}= 3 \times 10^{-4} \  \mathrm{K}$. The relative difference of radiation energy density can be easily computed since $u \sim T^4$, hence in the center of the sun $\Delta u/u=4 \Delta T / T \sim 10^{-10}$: between two scatterings a photon is in \textbf{Local Thermodynamic Equilibrium} (LTE). This little anisotropy that we neglect is the actual cause of the luminosity of the sun, because it generates a non-vanishing net flux.
 \subsection{Diffusion of radiative energy}
@@ -154,31 +154,31 @@ We have seen that the mean free path $l_{p,p}$ of photons is much smaller than t
 
 The diffusive flux $j$ of a certain species of particles (number of particles migrating per unit area and unit time) is given by
 \begin{equation}\label{diffusion}
-	\vec  j=-D \nabla n
+	\vec  j=-D \nabla n,
 \end{equation}
 where $n$ is the species density. $D$ is the diffusion coefficient
 \begin{equation}
-	D =\frac{1}{3} v l_{p}
+	D =\frac{1}{3} v l_{p},
 \end{equation}
 which is a function of the mean free path and of the mean velocity. What we are actually interested in is not the diffusive flux of the particles $j$, but rather in the diffusive flux of their energy $\vec F$. The density needs to be substituted with the energy density $u=aT^4$, $\bar v$ with $c$ and $l_p$ with $l_{p,p}$. $a$ is the radiation density constant. If we assume spherical symmetry the gradient of $u$ is simply the radial component
 \begin{equation}
-	\frac{\partial u}{\partial r} = 4  a  T^3   \frac{\partial T}{\partial r}
+	\frac{\partial u}{\partial r} = 4  a  T^3   \frac{\partial T}{\partial r}.
 \end{equation}
 So recalling (\ref{diffusion}) we have immediately that
 \begin{equation}
-	F=-\frac{4ac}{3}\frac{T^3}{k \rho} \frac{\partial T}{\partial r}
+	F=-\frac{4ac}{3}\frac{T^3}{k \rho} \frac{\partial T}{\partial r},
 \end{equation}
 which can be written down in a more compact way as 
 \begin{equation}
-	\vec F = - k_{rad} \nabla T
+	\vec F = - k_{rad} \nabla T,
 \end{equation}
 after having properly defined $k_{rad}$ as the conduction coefficient. Now we use the well known relation between luminosity and flux and solve it for the temperature gradient
 \begin{equation}
-	\frac{\partial T}{\partial r}= - \frac{3}{16 \pi a c}\frac{k \rho l}{r^2 T^3}
+	\frac{\partial T}{\partial r}= - \frac{3}{16 \pi a c}\frac{k \rho l}{r^2 T^3},
 \end{equation}
 which in Lagrangian coordinate reads
 \begin{equation}\label{partialTpartialm}
-	\frac{\partial T}{\partial m}= - \frac{3}{64 \pi^2 a c}\frac{k l}{r^4 T^3}
+	\frac{\partial T}{\partial m}= - \frac{3}{64 \pi^2 a c}\frac{k l}{r^4 T^3}.
 \end{equation}
 We should never forget the assumptions we made when deriving this equation, namely the LTE. When we approach the photosphere, for instance, the density decreases, the mean free path increases, and two scattering events happen so far away that LTE doesn't hold any longer. In this case radiation transport is no more a diffusive process. 
 
@@ -187,11 +187,11 @@ Another form of heat transfer is conduction, but in stellar physics it becomes r
 \subsection{The astrophysical $\nabla$}
 Assuming hydrostatic equilibrium we can now divide \ref{partialTpartialm} by \ref{HydroEquilibrium} in Lagrangian coordinates and obtain
 \begin{equation}
-	\frac{\partial T/\partial m}{\partial P / \partial m} = \frac{3}{16 \pi a c G} \frac{k l}{m T^3}
+	\frac{\partial T/\partial m}{\partial P / \partial m} = \frac{3}{16 \pi a c G} \frac{k l}{m T^3}.
 \end{equation}
 This is nothing but the derivative of the temperature with respect to the pressure, which increasing monotonically upward, is representative of the radius. We furthermore rewrite this quantity as
 \begin{equation}\label{nablarad}
-	\nabla_{\mathrm{rad}} = \left( \frac{d \ln T}{d \ln P}  \right)_{\mathrm{rad}}= \frac{3}{16 \pi a c G} \frac{k l P}{m T^4}
+	\nabla_{\mathrm{rad}} = \left( \frac{d \ln T}{d \ln P}  \right)_{\mathrm{rad}}= \frac{3}{16 \pi a c G} \frac{k l P}{m T^4}.
 \end{equation}
 This quantity will be of fundamental importance when we will discuss convective stability. Recall that we took into account only radiative transfer, but defining $k$ properly we could take into account also heat conduction.
 \section{Fundamental Equations of Stellar Structure}
@@ -216,7 +216,7 @@ We have already encountered the hydrostatic equilibrium equation
 So far we have written down two equations in three variables, namely $m$, $\rho$, and $P$. If we want to have at least a chance to solve them we need another equation, namely the equation of state. Possible choices are:
 \begin{itemize}
 	\item $\rho=const$ this would be the case for liquids.
-	\item $P\propto \rho^\gamma$ i.e.\ the density and pressure are not a function of the temperature. This is the case, as already stated in the previous section for white dwarfs and leads to the Lane-Edmen equation and its solutions.
+	\item $P\propto \rho^\gamma$ i.\ e.\ the density and pressure are not a function of the temperature. This is the case, as already stated in the previous section for white dwarfs and leads to the Lane-Edmen equation and its solutions.
 	\item $P=\frac{\mu}{R}\frac{P}{T}$ the equation of state for perfect gases and this is the case for the sun. It has the inconvenience that it introduces another variable, namely the temperature $T$, and hence it doesn't solve our original problem. We need at least another equation to solve the system. 
 \end{itemize}
 
@@ -256,7 +256,7 @@ If we have a $DT>0$, since in a perfect gas the equation of state reads $\rho \s
 
 Let's approach the problem from another point of view. Let's assume that we have a stable layer without perturbations, and we lift a mass element upward of $\Delta r$. The density difference now is
 \begin{equation}\label{eq:displacement}
-D \rho = \left [  \left( \frac{d \rho}{d r} \right)_e - \left( \frac{d \rho}{d r} \right)_s   \right ] \Delta r
+D \rho = \left [  \left( \frac{d \rho}{d r} \right)_e - \left( \frac{d \rho}{d r} \right)_s   \right ] \Delta r,
 \end{equation}
 where the first derivative tells us how much the density of the mass element changes when lifted, the second one tells us how the surrounding density changes along the radial direction. 
 
@@ -268,32 +268,32 @@ which points upward if $D \rho < 0$, which is the unstable configuration. If ins
 
 The problem with this criterion is that very often the density gradient is not known, since it does not appear in the fundamental equations for stellar structure. In order to proceed let us turn our gradient in spatial coordinates into a gradient in thermodynamic coordinates. As previously stated, our transformations are adiabatic, hence no exchange of energy occurs. This is very close to reality for stellar inertia. To begin let us write down the parametrizedequation of state $\rho = \rho (P, T, \mu)$ in differential form
 \begin{equation}\label{eq:EoSdiff}
-	\frac{d \rho}{\rho} = \alpha \frac{d P}{P} - \delta \frac{d T}{T} + \phi \frac{d \mu}{\mu}
+	\frac{d \rho}{\rho} = \alpha \frac{d P}{P} - \delta \frac{d T}{T} + \phi \frac{d \mu}{\mu},
 \end{equation}
 where $d \mu$ represents the change in the chemical composition, including ionization processes. 
 
 Substituting \ref{eq:displacement} in \ref{eq:EoSdiff} we obtain
 \begin{equation}
-	\left (\frac{\alpha}{P} \frac{dp}{dr}\right )_e - \left ( \frac{\delta}{T}\frac{dT}{dr}\right )_e -  \left (\frac{\alpha}{P} \frac{dp}{dr}\right )_s +  \left ( \frac{\delta}{T}\frac{dT}{dr}\right )_s -  \left ( \frac{\phi}{\mu}\frac{d \mu}{\mu dr}\right )_s>0 
+	\left (\frac{\alpha}{P} \frac{dp}{dr}\right )_e - \left ( \frac{\delta}{T}\frac{dT}{dr}\right )_e -  \left (\frac{\alpha}{P} \frac{dp}{dr}\right )_s +  \left ( \frac{\delta}{T}\frac{dT}{dr}\right )_s -  \left ( \frac{\phi}{\mu}\frac{d \mu}{\mu dr}\right )_s>0 .
 \end{equation}
 The two terms containing the pressure gradient cancel because as previously stated $DP=0$. Let us multiply the remaining terms by the so called \textbf{pressure scale height} $H_P$
 \begin{equation}\label{scaleheight}
-	H_P=-\frac{dr}{d \ln P}= - P \frac{dr}{dP}
+	H_P=-\frac{dr}{d \ln P}= - P \frac{dr}{dP}.
 \end{equation}
 $H_P$ has the dimension of a length, being the characteristic distance over which the pressure changes.
 We finally obtain our condition for stability
 \begin{equation}\label{criterionstab}
-	\left (   \frac{d \ln T}{d \ln P}    \right )_s <  \left (   \frac{d \ln T}{d \ln P}   \right )_e +  \frac{\phi}{\mu} \left (   \frac{d \ln \mu}{d \ln P}    \right )_s
+	\left (   \frac{d \ln T}{d \ln P}    \right )_s <  \left (   \frac{d \ln T}{d \ln P}   \right )_e +  \frac{\phi}{\mu} \left (   \frac{d \ln \mu}{d \ln P}    \right )_s.
 \end{equation}
 We have already encountered the first term which is $\nabla_{rad}$ of \ref{nablarad}.
 Let's define two new quantities
 \begin{equation}\label{nablas}
-	\nabla_{e} = \left (  \frac{d \ln T}{d \ln P}   \right )_e \  \nabla_{\mu} = \left (  \frac{d \ln \mu}{d \ln P}   \right )_s
+	\nabla_{e} = \left (  \frac{d \ln T}{d \ln P}   \right )_e \  \nabla_{\mu} = \left (  \frac{d \ln \mu}{d \ln P}   \right )_s.
 \end{equation}
 Recall that since pressure is always decreasing at increasing radius we can measure the temperature as a function of the pressure, and hence its gradient. Furthermore, since our mass element buoys adiabatically, we call $\nabla_e=\nabla_{\mathrm{ad}}$. 
 With this new notation we can write down our stability criterion in a more compact way as
 \begin{equation}\label{stabcritcomp}
-	\nabla_{\mathrm{rad}} < \nabla_{\mathrm{ad}} + \frac{\phi}{\delta} \nabla_{\mu}
+	\nabla_{\mathrm{rad}} < \nabla_{\mathrm{ad}} + \frac{\phi}{\delta} \nabla_{\mu},
 \end{equation}
 and obtain the \textbf{Ledoux criterion}. 
 
@@ -306,13 +306,13 @@ If the left hand side is bigger than the right hand side, it means that our stra
 Note that up until now we simply have found a stability criterion, but we do not know anything about the convection that will arise. In the next section we will try to quantify it, especially since we need to know how much energy is transported from one layer to the other in order to map this result in 1D simulations of stellar evolution.
 
 \subsection{Mixing length theory}
-A fundamental problem in stellar astrophysics is to understand how much energy is transported by convection. Before the era of computational physics, when only analytic solutions were available, the most common tool used to model convective energy transport was the so called \textbf{mixing length theory} \citet{bohm}. 
+A fundamental problem in stellar astrophysics is to understand how much energy is transported by convection. Before the era of computational physics, when only analytic solutions were available, the most common tool used to model convective energy transport was the so called \textbf{mixing length theory}, introduced more than half a century ago by \citet{bohm}. 
 
 The total energy flux $l/4 \pi r^2$ at given radius is given by the radiative flux $F_{\mathrm{rad}}$ (which may also include the conductive flux), and the convective flux $F_{\mathrm{con}}$. Their sum defines the $\nabla$ that would be necessary to transport away all the energy generated in the center of the star
 \begin{equation}\label{7.1}
 F_{\mathrm{rad}}+ F_{\mathrm{con}}= \frac{4 a c G T^4 m }{3 k P r^2} \nabla.
 \end{equation}
-Part of it is ultimately transported by convection, at the most $\nabla_{\mathrm{rad}}$ can equal $\nabla$.
+Part of it is ultimately transported by convection, at the most $\nabla_{\mathrm{rad}}$ can equal $\nabla$
 \begin{equation}\label{7.2}
 F_{\mathrm{rad}} \leq \frac{4 a c G T^4 m}{3 k P r^2} \nabla.
 \end{equation}
@@ -324,79 +324,78 @@ Of course we should average $v$ and $DT$ over an imaginary sphere and hence obta
 
 Blobs have an initial velocity that equals zero, and the same holds for $DT$. Over time it will migrate a distance $l_m$, namely the \textit{mixing length} before dissolving via turbulent cascade. This means that on average a blob will move a distance $l_m/2$ where it accelerates, and another $l_m/2$ where it decelerates the same amount to stop at the end of the convective zone. Blobs will definitely also change shape during the migration, which makes it pretty difficult to strictly define temperature and velocity, but in a very rough approximation we claim that
 \begin{equation}
-	\frac{DT}{T}=\frac{1}{T}\frac{\partial (DT)}{\partial r} \frac{l_m}{2}=(\nabla-\nabla_e)\frac{l_m}{2}\frac{1}{H_P}
+	\frac{DT}{T}=\frac{1}{T}\frac{\partial (DT)}{\partial r} \frac{l_m}{2}=(\nabla-\nabla_e)\frac{l_m}{2}\frac{1}{H_P},
 \end{equation}
 which is simply a Taylor expansion to determine $DT$ after $l_m/2$. Recall that the buoyancy force per unit mass is $f_b=-g \cdot D \rho / \rho$ and that $D \rho / \rho - \delta D T / T$. Let us pretend on average that half of this force acting on the blob during its migration of $l_m$, hence the work done is
 \begin{equation}\label{7.6}
-	\frac{1}{2} k_r \frac{l_m}{2}=g \delta (\nabla - \nabla_e)\frac{l_m^2}{8 H_P}
+	\frac{1}{2} k_r \frac{l_m}{2}=g \delta (\nabla - \nabla_e)\frac{l_m^2}{8 H_P}.
 \end{equation}
-Let's furthermore suppose that only half of this work ends up in kinetic energy, because the other half has to go in the work necessary for moving the surroundings. Then the average velocity of an element half way is
+Let us furthermore suppose that only half of this work ends up in kinetic energy, because the other half has to go in the work necessary for moving the surroundings. Then the average velocity of an element half way is
 \begin{equation}
-	v^2=g \delta (\nabla - \nabla_e)\frac{l_m^2}{8 H_p}
+	v^2=g \delta (\nabla - \nabla_e)\frac{l_m^2}{8 H_p},
 \end{equation}
 and plugging this result into (\ref{fconv})
 \begin{equation}
-F_{\mathrm{con}}= \rho c_P T \sqrt{g \delta} \frac{L^2_m}{4\sqrt{2}}H_P^{-3/2} (\nabla-\nabla_e)^{3/2}
+F_{\mathrm{con}}= \rho c_P T \sqrt{g \delta} \frac{L^2_m}{4\sqrt{2}}H_P^{-3/2} (\nabla-\nabla_e)^{3/2}.
 \end{equation}
 Now let us consider a sphere of diameter $d$ slightly hotter than the surrounding and moving radially with velocity $v$. It will lose energy because of radiative processes and because of the adiabatic expansion. The energy lost in time due to the first process is
 \begin{equation}
-\left (\frac{d E}{d t}  \right )_{\mathrm{rad}} = \frac{8 a c T^3}{3 k \rho} DT \frac{S}{D}
+\left (\frac{d E}{d t}  \right )_{\mathrm{rad}} = \frac{8 a c T^3}{3 k \rho} DT \frac{S}{D},
 \end{equation}
 hence the drop in temperature per unit length radially, taking into account both processes is
 \begin{equation}\label{7.7}
-	\left (  \frac{d T}{d r }   \right )_e = \left(  \frac{dT}{d r }   \right )_{\mathrm{rad}} - \frac{\left( d E / dt \right)_{\mathrm{rad}} }{\rho V c_P v}
+	\left (  \frac{d T}{d r }   \right )_e = \left(  \frac{dT}{d r }   \right )_{\mathrm{rad}} - \frac{\left( d E / dt \right)_{\mathrm{rad}} }{\rho V c_P v}.
 \end{equation}
 Which multiplied by $H_P/T$ gives
 \begin{equation}
-\nabla_e - \nabla_{\mathrm{ad}} =  \frac{\left( dE/dt \right)_{ \mathrm{rad} } H_P}{\rho V c_P v T}
+\nabla_e - \nabla_{\mathrm{ad}} =  \frac{\left( dE/dt \right)_{ \mathrm{rad} } H_P}{\rho V c_P v T}.
 \end{equation}
 Plugging in the expression that we derived for $(dE/dt)_{\mathrm{rad}}$ and taking an average for $DT$, we are left with an equation that contains a "form factor" $l_m S/Vd$ that for a sphere should of course be $6/l_m$. In the literature $9/2l_m$ it is often used instead and this brings us to
 \begin{equation}\label{7.11}
-\frac{\nabla_e - \nabla_{\mathrm{ad}}}{\nabla - \nabla_e} = \frac{6acT^3}{k \rho c_P l_m v}
+\frac{\nabla_e - \nabla_{\mathrm{ad}}}{\nabla - \nabla_e} = \frac{6acT^3}{k \rho c_P l_m v}.
 \end{equation}
 We finally obtained five equations(\ref{7.1}, \ref{7.2}, \ref{7.6}, \ref{7.7}, \ref{7.11}) in five variables ($F_{\mathrm{rad}}$, $F_{\mathrm{con}}$, $v$, $\nabla_e$, $\nabla$). Note that the mixing length $l_m$ is not one of those variables, and hence is a free parameter for which we have to assume a value. 
 
 Although the mixing length theory has been used extensively in 1D stellar evolution, in many occasions it has been proven unsuccessful, especially because of the uncertainties about the parameters \citet{viallet2015}. Thanks to the rise of computational resources over the last decade, atmospheric scientists and astrophysicists were able to run 2D and 3D hydro simulations and approach the problem more heuristically.
 
 
-\subsection{Bulk-Richardson Number}
+\subsection{Bulk-Richardson number}
 
 So far we got to the point where we have a convective layer and a stable layer above or beneath it. What happens over time is that the convective boundary entrains mass from the stable layer by ingestion, because turbulent eddies capture stable fluid that is consequentially dragged and entrained in the turbulent layer. A fundamental problem in stellar evolution is to understand the dynamics of this boundary: what is its velocity (if we are in an Eulerian workframe), or how much mass from the stable layer is entrained in unit time (in a Lagrangian workframe).
 
-One of the methods proposed to predict the mass entrainment rate is the \textbf{bulk-Richardson number} \citet{meakin}, \citet{viallet2015}, \citet{cristini} 
+One of the methods proposed to predict the mass entrainment rate is the \textbf{bulk-Richardson number} (\citet{meakin}, \citet{viallet2015}, \citet{cristini}):
 \begin{equation}\label{bulkrichardson}
-	\mathrm{Ri}_{B}=\frac{\Delta b L}{\sigma_{\mathrm{T}}^2}
+	\mathrm{Ri}_{B}=\frac{\Delta b L}{\sigma_{\mathrm{T}}^2},
 \end{equation}
-which is a dimensionless parameter \new{developed originally in atmospheric sciences (\citet{richardson}, or for a more updated review \citet{stull}) to study the boundary layer problem in the earth atmosphere.} It compares the stiffness of the boundary to the strength of the turbulence. $L$ is the length scale of the turbulence (which is of course model dependent), $\sigma_{\mathrm{T}}$ is the standard deviation of its velocity, $\Delta b$ is the buoyancy jump between unstable and stable layer.
+which is a dimensionless parameter developed originally in atmospheric sciences (\citet{richardson}, or for a more updated review \citet{stull}) to study the boundary layer problem in the earth atmosphere. It compares the stiffness of the boundary to the strength of the turbulence. $L$ is the length scale of the turbulence (which is of course model dependent), $\sigma_{\mathrm{T}}$ is the standard deviation of its velocity, $\Delta b$ is the buoyancy jump between unstable and stable layer.
 
 In our case we define the length scale of the turbulence $L$ as follows. Let's consider the autocorrelation function 
 \begin{equation}\label{correlation}
-	a(\Delta r)= \langle f(r) f(r + \Delta r) \rangle
+	a(\Delta r)= \langle f(r) f(r + \Delta r) \rangle,
 \end{equation}
 where the brackets mean average over all possible $r$, but at fixed correlation length $\Delta r$. Recall that such a function always has a maximum for $\Delta r=0$, (because every function $f$ is perfectly equal to itself), then $a(\Delta r)$ decreases with increasing $\Delta r$ (because $f(r+\Delta r)$ resembles less and less $f(r)$ as $\Delta r$ increases). If $f$ is periodic with period $T$, then the autocorrelation function $a$ has maximum with periodicity $T$. In order to define $L$ we autocorrelate the Mach number in the horizontal direction of the convective region and take the length at which $a$ drops to a half of its maximum, i.\ e. \ $a(L)/a(0)=0.5$.
 
 The buoyancy jump is defined by considering the \textbf{Brunt-Väisälä frequency} 
 \begin{equation}
-	N^2(r)=-g \left (  \frac{\partial \ln \rho}{\partial r} -  \frac{\partial \ln \rho}{\partial r} \Big|_{s}  \right )
+	N^2(r)=-g \left (  \frac{\partial \ln \rho}{\partial r} -  \frac{\partial \ln \rho}{\partial r} \Big|_{s}  \right ),
 \end{equation}
 and integrating it over the boundary
 \begin{equation}\label{eq:buoyancyjump}
-	\Delta b = \int_{r_i}^{r_f} N^2 dr
+	\Delta b = \int_{r_i}^{r_f} N^2 dr.
 \end{equation}
 Of course we need a proper definition of the boundary limits $r_i$ and $r_f$. In our case we defined them by initializing a passive scalar in the convective region, which is over time advected in the unstable layer. By looking at the gradient of the concentration of the passive scalar in the vertical direction, one notices two spikes, which represent the boundary positions at given horizontal position. By averaging over all the horizontal positions and by computing the standard deviation, we are able to define the boundary position and its width.
 
-Let's furthermore define the \textbf{entrainment coefficient} $E$ as the boundary migration speed $u_b$ over the turbulence standard deviation $\sigma_{\mathrm{T}}$. Previous works have found that
+Let us furthermore define the \textbf{entrainment coefficient} $E$ as the boundary migration speed $u_{\mathrm{E}}$ over the turbulence standard deviation $\sigma_{\mathrm{T}}$. Previous works have found that
 \begin{equation}\label{eq:bulkrichardson}
-	E=A \mathrm{Ri}_{B}^{-n}
+	E=A Ri_{\mathrm{B}}^{-n}.
 \end{equation}
 Where $A$ and $n$ are coefficients that need to be determined, and this will be the primary goal of our simulations.
 
 In a Lagrangian workframe this transforms to
 \begin{equation}
-	\dot{M}_\mathrm{E}=\frac{\partial M}{\partial r} u_E.
+	\dot{M}_\mathrm{E}=\frac{\partial M}{\partial r} u_{\mathrm{E}}.
 \end{equation}
-If this relation is proven to be true, it would be possible to know the boundary migration speed $u_b$ or the mass entrainment rate $\dot{M}_\mathrm{E}$ given only $L$, $\Delta b$ and $\sigma_{\mathrm{T}}$, and consequentially map this phenomenon into 1D stellar models. In the hope that these two free parameters exist and are universal (i.e. \ not system-, code- or resolution-dependent), the goal of this work is to determine them and to test their universality.
-\new{
-	In order to do that, we will perform a \textit{differential} study of the entrainment rate. This implies to simulate a convective boundary varying differentially two parameters. The buoyancy jump $\Delta b$ is a function of the Brunt-Väisälä frequency, which is exactly one of the parameters that we set in our config file to initialize the stratification, hence we can control it very easily. There is no way, on the contrary, to directly control the turbulent Mach number $\sigma_{\mathrm{T}}$. As we will explain in the chapter dedicated to the physical setup, we implemented a heating function of which we can control the heating rate. This will help us generate a stronger or weaker turbulence regime when required. Our goal will be then to look for a relation between the entrainment rate and the bulk-Richardson number. Specifically we will investigate if the relation (\ref{eq:bulkrichardson}) holds for different values of $Ri_{\mathrm{B}}$
+If this relation is proven to be true, it would be possible to know the boundary migration speed $u_{\mathrm{E}}$ or the mass entrainment rate $\dot{M}_\mathrm{E}$ given only $L$, $\Delta b$ and $\sigma_{\mathrm{T}}$, and consequentially map this phenomenon into 1D stellar models. In the hope that these two free parameters exist and are universal (i.e. \ not system-, code- or resolution-dependent), the goal of this work is to determine them and to test their universality.
 
-}
+In order to do that, we will perform a \textit{differential} study of the entrainment rate. This implies to simulate a convective boundary varying differentially two parameters. The buoyancy jump $\Delta b$ is a function of the Brunt-Väisälä frequency, which is exactly one of the parameters that we set in our config file to initialize the stratification, hence we can control it very easily. There is no way, on the contrary, to directly control the turbulent Mach number $\sigma_{\mathrm{T}}$. As we will explain in the chapter dedicated to the physical setup, we implemented a heating function of which we can control the heating rate. This will help us generate a stronger or weaker turbulence regime when required. Our goal will be then to look for a relation between the entrainment rate and the bulk-Richardson number. Specifically we will investigate if the relation (\ref{eq:bulkrichardson}) holds for different values of $Ri_{\mathrm{B}}$
+

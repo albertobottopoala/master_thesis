@@ -4,24 +4,22 @@
 
 \chapter{Hydrodynamic Simulations}
 \section{2D Simulations}
-The physics of 2D hydrodynamics is qualitatively very similar but quantitatively very different to the 3D case. Concepts such as hydrostatic equilibrium or the Schwarzschild criterion can be applied in 2D as well as in 3D, but the resulting flows will have different properties. Turbulence for instance in the 2D case transfers kinetic energy from small eddies to large eddies, while in the 3D case the opposite happens (for an introduction in the subject see \citet{boffetta}). We expect hence the entrainment mass ratio to be different between the 2D and 3D cases. 
+The physics of 2D hydrodynamics is qualitatively very similar but quantitatively very different to the 3D case. Concepts such as hydrostatic equilibrium or the Schwarzschild criterion can be applied in 2D as well as in 3D, but the resulting flows will have different properties. Turbulence for instance in the 2D case transfers kinetic energy from smaller eddies to larger eddies, while in the 3D case the opposite happens (for an introduction in the subject see \citet{boffetta}). We expect hence the entrainment mass ratio to be different between the 2D and 3D cases. 
 
-Nevertheless, since 2D simulations are computationally so cheap, they are a very useful tool to familiarize with the code and to run tests in order to setup bigger and more expensive 3D runs. In our case we needed a rough estimate of the entrainment rate, of the boundary migration velocity and of the convective turnover timescale. \new{Specifically, it is necessary to make sure that convection reaches a stable regime over a fairly large time domain (in our case at least $5$ convective turnover times), to correctly collect the data that characterizes the boundaries.}
+Nevertheless, since 2D simulations are computationally so cheap, they are a very useful tool to familiarize with the code and to run tests in order to setup bigger and more expensive 3D runs. In our case we needed a rough estimate of the entrainment rate, of the boundary migration velocity and of the convective turnover timescale. Specifically, it is necessary to make sure that convection reaches a stable regime over a fairly large time domain (in our case at least $5$ convective turnover times), to correctly collect the data that characterizes the boundaries.
 	
 \subsection{Simulations setup}
 The physical setup used for our simulations is the so called "box in a star" method, meaning that we simulate some relatively very small internal region of a star. 
 
 In our case for the 2D runs it will be a box of $2.50 \times 10^{9} \ \mathrm{cm}$ on the $x$ axis and $1.25 \times 10^{9} \ \mathrm{cm}$ on the $y$ axis. Gravity is constantly pointing downward on the $y$ axis with a magnitude of $10^3 \ \mathrm{cm/s^2}$. This generates a pressure stratification in the fluid that covers approximately three pressure scale heights. 
 
-The controlling parameter to initialize the fluid stratification is the temperature gradient. In our case we divided the simulated region in three parts. The bottom region (labeled as $1$) starts at the lower boundary and reaches $1/3$ of the domain, the central (labeled as $2$) proceeds until the middle, and the upper one (labeled as $3$) reaches the upper boundary, as shown in \ref{fig:twin}. Convection will be generated in the central region. \new{We chose to initialize a larger stable layer above rather than a symmetric setup because, as the first tests showed, the upper boundary is always softer and hence entrains more material. This is in agreement with what found by \citet{meakin}.} We define a parameter $\alpha_{i}$ ($i=1, 2, 3$) which is nothing but the fraction of the $\nabla$ over the $\nabla_{\mathrm{ad}}$. As seen in previous sections $\alpha_{i}<1$ implies stability in the region $i$, instability otherwise. 
+The controlling parameter to initialize the fluid stratification is the temperature gradient. In our case we divided the simulated region in three parts. The bottom region (labeled as $1$) starts at the lower boundary and reaches $1/3$ of the domain, the central (labeled as $2$) proceeds until the middle, and the upper one (labeled as $3$) reaches the upper boundary, as shown in Figure (\ref{fig:twin}). Convection will be generated in the central region. We chose to initialize a larger stable layer above rather than a symmetric setup because, as the first tests showed, the upper boundary is always softer and hence entrains more material. This is in agreement with what found by \citet{meakin}. We define a parameter $\alpha_{i}$ ($i=1, 2, 3$) which is nothing but the fraction of the $\nabla$ over the $\nabla_{\mathrm{ad}}$. As seen in previous sections $\alpha_{i}<1$ implies stability in the region $i$, instability otherwise. 
 
 We always initialized the setup with $\alpha_{1} = \alpha_{3}$ much smaller than $1$; and $\alpha_{2}=0.99$, which means a very precarious situation in terms of stability in the second region. 
 
-A heating function furthermore heats the second region with a Gaussian profile (see Figure \ref{fig:twin}) to stimulate convection. Without it the system would never become convective in the first place, since hydrostatic equilibrium is fulfilled everywhere. Furthermore the heating function keeps the system convectively unstable over time. In fact without the constant energy generation because of heat mixing and numerical viscosity, the system would soon reach again a stable configuration of hydrostatic equilibrium. The heating mimics the energy generation in deep stellar interiors due to nuclear burning. The choice of a Gaussian profile is a common practice in stellar physics. On the one hand we require that the heating is peaked deep inside the convective region and that it does not influence the stable layers, on the other hand it is preferable not to use functions with discontinuity, because this might generate shock waves that propagate into the system.
+A heating function furthermore heats the second region with a gaussian profile (see Figure \ref{fig:twin}) to stimulate convection. Without it the system would never become convective in the first place, since hydrostatic equilibrium is fulfilled everywhere. Furthermore the heating function keeps the system convectively unstable over time. In fact without the constant energy generation because of heat mixing and numerical viscosity, the system would soon reach again a stable configuration of hydrostatic equilibrium. The heating mimics the energy generation in deep stellar interiors due to nuclear burning. The choice of a Gaussian profile is a common practice in stellar physics. On the one hand we require that the heating is peaked deep inside the convective region and that it does not influence the stable layers, on the other hand it is preferable not to use functions with discontinuity, because this might generate shock waves that propagate into the system.
 
-\new{
 The values of $\alpha_{1}$ and $\alpha_{3}$ are controlling parameters for the bulk-Richardson number, since they are proportional to $\Delta b$. The advantage of simulating a strip of convection between two stable layers (miming a Shell convection) instead of a convective region at the bottom that grows upward (core convection-like) is twofold. It gives us two convective boundaries to study per run instead of one, and we avoid to insert a wall boundary (see next paragraphs) in contact with convective motions, which is a very unphysical setup. 
-}
 
 One of the hardest tasks has been to generate the correct amount of heating such that the turbulence standard deviation \textit{at the interface} was constant during the run (which is one of the ingredients of the bulk-Richardson number, hence one of the parameters we want to control in order to perform a differential study). In order to do that, the heating rate decreases over time in an hyperbolic fashion such that, at $t=10^5 \ \mathrm{s}$, the total heat generation is reduced to $50 \%$ of the original amount.
 
@@ -34,24 +32,23 @@ One of the hardest tasks has been to generate the correct amount of heating such
 \end{figure}
 At the bottom of the convective region small perturbations in temperature and Mach number had been imprinted on the stratification in order to break the initial symmetry of the system.
 
-\new{
-A wide range of boundary conditions have been tested for this problem. For the vertical direction we used wall boundaries. As previously stated, in our first setup we used to stimulate convection at the bottom of the simulated region, but implementing periodic boundaries in the horizontal direction (that definitely provide the most physical situation) a shear flow appeared in both the stable and convective region at the onset of convection. We then tested reflective boundaries and wall boundaries. }In the first case we observed a mass loss (very likely because of a bug in the code). In the second case after a few tens of minutes of the onset of convection, a spike in the Mach number at the boundary appeared, and the code crashed. Interestingly enough, the spike appeared always at the left boundary. For this reason we initially suspected another bug in the code. What actually used to happen is that some fluid stagnated right above the convective boundary (specifically the first column of cells on the left) and over time a massive temperature gradient was established. We suppose that this computational artifact appeared only on one side of the grid because the iterative linear solvers implemented in SLH are not perfectly symmetric. This is generally not a source of problems unless in specific pathologic cases as the one we had to face. We then tested a new setup, where convection was stimulated in the central region of the domain. By implementing periodic boundaries the same shear flow appeared, but only after a few tens of hours of simulated time, which allowed us to collect enough data for the analysis. As we will explain this is not a perfectly physical solution, since internal modes can bounce on them and be reflected.
+A wide range of boundary conditions have been tested for this problem. For the vertical direction we used wall boundaries. As previously stated, in our first setup we used to stimulate convection at the bottom of the simulated region, but implementing periodic boundaries in the horizontal direction (that definitely provide the most physical situation) a shear flow appeared in both the stable and convective region at the onset of convection. We then tested reflective boundaries and wall boundaries. In the first case we observed a mass loss (very likely because of a bug in the code). In the second case after a few tens of minutes of the onset of convection, a spike in the Mach number at the boundary appeared, and the code crashed. Interestingly enough, the spike appeared always at the left boundary. For this reason we initially suspected another bug in the code. What actually used to happen is that some fluid stagnated right above the convective boundary (specifically the first column of cells on the left) and over time a massive temperature gradient was established. We suppose that this computational artifact appeared only on one side of the grid because the iterative linear solvers implemented in SLH are not perfectly symmetric. This is generally not a source of problems unless in specific pathologic cases as the one we had to face. We then tested a new setup, where convection was stimulated in the central region of the domain. By implementing periodic boundaries the same shear flow appeared, but only after a few tens of hours of simulated time, which allowed us to collect enough data for the analysis. As we will explain this is not a perfectly physical solution, since internal modes can bounce on them and be reflected.
 
 
 As briefly explained in the previous sections, we initialized two different passive scalars inside the regions one and three. Recall that passive scalars are just like dyes in the fluid which in no way influence the dynamics of the system, nor do they diffuse. The passive scalar one and three (initialized in the regions 1 and 3) will be used to compute the entrained mass, i.\ e.\ for every time step we integrate the passive scalar densities in the convective region and obtain the total entrained mass at each boundary. The two passive scalars are also used in order to define the boundary topology (i.\ e.\  position and width), by looking at the biggest drop in passive scalar density.
 
-As previously stated our goal is to perform a \textit{differential} study of the bulk-Richardson number and the CBM problem. This implies running simulations with different values of $\Delta b$ and $\sigma_{\mathrm{T}}$ at different resolutions. Because 2D simulations are computationally so cheap, we managed to run a  sufficient amount of them in a short time. With the code 2d0.10-100 we will refer to a 2-dimensional run with $\alpha_{1} = \alpha_{3}=0.1$ and $100 \%$ of the heating referring to the fiducial value of $3.6 10^{15} \, \mathrm{erg/s}$.
+As previously stated our goal is to perform a \textit{differential} study of the bulk-Richardson number and the CBM problem. This implies running simulations with different values of $\Delta b$ and $\sigma_{\mathrm{T}}$ at different resolutions. Because 2D simulations are computationally so cheap, we managed to run a  sufficient amount of them in a short time. With the code 2d0.10-100 we will refer to a 2-dimensional run with $\alpha_{1} = \alpha_{3}=0.1$ and $100 \%$ of the heating referring to the fiducial value of $3.6 \times 10^{15} \, \mathrm{erg/s}$.
 
 We run in 2D on a $2048 \times 1024$ uniform Cartesian grid. It is worth remarking that when doing CFD with a higher resolution, one not only better resolves the features of the system, but also decreases the numerical viscosity (increases the Reynolds number). This is the reason why we chose this grid setup: we want to keep cells squared and keep viscosity a scalar quantity, and prevent it from becoming a tensorial one. In the next section we will perform a convergence study, in order to understand which roles the resolution and the viscosity play in the phenomenon of convective entrainment.
 
-We performed the runs on our local cluster at HITS. Every job required about $45 \times 10^{3}$ cpu hours on bridge architecture, and roughly the half of it on Haswell architecture. We saved one output file every $100$ time steps, in order to both save memory and to avoid wasting too much computing time in I/O processing.
+We performed the runs on our local cluster at HITS. Every job required about $4.5 \times 10^{4}$ cpu hours on bridge architecture, and roughly the half of it on Haswell architecture. We saved one output file every $100$ time steps, in order to both save memory and to avoid wasting too much computing time in I/O processing.
 
 
-\subsection{Evolution of a single run}\label{single2d}
+\subsection{Evolution of a 2D run}\label{single2d}
 
-Let's consider the setup 2d0.1-100. 
+Let us consider the setup 2d0.1-100. 
 
-Convection starts at around $t \sim 150 \, \mathrm{min}$. Because of the already mentioned implicit time stepping, the lower the Mach number, the bigger the time step, allowing us to save a huge amount of computational resources before the rise of convection. \new{A remarkable difference in computational efficiency compared to an explicit time stepping was also observed during the convective regime, as long as the Mach number was below $10 \%$, which has always been our case.}
+Convection starts at $t \simeq 150 \, \mathrm{min}$. Because of the already mentioned implicit time stepping, the lower the Mach number, the bigger the time step, allowing us to save a huge amount of computational resources before the rise of convection. A remarkable difference in computational efficiency compared to an explicit time stepping was also observed during the convective regime, as long as the Mach number was below $10 \%$, which has always been our case.
 
 \begin{figure}[t!]
       \centering
@@ -66,7 +63,7 @@ In Figure \ref{fig:2dmachprofile} we plot the profile of the Mach number over th
 
 \begin{figure}[t!]
 \centering
-\subfloat[Advection of the upper passive scalar (from region 3) at the onset of convective motions, at $t \simeq 150 \ \mathrm{min}$]{\includegraphics[width=12cm]{./img/passive2acc1.pdf}\label{fig:passiveacc1}}
+\subfloat[Advection of the upper passive scalar (from region 3) at the onset of convective motions, at $t \simeq 150 \ \mathrm{min}$.]{\includegraphics[width=12cm]{./img/passive2acc1.pdf}\label{fig:passiveacc1}}
 \hfill
 \subfloat[The same passive scalar of above, advected at $t \simeq 800 \ \mathrm{min}$. This defines the topology of the boundary.]{\includegraphics[width=12cm]{./img/passive2acc2.pdf}\label{fig:passiveacc2}}
 \caption{Advection of the passive scalar initialized in the central region over the simulated time}
@@ -80,7 +77,7 @@ In Figure \ref{fig:2dpsprofile} we plot the upper passive scalar (initialized in
 
 As previously mentioned the two passive scalars are also used to define the boundary topology, position, and width. In Figure (\ref{fig:passiveacc1}) we show the upper passive scalar at the onset of convection. The rise of the first convective blobs is clearly visible. In the next $650 \mathrm{min}$ part of this dye will be entrained from the upper stable layer in the convective region as it can be clearly seen in Figure (\ref{fig:passiveacc2}). We define the boundary position as the surface where the gradient of the concentration of the upper passive scalar changes the most. This holds for both the upper and lower boundary.
   
-For the runs with lower resolution this method worked perfectly, but when moving to a higher resolution a problem appeared. \new{ In Figure (\ref{fig:topology})  in the middle of the convective layer some blobs of entrained material are visible, that even when fully in a convective regime still contain a very high passive scalar density. This is due to the fact that the higher the resolution, the lower the numerical diffusion.
+For the runs with lower resolution this method worked perfectly, but when moving to a higher resolution a problem appeared.  In Figure (\ref{fig:topology})  in the middle of the convective layer some blobs of entrained material are visible, that even when fully in a convective regime still contain a very high passive scalar density. This is due to the fact that the higher the resolution, the lower the numerical diffusion.
   
 \begin{figure}[t!]
 \centering
@@ -97,7 +94,7 @@ For the runs with lower resolution this method worked perfectly, but when moving
 \label{fig:boundpos}
 \end{figure}
 As a result, the topology is characterized by multiple analytical discontinuities. This suggests that our prescription is only able to provide mean values for the boundary position and width, and not local values. Hence these discontinuities should not be necessarily interpreted as a failure of our method, rather as phenomenon which encapsulates the more turbulent and stochastic regime that we approach by enhancing the resolution, that consequentially can only be treated from a statistical standpoint.
-}
+
 For the 3D runs this problem does not appear, because of the different turbulent structure of convection. In fact in the 3D case, turbulent blobs decay in smaller and smaller blobs (contrarily to what happens in the 2D case), and this natural process helps brake down these spikes (at least at the resolutions we performed out runs).
 
 
@@ -129,7 +126,7 @@ Notice that the lower boundary is stiffer than the upper one (the buoyancy jump 
 \end{figure}
 In Figure (\ref{fig:len}) we plot the turbulent length scale $L$ over time. In this case we only calculated $L$ at the center of the convective layer, so this value will be used both for the upper and lower boundary analysis. The length scale at the interfaces has a value which is overall comparable, but it is affected by some spikes, reason for which we decided to calculate it in a fully convective region. The turbulent length scale is the parameter that takes more time to stabilize, becoming ultimately stable at around $t = 300 \, \mathrm{min}$. 
  
-\begin{table}[b!]\caption{Boundaries parameters for the 2d0.10-100 run, U stands for the upper boundary, L for the lower boundary. \new{The errors are the standard deviations on the mean value.}}
+\begin{table}[b!]\caption{Boundaries parameters for the 2d0.10-100 run, U stands for the upper boundary, L for the lower boundary. The errors are the standard deviations on the mean value.}
  \begin{tabular}{lccccc}
 	 \toprule
 	 Run &$\Delta b  $&$\sigma_{\mathrm{T}}$ & $L$&$Ri_{\mathrm{B}}$&$\dot{M}_{\mathrm{E}}$ \\
@@ -153,7 +150,7 @@ In Figure (\ref{fig:ent}) the entrained mass over time. As already mentioned we 
 \end{figure}
 We show in Figure (\ref{fig:bulk}) the bulk-Richardson number over time. Blue lines represent the upper boundary, green lines the lower boundary. At around $t=\mathrm{300 \, min}$, when the entrainment becomes linear and we start our analysis, the bulk-Richardson number still oscillates over half an order of magnitude. This obviously deeply affects our data analysis, making necessary a large amount of runs to collect as much data as possible. This also makes a differential study of the entrainment over time impracticable. 
 
-For every 2D or 3D run we will collect the relevant parameters and present them in the layout of Table (\ref{2dsingletab})
+For every 2D or 3D run we will collect the relevant parameters and present them in the layout of Table (\ref{2dsingletab}).
 
 \subsection{Resolution study}
 
@@ -208,30 +205,29 @@ Even at the lower boundary all the parameters oscillate within a $10 \%$ range, 
   \centering
   \subfloat[Dependency of the Mach number on the heating rate (see text).]{\includegraphics[width=0.5\textwidth]{./img/differentialmach.pdf}\label{fig:diffrms}}
       \hfill
-        \subfloat[Dependency of the buoyancy jump on the initial Brunt-Väisälä frequency.]{\includegraphics[width=0.5\textwidth]{./img/differentialdelb.pdf}\label{fig:diffjump}}
+        \subfloat[Dependency of the buoyancy jump on the initial temperature gradient.]{\includegraphics[width=0.5\textwidth]{./img/differentialdelb.pdf}\label{fig:diffjump}}
 	\hfill
 	\caption{Dependency of the parameters needed to compute the bulk-Richardson number on the initial simulation setup. Blue dots represent the upper boundary, green dots the lower boundary.}
 	\label{fig:diffparam}
 \end{figure}
-\new{
 As mentioned more than once in the previous chapters, the goal of this work is to perform a \textit{differential} study of the CBM problem. To achieve this, we run four simulations (which provided us 8 boundaries to analyze) varying differentially the stratification and the turbulent regime. 
 
 Following the nomenclature we used in the previous section we hence run the six following simulations: 2d0.5-100 (where $\nabla T / \nabla = 0.5$ and the heating ratio is  $3.6 \times 10^{15} \mathrm{erg/s}$), 2d0.005-100, 2d0.5-050, 2d0.005-050, 2d0.5-005 and 2d0.005-005.
 
-We have no direct control over the turbulent Mach number, but we have it on the heating function. We initialized two different heating ratios, specifically $100 \ \%$ and $5 \ \%$ of the reference value of $3.6 \times 10^{15} \mathrm{erg/s}$. In Figure (\ref{fig:diffrms}) we show the linear dependency of the turbulent Mach number as a function of the heating ratios. This result is a powerful tool to forecast a priori in future simulations the resulting bulk-Richardson number.
+We have no direct control over the turbulent Mach number, but we have it on the heating function. We initialized two different heating ratios, specifically $100 \ \%$ and $5 \ \%$ of the reference value of $3.6 \times 10^{15} \mathrm{erg/s}$. In Figure (\ref{fig:diffrms}) we show the linear dependency of the turbulent Mach number as a function of the heating ratios. This result is a powerful tool to forecast a priori in future simulations the resulting bulk-Richardson numbers.
 
-In order to vary differentially the stratification (hence $\Delta b$), we initialized our simulation setups with three different values for the temperature gradient, namely $\nabla T / \nabla = 0.5, \, 0.50$ and  $0.005$. In Figure (\ref{fig:diffjump}) we plot the buoyancy jump measured in our simulations over the initialization of the temperature gradient. It seems that the data collected for the most stable stratification ($\nabla T / \nabla = 0.005$) shows a higher value for $\Delta B$ compared to the least stable one, but this definitely does not reflect the change of two orders of magnitude of the initialized values. We believe that this is due to two factors. 
+In order to vary differentially the fluid stratification (hence $\Delta b$), we initialized our simulation setups with three different values for the temperature gradient, namely $\nabla T / \nabla = 0.5, \, 0.50$ and  $0.005$. In Figure (\ref{fig:diffjump}) we plot the buoyancy jumps measured in our simulations over the fraction of the initialized temperature gradients. It seems that the data collected for the most stable stratification ($\nabla T / \nabla = 0.005$) shows a higher value for $\Delta B$ compared to the least stable one, but this definitely does not reflect the change of two orders of magnitude of the initialized values. We believe that this the consequence of two factors. 
 
-The first cause for this discrepancy might be the spikes in the Brunt-Väisälä frequency analyzed in section (\ref{single2d}). It is unclear if the magnitude of these spikes exhibit a non-linear behavior, and a further investigation of this phenomenon is necessary. 
+The first cause for this discrepancy might be the spikes in the Brunt-Väisälä frequency analyzed in section (\ref{single2d}). It is unclear if the magnitude of these spikes exhibit a non-linear behavior, and a further investigation of such a phenomenon is necessary. 
 
-The second reason is shown in Figure (\ref{fig:diffcorr}). As already mentioned in multiple occasions, the buoyancy jump $\Delta b$ is the thermodynamical term of the bulk-Richardson number that encapsulates the information about the stratification, in contrast to the hamiltonian term $\sigma_{\mathrm{T}}$. We found instead a clear dependency between $\Delta b$ and $\sigma_{\mathrm{T}}$. We impute this correlation to the deformations imprinted by a stronger turbulence to the convective boundary. This in fact leads to a bigger boundary thickness, which is the domain over which we integrate Equation (\ref{eq:buoyancyjump}). The data collected by us on the boundary thickness confirm this hypothesis.
+The second reason is shown in Figure (\ref{fig:diffcorr}). As already mentioned in multiple occasions, the buoyancy jump $\Delta b$ is the thermodynamical term in the bulk-Richardson number that encapsulates the information about the stratification, in contrast to the hamiltonian term $\sigma_{\mathrm{T}}$. We found instead a clear relation between $\Delta b$ and $\sigma_{\mathrm{T}}$. We impute this correlation to the deformations imprinted by stronger turbulent convective blobs to the boundary. This in fact leads to a wider boundary thickness, which is the domain over which we integrate Equation (\ref{eq:buoyancyjump}). The data collected by us on the boundary thickness as a function of the turbulent regime confirms this hypothesis.
 
 The turbulent length scale $L$ also shows an increasing trend with the Mach number.
-}
+
 \begin{figure}[t!]
 \centering
 \includegraphics[width=0.7\textwidth]{./img/differentialcorr.pdf}
-\caption{\new{Normalized entrainment rate against bulk Richardson number. The error bast are one standard deviation on the mean values.}}
+\caption{Normalized entrainment rate against bulk Richardson number. The error bast are one standard deviation on the mean values.}
 \label{fig:diffcorr}
 \centering
 \end{figure}
@@ -252,16 +248,14 @@ On the other side, reaching a lower bulk-Richardson number would not be relevant
 \begin{figure}[t!]
 \centering
 \includegraphics[width=0.7\textwidth]{./img/differential2d.pdf}
-\caption{\new{Normalized entrainment rate against bulk Richardson number. The error bast are one standard deviation on the mean values.}}
+\caption{Normalized entrainment rate against bulk Richardson number. The error bars are the standard deviations of the quantities.}
 \label{fig:differential}
 \centering
 \end{figure}
 
 As it can be seen at a first glance, there is no clear correlation between the bulk-Richardson number and the normalized migration velocity over time. It appears that a decreasing trend could be found, which would confirm that the $n$ parameter should assume a negative value. This is what one would expect by a qualitative analysis of the problem. This implies in fact that the stiffer the boundary and the weaker the turbulence regime, the lower the entrained mass. The $A$ parameter instead, which is essential to quantify the mass ingestion, cannot be reliably determined by the data. This is very similar to what was found by \citet{cristini} in their carbon burning shell simulation, when compared their results to the ones of \citet{meakin}. 
 
-We report parametric values of $n=-0.043 \pm ??$ and $A=0.161 \pm ??$. The $n$ parameter is one order of magnitude lower to the value usually found in the literature, while $A$ is in the same order of magnitude, but for no reason we would expect that the parameters extracted for a 2D setup would agree with the three-dimensional case.
-
-As shown in Figure (\ref{fig:diffrms}), the turbulence standard deviation can be controlled by the heating ratio, as one would expect. One would furthermore expect that the buoyancy jump responds proportionally to the Brunt-Väisälä frequency, but this is not the case, as shown in Figure (\ref{fig:diffjump}) where the data is clusterized. The reason for this non-linear response is to be found in equation (\ref{eq:buoyancyjump}). By increasing the Brunt-Väisälä frequency one surely increases the integrand, but the convective boundary gets stiffer. As a consequence the integral is performed on a smaller domain. This result was also found by \citet{arnett2009}. Recall that the definition of the boundary thickness is purely model-dependent. It might be the case that the standard deviation of the boundary position is not the best method to quantify it.
+We report parametric values of $n=-0.028 \pm 0.007$ and $A=0.071 \pm 0.291$. Both $n$ and $A$ are one order of magnitude lower than the 3D reference values that can be found in the literature. Nevertheless for no reason we would expect that the parameters extracted for a 2D setup would agree with the three-dimensional case.
 
 The error values clearly show that the data range is not wide enough to perform an accurate differential study. Future runs that were not possible during the master project will reach bulk-Richardson numbers of one order of magnitude higher than the ones obtained for this work. This will be achieved primarily by using a non-uniform Cartesian grid which is implemented in SHL. This will help us better refine the convective boundary regions and avoid wasting computational resources to resolve the stable layers above and below.
 
@@ -289,17 +283,17 @@ The simulation was run on the JUQUEEN machine at Jülich Supercomputing Center (
 \label{fig:3dmach}
 \end{figure}
 
-The physical setup was mapped on a uniform Cartesian grid with $512 \times 256 \times 512$ cells. In analogy with the 2D setup, we implemented wall boundary conditions for the vertical direction, and periodic boundaries for the horizontal one. The same usual time-dependent gaussian-shaped heating function was furthermore implemented, with the same heating rate.
+The physical setup was mapped on a uniform Cartesian grid with $512 \times 256 \times 512$ cells. In analogy with the 2D setup, we implemented wall boundary conditions for the vertical direction, and periodic boundaries for the horizontal ones. The same usual time-dependent gaussian-shaped heating function was furthermore implemented, with the same heating rate.
 
-Similarly to the 2D case, convection starts at $t \simeq 150 \, \mathrm{min}$ and in Figure (\ref{fig:3dsingle}) the growth of the convective region is visible by entrainment of stable medium.
+Similarly to the 2D case, convection starts at $t \simeq 150 \, \mathrm{min}$, and in Figure (\ref{fig:3dsingle}) the growth of the convective region by entrainment of stable medium is visible.
 
-The 3D case shows also a Mach number of the turbulent flow constant in time over the run, as shown in Figure (\ref{fig:3dmachprofile}), but compared to the 2D in Figure (\ref{fig:2dmachprofile}) it is significantly lower. This result was expected because, as previously mentioned, three-dimensional turbulence has a different behavior compared to the two-dimensional one. In our cases the 3D turbulence standard deviation was always a factor of a few lower than in the 2D case, which is in agreement with what found by \citet{meakin} in their core-convection simulation. 
+The 3D case shows also a Mach number of the turbulent flow constant in time over the run, as shown in Figure (\ref{fig:3dmachprofile}), but compared to the 2D Mach number in Figure (\ref{fig:2dmachprofile}) it is significantly lower. This result was expected because, as previously mentioned, three-dimensional turbulence has a different behavior compared to the two-dimensional one. In our cases the 3D turbulence standard deviation was always a factor of a few lower than in the 2D case, which is in agreement with what found by \citet{meakin} in their core-convection simulation. 
 
 The entrainment plotted over time in Figure (\ref{fig:3dpsprofile}) is also roughly linear and qualitatively resembles the 2D result, with the upper and lower boundaries that are migrating upward and downward respectively.
-The different turbulence configuration between the 2D and 3D case can be better understood by comparing Figure (\ref{fig:3dmach}) with Figure (\ref{fig:machhighres}). In Figure (\ref{fig:differentialmach}) we showed that the better the resolution, the more refined and complex the turbulent structure. When considering a 3D output, even by looking at a $512 \times 256$ section of the grid, the Mach number already shows a very complex and convoluted shape, comparable in complexity to the $2048 \times 1024$ 2D case. This obviously has an impact on the entrainment dynamics. Notice that also in this case the Mach number is roughly the half of the 2D case. 
+The different turbulence configurations between the 2D and 3D case can be also better understood by comparing Figure (\ref{fig:3dmach}) with Figure (\ref{fig:machhighres}). In Figure (\ref{fig:differentialmach}) we showed that the better the resolution, the more refined and complex the turbulent structure. When considering a 3D output, even by looking at a $512 \times 256$ section of the grid, the Mach number already shows a very complex and convoluted shape, comparable in complexity to the $2048 \times 1024$ 2D case. This obviously has an impact on the entrainment dynamics. Notice that also in this case the Mach number is roughly the half of the 2D case. 
 
 
-In Figure (\ref{fig:3dpassive}) we plot, as we did for Figure (\ref{fig:2dpassive}), the upper passive scalar density advection. In Figure (\ref{fig:3dpassive2accretion1}) the onset of convection is visible by the presence of the fist convective blobs, that over time fill the convective region as visible in Figure (\ref{fig:3dpsprofile}). Notice that in the 3D case the passive scalar is advected fairly homogeneously in the convective layer, and the problem described in Figure(\ref{fig:topology}) for the boundary detection did not appear. This is another consequence of the already mentioned 3D turbulent cascade, that help spread the passive scalar in the convective region better than in the 2D case.
+In Figure (\ref{fig:3dpassive}) we plot, as we did for Figure (\ref{fig:2dpassive}), the upper passive scalar density advection. In Figure (\ref{fig:3dpassive2accretion1}) the onset of convection is visible by the presence of the fist convective blobs, that over time fill the convective region as visible in Figure (\ref{fig:3dpsprofile}). Notice that in the 3D case the passive scalar is advected fairly homogeneously in the convective layer, and the problem described in Figure(\ref{fig:topology}) for the boundary detection did not appear. This is another consequence of the previously mentioned 3D turbulent cascade, that helps spread the passive scalar in the convective region better than in the 2D case.
 
 \begin{figure}[t!]
       \centering
