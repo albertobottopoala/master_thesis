@@ -23,12 +23,12 @@ A heating function furthermore heats the second region with a Gaussian profile (
 The values of $\alpha_{1}$ and $\alpha_{3}$ are controlling parameters for the bulk-Richardson number, since they are proportional to $\Delta b$. The advantage of simulating a strip of convection between two stable layers (miming a Shell convection) instead of a convective region at the bottom that grows upward (core convection-like) is twofold. It gives us two convective boundaries to study per run instead of one, and we avoid to insert a wall boundary (see next paragraphs) in contact with convective motions, which is a very unphysical setup. 
 }
 
-One of the hardest tasks has been to generate the correct amount of heating such that the turbulence standard deviation \textit{at the interface} was constant during the run (which is one of the ingredients of the bulk-Richardson number, hence one of the parameters we want to control in order to perform a differential study). In order to do that, the heating function is tuned such that, at $t=100 \ \mathrm{s}$ the total heat generation is reduced to $50 \%$ of the original amount.
+One of the hardest tasks has been to generate the correct amount of heating such that the turbulence standard deviation \textit{at the interface} was constant during the run (which is one of the ingredients of the bulk-Richardson number, hence one of the parameters we want to control in order to perform a differential study). In order to do that, the heating rate decreases over time in an hyperbolic fashion such that, at $t=10^5 \ \mathrm{s}$, the total heat generation is reduced to $50 \%$ of the original amount.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=10cm]{./img/twin.pdf}
-\caption{Example of initial temperature (blue) and pressure (red) profile along the $y$-axis. The red curve represents the shape of the heating function in arbitrary unit.}
+\caption{Example of initial temperature (blue) and pressure (green) profile along the $y$-axis. The red curve represents the shape of the heating function in arbitrary unit. Notice the little perturbations in temperature between the first and second region (see text).}
 \label{fig:twin}
 \centering
 \end{figure}
@@ -40,18 +40,18 @@ A wide range of boundary conditions have been tested for this problem. For the v
 
 As briefly explained in the previous sections, we initialized two different passive scalars inside the regions one and three. Recall that passive scalars are just like dyes in the fluid which in no way influence the dynamics of the system, nor do they diffuse. The passive scalar one and three (initialized in the regions 1 and 3) will be used to compute the entrained mass, i.\ e.\ for every time step we integrate the passive scalar densities in the convective region and obtain the total entrained mass at each boundary. The two passive scalars are also used in order to define the boundary topology (i.\ e.\  position and width), by looking at the biggest drop in passive scalar density.
 
-As previously stated our goal is to perform a \textit{differential} study of the bulk-Richardson number and the CBM problem. This implies running simulations with different values of $\Delta b$ and $\sigma_t$ at different resolutions. Because 2D simulations are computationally so cheap, we managed to run a  sufficient amount of them in a short time. With the code 2d0.10-100 we will refer to a 2-dimensional run with $\alpha_{1} = \alpha_{3}=0.1$ and $100 \%$ of the heating referring to the fiducial value of $3.6 10^{15} \, \mathrm{erg/s}$.
+As previously stated our goal is to perform a \textit{differential} study of the bulk-Richardson number and the CBM problem. This implies running simulations with different values of $\Delta b$ and $\sigma_{\mathrm{T}}$ at different resolutions. Because 2D simulations are computationally so cheap, we managed to run a  sufficient amount of them in a short time. With the code 2d0.10-100 we will refer to a 2-dimensional run with $\alpha_{1} = \alpha_{3}=0.1$ and $100 \%$ of the heating referring to the fiducial value of $3.6 10^{15} \, \mathrm{erg/s}$.
 
 We run in 2D on a $2048 \times 1024$ uniform Cartesian grid. It is worth remarking that when doing CFD with a higher resolution, one not only better resolves the features of the system, but also decreases the numerical viscosity (increases the Reynolds number). This is the reason why we chose this grid setup: we want to keep cells squared and keep viscosity a scalar quantity, and prevent it from becoming a tensorial one. In the next section we will perform a convergence study, in order to understand which roles the resolution and the viscosity play in the phenomenon of convective entrainment.
 
 We performed the runs on our local cluster at HITS. Every job required about $45 \times 10^{3}$ cpu hours on bridge architecture, and roughly the half of it on Haswell architecture. We saved one output file every $100$ time steps, in order to both save memory and to avoid wasting too much computing time in I/O processing.
 
 
-\subsection{Evolution of a single run}
+\subsection{Evolution of a single run}\label{single2d}
 
 Let's consider the setup 2d0.1-100. 
 
-Convection starts at around $t \sim 150 \, \mathrm{min}$. Because of the already mentioned implicit time stepping, the lower the Mach number, the bigger the time step, allowing us to save a huge amount of computational resources before the rise of convection. \new{A remarkable difference in computational efficiency compared to an explicit time stepping was also observed during the convective regime, as long as the Mach number is below $10 \%$, which has always been our case.}
+Convection starts at around $t \sim 150 \, \mathrm{min}$. Because of the already mentioned implicit time stepping, the lower the Mach number, the bigger the time step, allowing us to save a huge amount of computational resources before the rise of convection. \new{A remarkable difference in computational efficiency compared to an explicit time stepping was also observed during the convective regime, as long as the Mach number was below $10 \%$, which has always been our case.}
 
 \begin{figure}[t!]
       \centering
@@ -117,7 +117,7 @@ For the 3D runs this problem does not appear, because of the different turbulent
 We plot in Figure (\ref{fig:boundpos}) the boundaries positions over time. Shaded regions represent the boundary thickness (calculated as the boundary position standard deviation). Convection clearly starts at about $t=150 \, \mathrm{min}$. After a transition period of about $50 \mathrm{min}$ we can clearly see that there is a migration of the upper boundary upward and of the lower boundary downward, which is fairly stable over the run. Specifically, in the upper case it starts in the middle of the simulated region and ends up at $\simeq 2.0 \times 10^{6} \ \mathrm{cm}$, for the lower case it starts at $\simeq - 3.1 \times 10^{6} \ \mathrm{cm}$ and moves downwards to $\simeq - 4.5 \times 10^{6} \ \mathrm{cm}$. The boundaries thickness is also overall stable. As previously mentioned an Eulerian study is impracticable for this phenomenon, because it is hard to quantify how much of the boundary migration in an Eulerian frame is due to the entrainment and how much due to the adiabatic expansion of the fluid. We observe a decrease in density in the central region of a few percent, and we presume the volume expands consequently. 
 
 In Figure (\ref{fig:2dparam}) we plot the parameters relevant to our analysis. 
-The first ingredient of the bulk-Richardson number is the buoyancy jump $\Delta b$, that we plot in figure \ref{fig:delb}. In both cases there is an increasing trend, more significant in the lower boundary. This plot shows one of the biggest challenges of running simulations to study differentially the bulk-Richardson number: it is extremely hard to obtain a run where all the parameters ($\Delta b$, $L$, $\sigma_t$ and $M_{\mathrm{E}}$) are constant over time. Hence one finds itself in the inconvenient situation of having to average over values that span a full order of magnitude with a strong increasing or decreasing trend, and the quality of the analysis is consequentially affected by this uncertainty. 
+The first ingredient of the bulk-Richardson number is the buoyancy jump $\Delta b$, that we plot in figure \ref{fig:delb}. In both cases there is an increasing trend, more significant in the lower boundary. This plot shows one of the biggest challenges of running simulations to study differentially the bulk-Richardson number: it is extremely hard to obtain a run where all the parameters ($\Delta b$, $L$, $\sigma_{\mathrm{T}}$ and $M_{\mathrm{E}}$) are constant over time. Hence one finds itself in the inconvenient situation of having to average over values that span a full order of magnitude with a strong increasing or decreasing trend, and the quality of the analysis is consequentially affected by this uncertainty. 
 
 Notice that the lower boundary is stiffer than the upper one (the buoyancy jump is higher, hence the bulk-Richardson number) even if in the initial setup the Brunt-Väisälä frequency is the same for the two stable regions. Recall that the Brunt-Väisälä frequency $N^2$ is the quantity we integrate in equation (\ref{eq:buoyancyjump}) over the boundary thickness in order to calculate $\Delta b$. Looking at Figure (\ref{fig:brunt}) it is clear that at the convective boundaries spikes arise during the simulation in the Brunt-Väisälä frequency, and in the lower case it is more pronounced. Obviously when integrated over the interface, this gives rise to a bigger buoyancy jump. These spikes in the Brunt-Väisälä frequency at the interfaces were also found by \citet{viallet2013}, \citet{arnett2015}, \citet{cristini}.
 
@@ -129,6 +129,17 @@ Notice that the lower boundary is stiffer than the upper one (the buoyancy jump 
 \end{figure}
 In Figure (\ref{fig:len}) we plot the turbulent length scale $L$ over time. In this case we only calculated $L$ at the center of the convective layer, so this value will be used both for the upper and lower boundary analysis. The length scale at the interfaces has a value which is overall comparable, but it is affected by some spikes, reason for which we decided to calculate it in a fully convective region. The turbulent length scale is the parameter that takes more time to stabilize, becoming ultimately stable at around $t = 300 \, \mathrm{min}$. 
  
+\begin{table}[b!]\caption{Boundaries parameters for the 2d0.10-100 run, U stands for the upper boundary, L for the lower boundary. \new{The errors are the standard deviations on the mean value.}}
+ \begin{tabular}{lccccc}
+	 \toprule
+	 Run &$\Delta b  $&$\sigma_{\mathrm{T}}$ & $L$&$Ri_{\mathrm{B}}$&$\dot{M}_{\mathrm{E}}$ \\
+		    & $(\mathrm{cm \, s^{-2}})$&$(\mathrm{cm \, s^{-1}})$&$(10^5 \, \mathrm{cm})$ & & $(10^9 \, \mathrm{g \, s^{-1}})$ \\
+	  	\midrule
+		2d0.7-0.01U&$ 18.17 \pm 3.62 $&$1118 \pm 202 $ &  $10.88 \pm 2.56 $ & $17.07 \pm 7.41 $ & $1.287 \pm 0.006$\\
+		2d0.7-0.01L &$27.68 \pm 7.18$&$1190 \pm 218$ & $10.88 \pm 2.56$ &  $21.62 \pm 6.54$ & $0.913 \pm 0.002$\\
+		\bottomrule
+	\end{tabular}\label{2dsingletab}
+ \end{table}
 In Figure (\ref{fig:sigt}) we plot the standard deviation of the turbulence absolute Mach number at the convective interfaces over time. It is overall constant, with a slight trend to increase. This result has been obtained after extensive tests to correctly tune the heating function. It is in fact extremely hard to forecast the turbulence velocity by the heating generation and its time evolution. This problem perfectly shows the non-linearity of hydrodynamics as a theory.
 
 In Figure (\ref{fig:ent}) the entrained mass over time. As already mentioned we will perform a Lagrangian study of entrainment, because it is impracticable to quantify how much of the boundary migration is due to the entrained mass or to the adiabatic expansion of the fluid. After an initial spike of entrained mass, we notice that also the entrainment rate stabilizes. We calculate the entrainment rate by fitting the entrained mass over time between $t = 300 \, \mathrm{min}$ until the end of the simulation, and by taking the angular coefficient of the resulting fit. 
@@ -143,17 +154,6 @@ In Figure (\ref{fig:ent}) the entrained mass over time. As already mentioned we 
 We show in Figure (\ref{fig:bulk}) the bulk-Richardson number over time. Blue lines represent the upper boundary, green lines the lower boundary. At around $t=\mathrm{300 \, min}$, when the entrainment becomes linear and we start our analysis, the bulk-Richardson number still oscillates over half an order of magnitude. This obviously deeply affects our data analysis, making necessary a large amount of runs to collect as much data as possible. This also makes a differential study of the entrainment over time impracticable. 
 
 For every 2D or 3D run we will collect the relevant parameters and present them in the layout of Table (\ref{2dsingletab})
-\begin{table}\caption{Boundaries parameters for the 2d0.10-100 run, U stands for the upper boundary, L for the lower boundary. \new{The errors are the standard deviations on the mean value.}}
- \begin{tabular}{lccccc}
-	 \toprule
-	 Run &$\Delta b  $&$\sigma_t$ & $L$&$Ri_{\mathrm{B}}$&$\dot{M}_{\mathrm{E}}$ \\
-		    & $(\mathrm{cm \, s^{-2}})$&$(\mathrm{cm \, s^{-1}})$&$(10^5 \, \mathrm{cm})$ & & $(10^9 \, \mathrm{g \, s^{-1}})$ \\
-	  	\midrule
-		2d0.7-0.01U&$ 18.17 \pm 3.62 $&$1118 \pm 202 $ &  $10.88 \pm 2.56 $ & $17.07 \pm 7.41 $ & $1.287 \pm 0.006$\\
-		2d0.7-0.01L &$27.68 \pm 7.18$&$1190 \pm 218$ & $10.88 \pm 2.56$ &  $21.62 \pm 6.54$ & $0.913 \pm 0.002$\\
-		\bottomrule
-	\end{tabular}\label{2dsingletab}
- \end{table}
 
 \subsection{Resolution study}
 
@@ -167,10 +167,10 @@ For every 2D or 3D run we will collect the relevant parameters and present them 
     \label{fig:differentialmach}
  \end{figure}
 
-\begin{table}[b!]\caption{Boundaries parameters for the high, medium, and low resolution runs.}
+\begin{table}[t!]\caption{Boundaries parameters for the high, medium, and low resolution runs.}
  \begin{tabular}{lccccc}
 	 \toprule
-	 Run &$\Delta b  $&$\sigma_t$ & $L$&$Ri_{\mathrm{B}}$&$\dot{M}_{\mathrm{E}}$ \\
+	 Run &$\Delta b  $&$\sigma_{\mathrm{T}}$ & $L$&$Ri_{\mathrm{B}}$&$\dot{M}_{\mathrm{E}}$ \\
 		    & $(\mathrm{cm \, s^{-2}})$&$(\mathrm{cm \, s^{-1}})$&$(10^5 \, \mathrm{cm})$ & & $(10^9 \, \mathrm{g \, s^{-1}})$ \\
 	  	\midrule
 		$2048 \times 1024$ U&$ 18.17 \pm 7.41  $&$1118 \pm 202 $ &  $10.88 \pm 2.56 $ & $17.07 \pm 7.41 $ & $1.287 \pm 0.006$\\
@@ -205,19 +205,35 @@ Even at the lower boundary all the parameters oscillate within a $10 \%$ range, 
 \subsection{Differential 2D study}
 
 \begin{figure}[t!]
-\centering
-\includegraphics[width=0.7\textwidth]{./img/differential2d.pdf}
-\caption{\new{Normalized entrainment rate against bulk Richardson number. The error bast are one standard deviation on the mean values.}}
-\label{fig:differential}
-\centering
+  \centering
+  \subfloat[Dependency of the Mach number on the heating rate (see text).]{\includegraphics[width=0.5\textwidth]{./img/differentialmach.pdf}\label{fig:diffrms}}
+      \hfill
+        \subfloat[Dependency of the buoyancy jump on the initial Brunt-Väisälä frequency.]{\includegraphics[width=0.5\textwidth]{./img/differentialdelb.pdf}\label{fig:diffjump}}
+	\hfill
+	\caption{Dependency of the parameters needed to compute the bulk-Richardson number on the initial simulation setup. Blue dots represent the upper boundary, green dots the lower boundary.}
+	\label{fig:diffparam}
 \end{figure}
 As mentioned more than once in the previous chapters, the goal of this work is to perform a \textit{differential} study of the CBM problem. To achieve this, we run four simulations (which provided us 8 boundaries to analyze) varying differentially the stratification and the turbulent regime. 
 
-In order to vary differentially the stratification, we initialized our simulation setup with two different values for the temperature gradient, namely we simulated stratifications with $\nabla T / \nabla = 0.5$ and  $0.005$. 
+Following the nomenclature we used in the previous section we hence run the six following simulations: 2d0.5-100 (where $\nabla T / \nabla = 0.5$ and the heating ratio is  $3.6 \times 10^{15} \mathrm{erg/s}$), 2d0.005-100, 2d0.5-050, 2d0.005-050, 2d0.5-005 and 2d0.005-005.
 
-We have no direct control on the turbulent Mach number, but we do have it on the heating function. We used two different heating ratios, specifically $100 \%$ of the reference value of $3.6 \times 10^{15} \mathrm{erg/s}$ and $5 \%$ of it.
+We have no direct control over the turbulent Mach number, but we have it on the heating function. We initialized two different heating ratios, specifically $100 \ \%$ and $5 \ \%$ of the reference value of $3.6 \times 10^{15} \mathrm{erg/s}$. In Figure (\ref{fig:diffrms}) we show the linear dependency of the turbulent Mach number as a function of the heating ratios. This result is a powerful tool to forecast a priori in future simulations the resulting bulk-Richardson number.
 
-Following the nomenclature we used in the previous section we hence run the four following simulations: 2d0.5-100 (where $\nabla T / \nabla = 0.5$ and the heating ratio is  $3.6 \times 10^{15} \mathrm{erg/s}$), 2d0.005-100, 2d0.5-005 and 2d0.005-005.
+In order to vary differentially the stratification (hence $\Delta b$), we initialized our simulation setups with three different values for the temperature gradient, namely $\nabla T / \nabla = 0.5, \, 0.50$ and  $0.005$. In Figure (\ref{fig:diffjump}) we plot the buoyancy jump measured in our simulations over the initialization of the temperature gradient. It seems that the data collected for the most stable stratification ($\nabla T / \nabla = 0.005$) shows a higher value for $\Delta B$ compared to the least stable one, but this definitely does not reflect the change of two orders of magnitude of the initialized values. We believe that this is due to two factors. 
+
+The first cause for this discrepancy might be the spikes in the Brunt-Väisälä frequency analyzed in section (\ref{single2d}). It is unclear if the magnitude of these spikes exhibit a non-linear behavior, and a further investigation of this phenomenon is necessary. 
+
+The second reason is shown in Figure (\ref{fig:diffcorr}). As already mentioned in countless occasions, the buoyancy jump $\Delta b$ is the thermodynamical term of the bulk-Richardson number that encapsulates the information about the stratification, in contrast to the hamiltonian term $\sigma_{\mathrm{T}}$. We found instead a clear dependency between $\Delta b$ and $\sigma_{\mathrm{T}}$. We impute this correlation to the deformations imprinted by a stronger turbulence to the convective boundary. This in fact leads to a bigger boundary thickness, which is the domain over which we integrate Equation (\ref{eq:buoyancyjump}). The data collected by us on the boundary thickness confirm this hypothesis.
+
+
+\begin{figure}[t!]
+\centering
+\includegraphics[width=0.7\textwidth]{./img/differentialcorr.pdf}
+\caption{\new{Normalized entrainment rate against bulk Richardson number. The error bast are one standard deviation on the mean values.}}
+\label{fig:diffcorr}
+\centering
+\end{figure}
+
 
 Equation (\ref{bulkrichardson}) can be rewritten as
 
@@ -231,6 +247,13 @@ It is clear that the data collected by us definitely does not span a range large
 
 On the other side, reaching a lower bulk-Richardson number would not be relevant for most applications.
 
+\begin{figure}[t!]
+\centering
+\includegraphics[width=0.7\textwidth]{./img/differential2d.pdf}
+\caption{\new{Normalized entrainment rate against bulk Richardson number. The error bast are one standard deviation on the mean values.}}
+\label{fig:differential}
+\centering
+\end{figure}
 
 As it can be seen at a first glance, there is no clear correlation between the bulk-Richardson number and the normalized migration velocity over time. It appears that a decreasing trend could be found, which would confirm that the $n$ parameter should assume a negative value. This is what one would expect by a qualitative analysis of the problem. This implies in fact that the stiffer the boundary and the weaker the turbulence regime, the lower the entrained mass. The $A$ parameter instead, which is essential to quantify the mass ingestion, cannot be reliably determined by the data. This is very similar to what was found by \citet{cristini} in their carbon burning shell simulation, when compared their results to the ones of \citet{meakin}. 
 
@@ -240,15 +263,6 @@ As shown in Figure (\ref{fig:diffrms}), the turbulence standard deviation can be
 
 
 
-\begin{figure}[t!]
-  \centering
-  \subfloat[Dependency of the Mach number on the heating rate (see text).]{\includegraphics[width=0.5\textwidth]{./img/differentialmach.pdf}\label{fig:diffrms}}
-      \hfill
-        \subfloat[Dependency of the buoyancy jump on the initial Brunt-Väisälä frequency.]{\includegraphics[width=0.5\textwidth]{./img/differentialdelb.pdf}\label{fig:diffjump}}
-	\hfill
-	\caption{Dependency of the parameters needed to compute the bulk-Richardson number on the initial simulation setup. Blue dots represent the upper boundary, green dots the lower boundary.}
-	\label{fig:diffparam}
-\end{figure}
 
 The error values clearly show that the data range is not wide enough to perform an accurate differential study. Future runs that were not possible during the master project will reach bulk-Richardson numbers of one order of magnitude higher than the ones obtained for this work. This will be achieved primarily by using a non-uniform Cartesian grid which is implemented in SHL. This will help us better refine the convective boundary regions and avoid wasting computational resources to resolve the stable layers above and below.
 

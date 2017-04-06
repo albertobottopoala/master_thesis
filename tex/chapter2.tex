@@ -365,9 +365,9 @@ So far we got to the point where we have a convective layer and a stable layer a
 
 One of the methods proposed to predict the mass entrainment rate is the \textbf{bulk-Richardson number} \citet{meakin}, \citet{viallet2015}, \citet{cristini} 
 \begin{equation}\label{bulkrichardson}
-	\mathrm{Ri}_{B}=\frac{\Delta b L}{\sigma_t^2}
+	\mathrm{Ri}_{B}=\frac{\Delta b L}{\sigma_{\mathrm{T}}^2}
 \end{equation}
-which is a dimensionless parameter \new{developed originally in atmospheric sciences (\citet{richardson}, or for a more updated review \citet{stull}) to study the boundary layer problem in the earth atmosphere.} It compares the stiffness of the boundary to the strength of the turbulence. $L$ is the length scale of the turbulence (which is of course model dependent), $\sigma_t$ is the standard deviation of its velocity, $\Delta b$ is the buoyancy jump between unstable and stable layer.
+which is a dimensionless parameter \new{developed originally in atmospheric sciences (\citet{richardson}, or for a more updated review \citet{stull}) to study the boundary layer problem in the earth atmosphere.} It compares the stiffness of the boundary to the strength of the turbulence. $L$ is the length scale of the turbulence (which is of course model dependent), $\sigma_{\mathrm{T}}$ is the standard deviation of its velocity, $\Delta b$ is the buoyancy jump between unstable and stable layer.
 
 In our case we define the length scale of the turbulence $L$ as follows. Let's consider the autocorrelation function 
 \begin{equation}\label{correlation}
@@ -385,7 +385,7 @@ and integrating it over the boundary
 \end{equation}
 Of course we need a proper definition of the boundary limits $r_i$ and $r_f$. In our case we defined them by initializing a passive scalar in the convective region, which is over time advected in the unstable layer. By looking at the gradient of the concentration of the passive scalar in the vertical direction, one notices two spikes, which represent the boundary positions at given horizontal position. By averaging over all the horizontal positions and by computing the standard deviation, we are able to define the boundary position and its width.
 
-Let's furthermore define the \textbf{entrainment coefficient} $E$ as the boundary migration speed $u_b$ over the turbulence standard deviation $\sigma$. Previous works have found that
+Let's furthermore define the \textbf{entrainment coefficient} $E$ as the boundary migration speed $u_b$ over the turbulence standard deviation $\sigma_{\mathrm{T}}$. Previous works have found that
 \begin{equation}\label{eq:bulkrichardson}
 	E=A \mathrm{Ri}_{B}^{-n}
 \end{equation}
@@ -395,8 +395,8 @@ In a Lagrangian workframe this transforms to
 \begin{equation}
 	\dot{M}_\mathrm{E}=\frac{\partial M}{\partial r} u_E.
 \end{equation}
-If this relation is proven to be true, it would be possible to know the boundary migration speed $u_b$ or the mass entrainment rate $\dot{M}_\mathrm{E}$ given only $L$, $\Delta b$ and $\sigma_t$, and consequentially map this phenomenon into 1D stellar models. In the hope that these two free parameters exist and are universal (i.e. \ not system-, code- or resolution-dependent), the goal of this work is to determine them and to test their universality.
+If this relation is proven to be true, it would be possible to know the boundary migration speed $u_b$ or the mass entrainment rate $\dot{M}_\mathrm{E}$ given only $L$, $\Delta b$ and $\sigma_{\mathrm{T}}$, and consequentially map this phenomenon into 1D stellar models. In the hope that these two free parameters exist and are universal (i.e. \ not system-, code- or resolution-dependent), the goal of this work is to determine them and to test their universality.
 \new{
-In order to do that, we will perform a \textit{differential} study of the entrainment rate. This implies to simulate a convective boundary varying differentially two parameters. The buoyancy jump $\Delta b$ is a function of the Brunt-Väisälä frequency, which is exactly one of the parameters that we set in our config file to initialize the stratification, hence we can control it very easily. There is no way, on the contrary, to directly control the turbulent Mach number $\sigma_t$. As we will explain in the chapter dedicated to the physical setup, we implemented a heating function of which we can control the heating rate. This will help us generate a stronger or weaker turbulence regime when required. Our goal will be then to look for a relation between the entrainment rate and the bulk-Richardson number. Specifically we will investigate if the relation (\ref{eq:bulkrichardson}) holds for different values of $Ri_{\mathrm{B}}$
+	In order to do that, we will perform a \textit{differential} study of the entrainment rate. This implies to simulate a convective boundary varying differentially two parameters. The buoyancy jump $\Delta b$ is a function of the Brunt-Väisälä frequency, which is exactly one of the parameters that we set in our config file to initialize the stratification, hence we can control it very easily. There is no way, on the contrary, to directly control the turbulent Mach number $\sigma_{\mathrm{T}}$. As we will explain in the chapter dedicated to the physical setup, we implemented a heating function of which we can control the heating rate. This will help us generate a stronger or weaker turbulence regime when required. Our goal will be then to look for a relation between the entrainment rate and the bulk-Richardson number. Specifically we will investigate if the relation (\ref{eq:bulkrichardson}) holds for different values of $Ri_{\mathrm{B}}$
 
 }
