@@ -1,0 +1,52 @@
+This is BibTeX, Version 0.99d (TeX Live 2016)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: mainthesis.aux
+The style file: mn2e.bst
+Database file #1: ./tex/bibliography.bib
+Warning--empty journal in theoastro
+Warning--empty journal in coleman
+Warning--empty journal in stellarstruc
+Warning--empty journal in miczek
+Warning--empty journal in stull
+You've used 14 entries,
+            2601 wiz_defined-function locations,
+            616 strings with 5373 characters,
+and the built_in function-call counts, 5827 in all, are:
+= -- 565
+> -- 333
+< -- 13
++ -- 111
+- -- 111
+* -- 518
+:= -- 1036
+add.period$ -- 0
+call.type$ -- 14
+change.case$ -- 93
+chr.to.int$ -- 14
+cite$ -- 19
+duplicate$ -- 190
+empty$ -- 282
+format.name$ -- 131
+if$ -- 1106
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 14
+newline$ -- 45
+num.names$ -- 56
+pop$ -- 76
+preamble$ -- 1
+purify$ -- 107
+quote$ -- 0
+skip$ -- 232
+stack$ -- 0
+substring$ -- 339
+swap$ -- 51
+text.length$ -- 5
+text.prefix$ -- 37
+top$ -- 0
+type$ -- 126
+warning$ -- 5
+while$ -- 60
+width$ -- 0
+write$ -- 136
+(There were 5 warnings)
